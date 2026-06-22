@@ -1,0 +1,58 @@
+DEMO_ID:
+TEMPLATE: beauty | barber | restaurant | corporate | construction
+
+BUSINESS_NAME:
+BUSINESS_TYPE:
+CITY:
+ADDRESS:
+PHONE:
+EMAIL:
+WEBSITE:
+GOOGLE_MAPS_URL:
+INSTAGRAM_URL:
+
+PRIMARY_CTA: call | directions | booking-demo
+TAGLINE:
+SHORT_DESCRIPTION:
+
+SERVICES:
+-
+
+OPENING_HOURS:
+-
+
+DIFFERENTIATORS:
+-
+
+PROCESS:
+-
+
+PROJECTS:
+-
+
+EQUIPMENT:
+-
+
+CERTIFICATIONS:
+-
+
+VERIFIED_REVIEWS:
+- rating:
+  quote:
+  source_url:
+
+FAQ:
+- question:
+  answer:
+
+AVAILABLE_IMAGES:
+- logo:
+- hero:
+- gallery:
+- projects:
+- team:
+
+SOURCE_URLS:
+-
+
+SPECIAL_NOTES:
