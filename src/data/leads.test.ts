@@ -22,4 +22,26 @@ describe("lead registry", () => {
   it("requires at least one public source for every lead", () => {
     for (const lead of leads) expect(lead.sources.length).toBeGreaterThan(0);
   });
+
+  it("contains BARTEC from the newly supplied Maps lead", () => {
+    expect(leads.find((lead) => lead.businessName === "BARTEC GmbH")).toMatchObject({
+      family: "corporate",
+      city: "Bad Mergentheim",
+    });
+  });
+
+  it("tracks source and approval status for every imported media asset", () => {
+    const assets = leads.flatMap((lead) => [
+      ...(lead.media?.hero ? [lead.media.hero] : []),
+      ...(lead.media?.gallery ?? []),
+      ...(lead.media?.projects ?? []),
+      ...(lead.media?.team ?? []),
+    ]);
+    expect(assets.length).toBeGreaterThan(0);
+    for (const asset of assets) {
+      expect(asset.src).toMatch(/^\/leads\//);
+      expect(asset.sourceUrl).toMatch(/^https?:\/\//);
+      expect(asset.rightsStatus).toBe("pending-client-approval");
+    }
+  });
 });

@@ -1,4 +1,16 @@
-import { leadProfileSchema, type LeadProfile } from "@/lib/lead-schema";
+import mediaManifest from "@/data/media-manifest.json";
+import { leadProfileSchema, mediaAssetSchema, type LeadProfile } from "@/lib/lead-schema";
+
+const importedMedia = Object.fromEntries(
+  Object.entries(mediaManifest).map(([slug, assets]) => [slug, mediaAssetSchema.array().parse(assets)]),
+);
+
+function mediaFor(slug: string, heroIndex = 0): LeadProfile["media"] {
+  const assets = importedMedia[slug] ?? [];
+  if (!assets.length) return undefined;
+  const hero = assets[heroIndex] ?? assets[0];
+  return { hero, gallery: assets.filter((asset) => asset.src !== hero.src) };
+}
 
 const maps = (query: string) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
@@ -30,6 +42,7 @@ const rawLeads: LeadProfile[] = [
     tagline: "Friseurhandwerk in Bad Mergentheim.",
     shortDescription: conceptCopy("Friseursalon"),
     primaryCta: "call",
+    media: mediaFor("haargenau-bei-magda-p7r2v9"),
     contact: {
       phone: "+49 7931 8333",
       mapsUrl: maps("Haar-genau bei Magda Bad Mergentheim"),
@@ -76,6 +89,7 @@ const rawLeads: LeadProfile[] = [
     tagline: "Restaurant in der Kirchstraße.",
     shortDescription: conceptCopy("Restaurant"),
     primaryCta: "call",
+    media: mediaFor("il-siciliano-mergentheim-h6k2w8", 4),
     contact: {
       phone: "+49 7931 9614581",
       address: "Kirchstraße 13, 97980 Bad Mergentheim",
@@ -94,6 +108,7 @@ const rawLeads: LeadProfile[] = [
     tagline: "Restaurant in der Wolfgangstraße.",
     shortDescription: conceptCopy("Restaurant"),
     primaryCta: "call",
+    media: mediaFor("restaurant-alexander-q8d3m7"),
     openingHours: ["Mo–Sa 17:30–23:30", "So 11:30–14:30 und 17:30–23:30"],
     contact: {
       phone: "+49 7931 97300",
@@ -113,6 +128,7 @@ const rawLeads: LeadProfile[] = [
     tagline: "Restaurant an der Mühlwehrstraße.",
     shortDescription: conceptCopy("Restaurant"),
     primaryCta: "call",
+    media: mediaFor("zum-goldstueck-v5j9s2"),
     openingHours: ["Fr–Di 11:00–14:30 und 17:00–21:00", "Do 17:00–21:00"],
     contact: {
       phone: "+49 7931 5698432",
@@ -132,6 +148,7 @@ const rawLeads: LeadProfile[] = [
     tagline: "Gästehaus in Markelsheim.",
     shortDescription: conceptCopy("Gästehaus"),
     primaryCta: "call",
+    media: mediaFor("gaestehaus-birgit-f2z7l4"),
     contact: {
       phone: "+49 7931 9090-0",
       address: "Scheuerntorstraße 25, 97980 Bad Mergentheim",
@@ -150,6 +167,7 @@ const rawLeads: LeadProfile[] = [
     tagline: "Immobilien in Bad Mergentheim.",
     shortDescription: conceptCopy("Immobilienbüro"),
     primaryCta: "call",
+    media: mediaFor("immobilien-lebenswert-r4n8y6"),
     contact: {
       phone: "+49 931 30 44 59 62",
       address: "Oberer Graben 62, 97980 Bad Mergentheim",
@@ -168,6 +186,7 @@ const rawLeads: LeadProfile[] = [
     tagline: "Kanzlei in Bad Mergentheim.",
     shortDescription: conceptCopy("Rechtsanwaltskanzlei"),
     primaryCta: "directions",
+    media: mediaFor("rechtsanwalt-glaeser-c7p2h5"),
     contact: {
       address: "Mittlerer Graben 42, 97980 Bad Mergentheim",
       mapsUrl: maps("Rechtsanwalt Gläser Mittlerer Graben 42 Bad Mergentheim"),
@@ -185,6 +204,7 @@ const rawLeads: LeadProfile[] = [
     tagline: "Schreinerhandwerk aus Bad Mergentheim.",
     shortDescription: conceptCopy("Schreinerei"),
     primaryCta: "call",
+    media: mediaFor("schreinerei-heck-m3w8k1"),
     contact: {
       phone: "+49 7931 51083",
       address: "Beim Braunstall 7, 97980 Bad Mergentheim",
@@ -203,6 +223,7 @@ const rawLeads: LeadProfile[] = [
     tagline: "Steinmetzhandwerk in Bad Mergentheim.",
     shortDescription: conceptCopy("Steinmetzbetrieb"),
     primaryCta: "call",
+    media: mediaFor("grabmale-maurer-t9g4d2"),
     contact: {
       phone: "+49 7931 9204090",
       address: "Schillerstraße 18, 97980 Bad Mergentheim",
@@ -212,6 +233,30 @@ const rawLeads: LeadProfile[] = [
     sources: [
       "https://www.maurer-grabmale.de/kontakt/bad-mergentheim/",
       "https://www.openstreetmap.org/way/516150832",
+    ],
+  },
+  {
+    slug: "bartec-gmbh-e5x8p3",
+    family: "corporate",
+    status: "research",
+    businessName: "BARTEC GmbH",
+    businessType: "Sicherheitstechnik",
+    city: "Bad Mergentheim",
+    tagline: "Sicherheitstechnik für anspruchsvolle Industrien.",
+    shortDescription:
+      "Dieser unverbindliche Entwurf zeigt BARTEC als Anbieter von Produkten und Lösungen für explosionsgefährdete Bereiche.",
+    primaryCta: "directions",
+    services: [{ title: "Explosionsschutz", description: "Produkte und Lösungen für explosionsgefährdete Bereiche." }],
+    contact: {
+      address: "Max-Eyth-Straße 16, 97980 Bad Mergentheim",
+      mapsUrl: "https://maps.app.goo.gl/5YNYXuKvYbFonLsc9",
+      website: "https://bartec.com/de/",
+    },
+    media: mediaFor("bartec-gmbh-e5x8p3", 5),
+    sources: [
+      "https://maps.app.goo.gl/5YNYXuKvYbFonLsc9",
+      "https://bartec.com/de/",
+      "https://www.openstreetmap.org/way/358550050",
     ],
   },
 ];

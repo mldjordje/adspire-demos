@@ -27,6 +27,20 @@ describe("leadProfileSchema", () => {
   it("rejects unsupported template families", () => {
     expect(() => leadProfileSchema.parse({ ...minimalLead, family: "hotel" })).toThrow();
   });
+
+  it("requires provenance and approval state for every imported image", () => {
+    expect(() =>
+      leadProfileSchema.parse({
+        ...minimalLead,
+        media: {
+          hero: {
+            src: "/leads/example/hero.webp",
+            alt: "Example",
+          },
+        },
+      }),
+    ).toThrow();
+  });
 });
 
 describe("sectionHasContent", () => {

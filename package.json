@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "assets:sync": "node scripts/extract-site-assets.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.21.0",
@@ -28,6 +29,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
     "jsdom": "^29.1.1",
+    "sharp": "^0.35.2",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^4.1.9"

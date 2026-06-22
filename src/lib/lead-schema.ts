@@ -37,6 +37,13 @@ const faqSchema = z.object({
   answer: z.string().min(1),
 });
 
+export const mediaAssetSchema = z.object({
+  src: z.string().regex(/^\/leads\//),
+  alt: z.string().min(1),
+  sourceUrl: z.string().url(),
+  rightsStatus: z.literal("pending-client-approval"),
+});
+
 export const leadProfileSchema = z.object({
   slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)+-[a-z0-9]{6}$/),
   family: templateFamilySchema,
@@ -66,11 +73,11 @@ export const leadProfileSchema = z.object({
   }),
   media: z
     .object({
-      logo: z.string().optional(),
-      hero: z.string().optional(),
-      gallery: z.array(z.string()).optional(),
-      projects: z.array(z.string()).optional(),
-      team: z.array(z.string()).optional(),
+      logo: mediaAssetSchema.optional(),
+      hero: mediaAssetSchema.optional(),
+      gallery: z.array(mediaAssetSchema).optional(),
+      projects: z.array(mediaAssetSchema).optional(),
+      team: z.array(mediaAssetSchema).optional(),
     })
     .optional(),
   sources: z.array(z.string().url()).min(1),
@@ -80,6 +87,7 @@ export const leadProfileSchema = z.object({
 export type TemplateFamily = z.infer<typeof templateFamilySchema>;
 export type LeadStatus = z.infer<typeof leadStatusSchema>;
 export type LeadProfile = z.infer<typeof leadProfileSchema>;
+export type MediaAsset = z.infer<typeof mediaAssetSchema>;
 export type ContentItem = NonNullable<LeadProfile["services"]>[number];
 
 export function sectionHasContent(value: unknown): boolean {

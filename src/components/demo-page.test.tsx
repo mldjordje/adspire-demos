@@ -16,6 +16,14 @@ const lead: LeadProfile = {
   services: [{ title: "Sanierung", description: "Leistungsbeschreibung" }],
   sources: ["https://example.com"],
   contact: { phone: "+49 7931 000000", mapsUrl: "https://maps.example.com" },
+  media: {
+    hero: {
+      src: "/leads/beispiel/hero.webp",
+      alt: "Beispiel Bau Projekt",
+      sourceUrl: "https://example.com/hero.webp",
+      rightsStatus: "pending-client-approval",
+    },
+  },
 };
 
 describe("DemoPage", () => {
@@ -24,6 +32,7 @@ describe("DemoPage", () => {
     expect(screen.getByLabelText(/hinweis zum designkonzept/i)).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: /anrufen/i })[0]).toHaveAttribute("href", "tel:+497931000000");
     expect(screen.getAllByRole("link", { name: /route/i })[0]).toHaveAttribute("href", lead.contact.mapsUrl);
+    expect(screen.getByRole("img", { name: "Beispiel Bau Projekt" })).toHaveAttribute("src", lead.media?.hero?.src);
     expect(container.querySelector("form")).not.toBeInTheDocument();
   });
 

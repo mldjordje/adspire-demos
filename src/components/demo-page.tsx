@@ -14,11 +14,13 @@ import {
   Utensils,
 } from "lucide-react";
 import type { ReactNode } from "react";
+import Image from "next/image";
 import {
   sectionHasContent,
   telephoneHref,
   type ContentItem,
   type LeadProfile,
+  type MediaAsset,
 } from "@/lib/lead-schema";
 
 export function DemoPage({ lead }: { lead: LeadProfile }) {
@@ -55,7 +57,7 @@ function BeautyTemplate({ lead }: { lead: LeadProfile }) {
           <HeroActions lead={lead} />
           <a className="scroll-cue" href="#angebot"><ArrowDown size={16} /> Entdecken</a>
         </div>
-        <MediaSlot label="Hero-Motiv" variant="portrait" />
+        <MediaSlot label="Hero-Motiv" variant="portrait" asset={lead.media?.hero} />
       </section>
       <ServicesSection lead={lead} title="Behandlungen im Überblick" icon={<Sparkles />} />
       <MediaRail lead={lead} />
@@ -72,7 +74,7 @@ function BarberTemplate({ lead }: { lead: LeadProfile }) {
     <>
       <SiteHeader lead={lead} icon={<Scissors size={18} />} />
       <section className="hero barber-hero">
-        <MediaSlot label="Barbershop-Motiv" variant="wide" />
+        <MediaSlot label="Barbershop-Motiv" variant="wide" asset={lead.media?.hero} />
         <div className="hero-copy">
           <p className="location-line">{lead.city}</p>
           <h1>{lead.tagline}</h1>
@@ -99,6 +101,9 @@ function RestaurantTemplate({ lead }: { lead: LeadProfile }) {
     <>
       <SiteHeader lead={lead} icon={<Utensils size={17} />} />
       <section className="hero restaurant-hero">
+        {lead.media?.hero && (
+          <Image className="restaurant-hero-image" src={lead.media.hero.src} alt={lead.media.hero.alt} fill sizes="100vw" unoptimized />
+        )}
         <div className="restaurant-frame">
           <p className="location-line">{lead.city}</p>
           <h1>{lead.businessName}</h1>
@@ -136,7 +141,7 @@ function CorporateTemplate({ lead }: { lead: LeadProfile }) {
           <HeroActions lead={lead} />
         </div>
         <div className="corporate-visual">
-          <MediaSlot label="Unternehmensmotiv" variant="landscape" />
+          <MediaSlot label="Unternehmensmotiv" variant="landscape" asset={lead.media?.hero} />
           <div className="corporate-note">Klar. Erreichbar. Mobil.</div>
         </div>
       </section>
@@ -161,12 +166,13 @@ function ConstructionTemplate({ lead }: { lead: LeadProfile }) {
           <p className="hero-description">{lead.shortDescription}</p>
           <HeroActions lead={lead} />
         </div>
-        <MediaSlot label="Projekt- oder Teamfoto" variant="landscape" />
+        <MediaSlot label="Projekt- oder Teamfoto" variant="landscape" asset={lead.media?.hero} />
         <div className="construction-stripe" aria-hidden="true" />
       </section>
       <ServicesSection lead={lead} title="Leistungen für Ihr Projekt" icon={<Hammer />} />
       <ProcessSection lead={lead} />
       <ProjectsSection lead={lead} />
+      <MediaRail lead={lead} />
       <EquipmentSection lead={lead} />
       <CertificationsSection lead={lead} />
       <FaqSection lead={lead} />
@@ -247,28 +253,54 @@ function ServicesSection({ lead, title, icon }: { lead: LeadProfile; title: stri
   );
 }
 
-function MediaSlot({ label, variant }: { label: string; variant: "portrait" | "wide" | "landscape" }) {
+function MediaSlot({
+  label,
+  variant,
+  asset,
+}: {
+  label: string;
+  variant: "portrait" | "wide" | "landscape";
+  asset?: MediaAsset;
+}) {
   return (
-    <div className={`media-slot media-${variant}`} aria-label={`${label} – Platzhalter`}>
-      <span className="media-mark" aria-hidden="true" />
-      <span>{label}</span>
-      <small>Freigegebenes Bild einsetzen</small>
+    <div className={`media-slot media-${variant} ${asset ? "has-asset" : ""}`} aria-label={asset ? undefined : `${label} – Platzhalter`}>
+      {asset ? (
+        <>
+          <Image src={asset.src} alt={asset.alt} fill sizes="(max-width: 760px) 80vw, 33vw" unoptimized />
+          <a className="media-source" href={asset.sourceUrl} target="_blank" rel="noreferrer">
+            Offizielle Website · Freigabe ausstehend
+          </a>
+        </>
+      ) : (
+        <>
+          <span className="media-mark" aria-hidden="true" />
+          <span>{label}</span>
+          <small>Freigegebenes Bild einsetzen</small>
+        </>
+      )}
     </div>
   );
 }
 
 function MediaRail({ lead }: { lead: LeadProfile }) {
+  const assets = lead.media?.gallery ?? [];
   return (
     <section className="media-section" aria-label={`Bildkonzept für ${lead.businessName}`}>
       <div className="media-copy">
         <p className="section-index">Visuelle Ebene</p>
         <h2>Platz für echte Einblicke</h2>
-        <p>Hier werden ausschließlich freigegebene Fotos des Unternehmens eingesetzt.</p>
+        <p>Bildmaterial von der offiziellen Website; finale Nutzung erst nach Freigabe des Unternehmens.</p>
       </div>
       <div className="media-rail">
-        <MediaSlot label="Detail" variant="portrait" />
-        <MediaSlot label="Ambiente" variant="portrait" />
-        <MediaSlot label="Team oder Arbeit" variant="portrait" />
+        {assets.length ? (
+          assets.map((asset) => <MediaSlot key={asset.src} label="Unternehmensfoto" variant="portrait" asset={asset} />)
+        ) : (
+          <>
+            <MediaSlot label="Detail" variant="portrait" />
+            <MediaSlot label="Ambiente" variant="portrait" />
+            <MediaSlot label="Team oder Arbeit" variant="portrait" />
+          </>
+        )}
       </div>
     </section>
   );

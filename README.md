@@ -24,6 +24,8 @@ All routes are blocked through `robots.txt`; each demo additionally emits `noind
 
 1. Complete `docs/lead-brief-template.txt` using verified facts only.
 2. Add one `LeadProfile` object to `src/data/leads.ts`.
+3. Add official website source pages to `scripts/asset-sources.json` and run `npm run assets:sync`.
+4. Treat every imported photo as pending approval until the business confirms usage rights.
 3. Use a slug ending in six random lowercase alphanumeric characters.
 4. Leave optional arrays absent when information is not verified.
 5. Run tests, lint and build before deployment.
@@ -36,3 +38,4 @@ The approved reusable prompts are in `docs/agent-prompts.md`. Operational guidan
 - Do not invent services, prices, reviews, awards, statistics or certifications.
 - Booking/contact controls remain non-submitting until a client approves an implementation.
 - A source URL is mandatory for every lead.
+- Review-platform photos are not imported without permission from the rights holder.
