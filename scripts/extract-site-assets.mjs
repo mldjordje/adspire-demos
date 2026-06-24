@@ -41,6 +41,34 @@ function looksLikeContentPhoto(url) {
   return !/\.svg(?:\?|$)/.test(lower);
 }
 
+// Internal subpages worth crawling for more imagery (services, gallery, team, menu...).
+const SUBPAGE_HINTS = /leistung|galerie|gallery|referenz|projekt|ueber-uns|ueber_uns|about|team|angebot|speisekarte|karte|menu|produkt|portfolio|impression|bilder|kueche|zimmer/i;
+
+function extractInternalLinks(html, pageUrl, limit = 5) {
+  const origin = new URL(pageUrl).origin;
+  const found = new Map();
+  for (const match of html.matchAll(/<a[^>]+href=["']([^"'#]+)["']/gi)) {
+    const href = absoluteUrl(match[1], pageUrl);
+    if (!href) continue;
+    if (!href.startsWith(origin)) continue;
+    if (!SUBPAGE_HINTS.test(href)) continue;
+    if (/\.(pdf|jpg|jpeg|png|webp|zip|docx?)(?:\?|$)/i.test(href)) continue;
+    const clean = href.split("#")[0];
+    if (clean === pageUrl) continue;
+    if (!found.has(clean)) found.set(clean, true);
+    if (found.size >= limit) break;
+  }
+  return [...found.keys()];
+}
+
+async function collectCandidates(pageUrl) {
+  const response = await fetch(pageUrl, { headers: { "User-Agent": userAgent }, redirect: "follow", signal: AbortSignal.timeout(20000) });
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  const resolved = response.url;
+  const html = await response.text();
+  return { html, resolved, candidates: extractCandidates(html, resolved) };
+}
+
 async function robotsAllows(pageUrl) {
   const url = new URL(pageUrl);
   try {
@@ -84,18 +112,26 @@ for (const source of sources) {
     continue;
   }
   try {
-    const pageResponse = await fetch(source.page, { headers: { "User-Agent": userAgent }, redirect: "follow", signal: AbortSignal.timeout(20000) });
-    if (!pageResponse.ok) throw new Error(`HTTP ${pageResponse.status}`);
-    const resolvedPage = pageResponse.url;
-    const html = await pageResponse.text();
-    const candidates = extractCandidates(html, resolvedPage).filter(looksLikeContentPhoto);
+    const main = await collectCandidates(source.page);
+    const pagesToCrawl = [...new Set([...(source.extraPages ?? []), ...extractInternalLinks(main.html, main.resolved, 5)])];
+    let candidates = [...main.candidates];
+    for (const subPage of pagesToCrawl.slice(0, 6)) {
+      try {
+        const sub = await collectCandidates(subPage);
+        candidates.push(...sub.candidates);
+        console.log(`  crawled subpage: ${subPage}`);
+      } catch (subError) {
+        console.log(`  subpage skipped (${subError.message}): ${subPage}`);
+      }
+    }
+    candidates = [...new Set(candidates)].filter(looksLikeContentPhoto);
     const targetDir = path.join(publicRoot, source.slug);
     await fs.rm(targetDir, { recursive: true, force: true });
     await fs.mkdir(targetDir, { recursive: true });
     const assets = [];
     const seenHashes = new Set();
     for (const candidate of candidates) {
-      if (assets.length >= 8) break;
+      if (assets.length >= 14) break;
       const result = await downloadAsset(candidate, targetDir, source.label, assets.length, seenHashes);
       if (result) assets.push({
         src: `/leads/${source.slug}/${result.filename}`,
@@ -105,7 +141,7 @@ for (const source of sources) {
       });
     }
     manifest[source.slug] = assets;
-    console.log(`  ${assets.length} eligible photos from ${candidates.length} candidates`);
+    console.log(`  ${assets.length} eligible photos from ${candidates.length} candidates (${pagesToCrawl.length} subpages found)`);
   } catch (error) {
     manifest[source.slug] = [];
     console.log(`  failed: ${error.message}`);
