@@ -163,12 +163,20 @@ const rawLeads: LeadProfile[] = [
     family: "corporate",
     status: "research",
     businessName: "Gästehaus Birgit",
-    businessType: "Gästehaus",
+    businessType: "Hotelpension ★★★",
     city: "Bad Mergentheim",
     tagline: "Gästehaus in Markelsheim.",
-    shortDescription: conceptCopy("Gästehaus"),
+    shortDescription:
+      "★★★ Hotelpension am Ortsrand von Markelsheim, ruhig am Tauberradweg – liebevoll gestaltete Zimmer und ein reichhaltiges Frühstück.",
     primaryCta: "call",
-    media: mediaFor("gaestehaus-birgit-f2z7l4"),
+    services: [
+      { title: "Gästezimmer", description: "Liebevoll gestaltete Zimmer in ruhiger Lage." },
+      { title: "Ferienwohnungen", description: "Eigene Ferienwohnungen für längere Aufenthalte." },
+      { title: "Reichhaltiges Frühstück", description: "Kräftiger Start in den Tag." },
+      { title: "Fahrradverleih & BettBike", description: "Direkt am Tauberradweg, mit abschließbarer Fahrradgarage." },
+      { title: "Garten & Pavillon", description: "Sitz- und Liegeplätze im Grünen." },
+      { title: "Kostenlose Parkplätze", description: "Parken direkt am Haus, WLAN inklusive." },
+    ],
     contact: {
       phone: "+49 7931 9090-0",
       address: "Scheuerntorstraße 25, 97980 Bad Mergentheim",
@@ -258,8 +266,17 @@ const rawLeads: LeadProfile[] = [
     businessType: "Steinmetzbetrieb",
     city: "Bad Mergentheim",
     tagline: "Steinmetzhandwerk in Bad Mergentheim.",
-    shortDescription: conceptCopy("Steinmetzbetrieb"),
+    shortDescription:
+      "Steinmetzhandwerk aus Bad Mergentheim – individuelle Grabmale, Naturstein und Restaurierung, nach persönlicher Beratung gefertigt.",
     primaryCta: "call",
+    services: [
+      { title: "Individuelle Entwürfe", description: "Grabmale nach persönlichen Wünschen gestaltet." },
+      { title: "Einzel- & Doppelgrab", description: "Klassische Grabmale in vielen Steinarten." },
+      { title: "Urnengrab & Reihengräber", description: "Lösungen für jede Grabform." },
+      { title: "Felsen", description: "Natürliche Findlinge als Grabmal." },
+      { title: "Grabschmuck & Schrift", description: "Inschriften, Ornamente und Ziersplitt." },
+      { title: "Restaurierung", description: "Aufarbeitung bestehender Grabmale." },
+    ],
     media: mediaFor("grabmale-maurer-t9g4d2"),
     contact: {
       phone: "+49 7931 9204090",
