@@ -67,6 +67,7 @@ function BeautyTemplate({ lead }: { lead: LeadProfile }) {
         <MediaSlot label="Hero-Motiv" variant="portrait" asset={lead.media?.hero} parallax={0.1} />
       </section>
       <KineticBand lead={lead} />
+      <BeautyFeature />
       <ServicesSection lead={lead} title="Behandlungen im Überblick" icon={<Sparkles />} />
       <MediaRail lead={lead} />
       <BookingDemo lead={lead} />
@@ -142,7 +143,7 @@ function RestaurantTemplate({ lead }: { lead: LeadProfile }) {
         <p {...reveal(1)}>{lead.shortDescription}</p>
       </section>
       <ServicesSection lead={lead} title="Speisekarte & Angebot" icon={<Utensils />} />
-      <MediaRail lead={lead} />
+      <RestaurantGallery lead={lead} />
       <OpeningHours lead={lead} />
       <ConceptPillars lead={lead} />
       <ReviewsSection lead={lead} />
@@ -324,6 +325,69 @@ function MediaSlot({
         </>
       )}
     </div>
+  );
+}
+
+// Restaurant-only horizontal scroll-snap gallery. Uses real gallery images when
+// present, otherwise falls back to labelled placeholders.
+function RestaurantGallery({ lead }: { lead: LeadProfile }) {
+  const assets = lead.media?.gallery ?? [];
+  const items = assets.length ? assets : null;
+  return (
+    <section className="resto-gallery" aria-label={`Bildergalerie für ${lead.businessName}`}>
+      <div className="resto-gallery-head" {...reveal(0)}>
+        <div>
+          <p className="section-index">Galerie</p>
+          <h2>Einblicke</h2>
+        </div>
+        <span className="scroll-hint" aria-hidden="true">Wischen <ArrowRight size={15} /></span>
+      </div>
+      <div className="resto-gallery-track" role="list">
+        {items
+          ? items.map((asset, index) => (
+              <figure className="resto-shot" role="listitem" key={asset.src} {...reveal(index)}>
+                <Image src={asset.src} alt={asset.alt} fill sizes="(max-width: 760px) 78vw, 32vw" unoptimized />
+                <figcaption>{String(index + 1).padStart(2, "0")}</figcaption>
+                <a className="media-source" href={asset.sourceUrl} target="_blank" rel="noreferrer">
+                  Offizielle Website · Freigabe ausstehend
+                </a>
+              </figure>
+            ))
+          : ["Ambiente", "Gericht", "Detail", "Tisch"].map((label, index) => (
+              <figure className="resto-shot is-empty" role="listitem" key={label} {...reveal(index)}>
+                <span className="media-mark" aria-hidden="true" />
+                <span>{label}</span>
+                <small>Freigegebenes Bild einsetzen</small>
+              </figure>
+            ))}
+      </div>
+    </section>
+  );
+}
+
+// Beauty-only editorial section: a sticky heading beside reveal-on-scroll
+// statements. Describes the design concept only — no invented business facts.
+function BeautyFeature() {
+  const statements = [
+    "Ein ruhiger erster Eindruck, der sofort sitzt – ohne visuelles Rauschen.",
+    "Auf dem Smartphone genauso klar und elegant wie am großen Bildschirm.",
+    "Anfrage, Anruf und Route sind immer nur einen Fingertipp entfernt.",
+  ];
+  return (
+    <section className="beauty-feature">
+      <div className="beauty-feature-sticky">
+        <p className="section-index">Konzept</p>
+        <h2>Ein Auftritt, der wirkt</h2>
+      </div>
+      <div className="beauty-feature-list">
+        {statements.map((statement, index) => (
+          <p key={statement} {...reveal(index)}>
+            <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+            {statement}
+          </p>
+        ))}
+      </div>
+    </section>
   );
 }
 
