@@ -55,6 +55,25 @@ export function MotionLayer() {
       cleanups.push(() => window.clearTimeout(failsafe));
     }
 
+    // --- Header scroll state ----------------------------------------------
+    const header = document.querySelector<HTMLElement>(".site-header");
+    if (header) {
+      let headerFrame = 0;
+      const syncHeader = () => {
+        headerFrame = 0;
+        header.classList.toggle("is-scrolled", window.scrollY > 40);
+      };
+      const onHeaderScroll = () => {
+        if (!headerFrame) headerFrame = requestAnimationFrame(syncHeader);
+      };
+      syncHeader();
+      window.addEventListener("scroll", onHeaderScroll, { passive: true });
+      cleanups.push(() => {
+        window.removeEventListener("scroll", onHeaderScroll);
+        if (headerFrame) cancelAnimationFrame(headerFrame);
+      });
+    }
+
     // --- Parallax ----------------------------------------------------------
     const parallaxTargets = Array.from(document.querySelectorAll<HTMLElement>("[data-parallax]"));
     if (!reduceMotion && parallaxTargets.length) {

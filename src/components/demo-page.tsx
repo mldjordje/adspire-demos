@@ -330,7 +330,7 @@ function MediaSlot({
 function MediaRail({ lead }: { lead: LeadProfile }) {
   const assets = lead.media?.gallery ?? [];
   return (
-    <section className="media-section" aria-label={`Bildkonzept für ${lead.businessName}`}>
+    <section className="media-section" aria-label={`Bildkonzept für ${lead.businessName}`} {...reveal(0)}>
       <div className="media-copy" {...reveal(0)}>
         <p className="section-index">Visuelle Ebene</p>
         <h2>Platz für echte Einblicke</h2>
@@ -446,7 +446,7 @@ function ReviewsSection({ lead }: { lead: LeadProfile }) {
 function ContactSection({ lead }: { lead: LeadProfile }) {
   const phoneHref = telephoneHref(lead.contact.phone);
   return (
-    <section className="contact-section" id="kontakt">
+    <section className="contact-section" id="kontakt" {...reveal(0)}>
       <div className="contact-copy" {...reveal(0)}>
         <p className="section-index">Kontakt</p>
         <h2>{lead.businessName}</h2>
