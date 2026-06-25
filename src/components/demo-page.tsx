@@ -239,7 +239,7 @@ function ShowcaseGrid({ lead }: { lead: LeadProfile }) {
     <section className="showcase-grid section-shell">
       <SectionTitle title="Einblicke" description="Bildmaterial der offiziellen Website." />
       <div className="showcase-track">
-        {assets.slice(0, 8).map((asset, index) => (
+        {assets.map((asset, index) => (
           <figure className="showcase-tile" key={asset.src} {...reveal(index)}>
             <Image src={asset.src} alt={asset.alt} fill sizes="(max-width: 760px) 70vw, 28vw" unoptimized />
             <a className="media-source" href={asset.sourceUrl} target="_blank" rel="noreferrer">
