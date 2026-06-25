@@ -44,8 +44,11 @@ function sourceLabel(url: string): string {
 }
 
 export function DemoPage({ lead }: { lead: LeadProfile }) {
+  const brandStyle = lead.brand
+    ? ({ "--accent": lead.brand.accent, "--accent-soft": lead.brand.accentSoft } as CSSProperties)
+    : undefined;
   return (
-    <main className={`demo-site theme-${lead.family}`} data-family={lead.family} id="top">
+    <main className={`demo-site theme-${lead.family}`} data-family={lead.family} style={brandStyle} id="top">
       <MotionLayer />
       <ConceptNotice />
       {lead.family === "beauty" && <BeautyTemplate lead={lead} />}
@@ -174,28 +177,78 @@ function CorporateTemplate({ lead }: { lead: LeadProfile }) {
   return (
     <>
       <SiteHeader lead={lead} />
-      <section className="hero corporate-hero">
+      <section className={`hero corporate-hero ${lead.heroVideoId ? "hero-has-video" : ""}`}>
+        {lead.heroVideoId && <HeroVideo videoId={lead.heroVideoId} title={lead.businessName} />}
         <div className="hero-copy">
           <p className="location-line" {...reveal(0)}>{lead.businessType} · {lead.city}</p>
           <h1 {...reveal(1)}>{lead.tagline}</h1>
           <p className="hero-description" {...reveal(2)}>{lead.shortDescription}</p>
           <div {...reveal(3)}><HeroActions lead={lead} /></div>
         </div>
-        <div className="corporate-visual" {...reveal(2)}>
-          <MediaSlot label="Unternehmensmotiv" variant="landscape" asset={lead.media?.hero} parallax={0.08} />
-          <div className="corporate-note">Klar. Erreichbar. Mobil.</div>
-        </div>
+        {!lead.heroVideoId && (
+          <div className="corporate-visual" {...reveal(2)}>
+            <MediaSlot label="Unternehmensmotiv" variant="landscape" asset={lead.media?.hero} parallax={0.08} />
+            <div className="corporate-note">Klar. Erreichbar. Mobil.</div>
+          </div>
+        )}
       </section>
+      <MissionBand lead={lead} />
       <ServicesSection lead={lead} title="Leistungen auf einen Blick" />
       <ProcessSection lead={lead} />
+      <ShowcaseGrid lead={lead} />
       <MediaRail lead={lead} />
       <KineticBand lead={lead} />
       <AdminPreviewTeaser lead={lead} />
       <ConceptPillars lead={lead} />
+      {sectionHasContent(lead.careers) && <ListSection title="Karriere bei uns" items={lead.careers ?? []} className="careers-section" />}
       <ReviewsSection lead={lead} />
       <ContactSection lead={lead} />
       <SiteFooter lead={lead} />
     </>
+  );
+}
+
+function HeroVideo({ videoId, title }: { videoId: string; title: string }) {
+  return (
+    <div className="hero-video" aria-hidden="true">
+      <iframe
+        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&modestbranding=1&rel=0&playsinline=1`}
+        title={`Imagefilm – ${title}`}
+        allow="autoplay; encrypted-media"
+        frameBorder={0}
+      />
+      <div className="hero-video-scrim" />
+    </div>
+  );
+}
+
+function MissionBand({ lead }: { lead: LeadProfile }) {
+  if (!lead.missionStatement) return null;
+  return (
+    <section className="mission-band">
+      <p className="mission-headline" {...reveal(0)}>{lead.missionStatement.headline}</p>
+      {lead.missionStatement.sub && <p className="mission-sub" {...reveal(1)}>{lead.missionStatement.sub}</p>}
+    </section>
+  );
+}
+
+function ShowcaseGrid({ lead }: { lead: LeadProfile }) {
+  const assets = lead.media?.gallery ?? [];
+  if (assets.length < 4) return null;
+  return (
+    <section className="showcase-grid section-shell">
+      <SectionTitle title="Einblicke" description="Bildmaterial der offiziellen Website." />
+      <div className="showcase-track">
+        {assets.slice(0, 8).map((asset, index) => (
+          <figure className="showcase-tile" key={asset.src} {...reveal(index)}>
+            <Image src={asset.src} alt={asset.alt} fill sizes="(max-width: 760px) 70vw, 28vw" unoptimized />
+            <a className="media-source" href={asset.sourceUrl} target="_blank" rel="noreferrer">
+              {sourceLabel(asset.sourceUrl)} · Freigabe ausstehend
+            </a>
+          </figure>
+        ))}
+      </div>
+    </section>
   );
 }
 

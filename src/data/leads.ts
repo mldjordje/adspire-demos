@@ -325,6 +325,17 @@ const rawLeads: LeadProfile[] = [
       { title: "Service", description: "Betreuung über ein weltweites Partnernetzwerk." },
       { title: "Reparatur", description: "Rücksende- und Reparaturservice." },
     ],
+    careers: [
+      { title: "Offenes Arbeitsumfeld", description: "International, mit klaren Zielen." },
+      { title: "Ausbildung", description: "Solide, gefragt und zukunftssicher." },
+      { title: "Praktika", description: "Spannende Einblicke in den Explosionsschutz." },
+    ],
+    heroVideoId: "pfqKai4dqgg",
+    missionStatement: {
+      headline: "Zu schützen, was am wertvollsten ist.",
+      sub: "Safety beyond protection · seit 1975",
+    },
+    brand: { accent: "#fd7e14", accentSoft: "#6c757d" },
     contact: {
       address: "Max-Eyth-Straße 16, 97980 Bad Mergentheim",
       mapsUrl: "https://maps.app.goo.gl/5YNYXuKvYbFonLsc9",

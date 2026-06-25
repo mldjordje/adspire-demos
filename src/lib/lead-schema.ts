@@ -62,8 +62,12 @@ export const leadProfileSchema = z.object({
   projects: z.array(contentItemSchema).optional(),
   equipment: z.array(contentItemSchema).optional(),
   certifications: z.array(contentItemSchema).optional(),
+  careers: z.array(contentItemSchema).optional(),
   reviews: z.array(reviewSchema).optional(),
   faq: z.array(faqSchema).optional(),
+  heroVideoId: z.string().min(1).optional(),
+  missionStatement: z.object({ headline: z.string().min(1), sub: z.string().optional() }).optional(),
+  brand: z.object({ accent: z.string().min(1), accentSoft: z.string().min(1) }).optional(),
   contact: z.object({
     phone: z.string().optional(),
     email: z.string().email().optional(),
