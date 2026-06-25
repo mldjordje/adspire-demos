@@ -29,6 +29,19 @@ function reveal(index = 0): { "data-reveal": ""; style: CSSProperties } {
   return { "data-reveal": "", style: { "--i": index } as CSSProperties };
 }
 
+/** Labels a media source accurately instead of always assuming the official website. */
+function sourceLabel(url: string): string {
+  try {
+    const host = new URL(url).hostname.replace(/^www\./, "");
+    if (host.includes("instagram.com")) return "Instagram";
+    if (host.includes("facebook.com")) return "Facebook";
+    if (host.includes("tiktok.com")) return "TikTok";
+    return "Offizielle Website";
+  } catch {
+    return "Quelle";
+  }
+}
+
 export function DemoPage({ lead }: { lead: LeadProfile }) {
   return (
     <main className={`demo-site theme-${lead.family}`} data-family={lead.family} id="top">
@@ -314,7 +327,7 @@ function MediaSlot({
         <>
           <Image src={asset.src} alt={asset.alt} fill sizes="(max-width: 760px) 80vw, 33vw" unoptimized />
           <a className="media-source" href={asset.sourceUrl} target="_blank" rel="noreferrer">
-            Offizielle Website · Freigabe ausstehend
+            {sourceLabel(asset.sourceUrl)} · Freigabe ausstehend
           </a>
         </>
       ) : (
@@ -349,7 +362,7 @@ function RestaurantGallery({ lead }: { lead: LeadProfile }) {
                 <Image src={asset.src} alt={asset.alt} fill sizes="(max-width: 760px) 78vw, 32vw" unoptimized />
                 <figcaption>{String(index + 1).padStart(2, "0")}</figcaption>
                 <a className="media-source" href={asset.sourceUrl} target="_blank" rel="noreferrer">
-                  Offizielle Website · Freigabe ausstehend
+                  {sourceLabel(asset.sourceUrl)} · Freigabe ausstehend
                 </a>
               </figure>
             ))

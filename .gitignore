@@ -37,6 +37,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# raw photos dropped here before scripts/import-local-assets.mjs processes them
+/incoming
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
