@@ -54,6 +54,7 @@ export const leadProfileSchema = z.object({
   tagline: z.string().min(1),
   shortDescription: z.string().min(1),
   primaryCta: z.enum(["call", "directions", "booking-demo"]),
+  adminPreview: z.enum(["appointments", "tables", "rooms"]).optional(),
   services: z.array(contentItemSchema).optional(),
   highlights: z.array(z.string().min(1)).optional(),
   openingHours: z.array(z.string().min(1)).optional(),

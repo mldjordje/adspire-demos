@@ -23,6 +23,7 @@ import {
   type MediaAsset,
 } from "@/lib/lead-schema";
 import { MotionLayer } from "@/components/motion-layer";
+import { AdminPreviewTeaser } from "@/components/admin-preview";
 
 /** Props that opt an element into the scroll-reveal motion layer, with an optional stagger index. */
 function reveal(index = 0): { "data-reveal": ""; style: CSSProperties } {
@@ -84,6 +85,7 @@ function BeautyTemplate({ lead }: { lead: LeadProfile }) {
       <ServicesSection lead={lead} title="Behandlungen im Überblick" icon={<Sparkles />} />
       <MediaRail lead={lead} />
       <BookingDemo lead={lead} />
+      <AdminPreviewTeaser lead={lead} />
       <ConceptPillars lead={lead} />
       <ReviewsSection lead={lead} />
       <ContactSection lead={lead} />
@@ -114,6 +116,7 @@ function BarberTemplate({ lead }: { lead: LeadProfile }) {
       </div>
       <ServicesSection lead={lead} title="Leistungen" icon={<Scissors />} />
       <BookingDemo lead={lead} />
+      <AdminPreviewTeaser lead={lead} />
       <ConceptPillars lead={lead} />
       <MediaRail lead={lead} />
       <KineticBand lead={lead} />
@@ -158,6 +161,7 @@ function RestaurantTemplate({ lead }: { lead: LeadProfile }) {
       <ServicesSection lead={lead} title="Speisekarte & Angebot" icon={<Utensils />} />
       <RestaurantGallery lead={lead} />
       <OpeningHours lead={lead} />
+      <AdminPreviewTeaser lead={lead} />
       <ConceptPillars lead={lead} />
       <ReviewsSection lead={lead} />
       <ContactSection lead={lead} />
@@ -186,6 +190,7 @@ function CorporateTemplate({ lead }: { lead: LeadProfile }) {
       <ProcessSection lead={lead} />
       <MediaRail lead={lead} />
       <KineticBand lead={lead} />
+      <AdminPreviewTeaser lead={lead} />
       <ConceptPillars lead={lead} />
       <ReviewsSection lead={lead} />
       <ContactSection lead={lead} />
@@ -220,6 +225,7 @@ function ConstructionTemplate({ lead }: { lead: LeadProfile }) {
       <ProcessSection lead={lead} />
       <ProjectsSection lead={lead} />
       <MediaRail lead={lead} />
+      <AdminPreviewTeaser lead={lead} />
       <ConceptPillars lead={lead} />
       <EquipmentSection lead={lead} />
       <CertificationsSection lead={lead} />
