@@ -1,0 +1,335 @@
+/* Bespoke BARTEC demo — standalone, not part of the shared theme system. */
+
+.bartec-page {
+  --bartec-bg: #060707;
+  --bartec-ink: #f4f4f2;
+  --bartec-muted: rgba(244, 244, 242, 0.62);
+  --bartec-line: rgba(244, 244, 242, 0.14);
+  --bartec-accent: #ff5a1f;
+  --accent: var(--bartec-accent);
+  --font-display: var(--font-geist-sans), Arial, sans-serif;
+  position: relative;
+  min-height: 100vh;
+  overflow-x: clip;
+  background: var(--bartec-bg);
+  color: var(--bartec-ink);
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+}
+
+.bartec-page a { color: inherit; text-decoration: none; }
+.bartec-page * { box-sizing: border-box; }
+
+.bartec-disclaimer {
+  margin: 0;
+  padding: 7px clamp(18px, 4vw, 64px);
+  background: #0f0f0f;
+  color: var(--bartec-muted);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  border-bottom: 1px solid var(--bartec-line);
+}
+
+/* Header */
+.bartec-header {
+  height: 76px;
+  padding: 0 clamp(20px, 5vw, 64px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: rgba(6, 7, 7, 0.7);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--bartec-line);
+  transition: height 0.25s ease, background 0.25s ease;
+}
+.bartec-header.is-scrolled { height: 60px; background: rgba(6, 7, 7, 0.92); }
+.bartec-wordmark { display: flex; align-items: center; color: var(--bartec-ink); }
+.bartec-logo { height: 22px; width: auto; }
+.bartec-nav { display: flex; gap: 28px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+.bartec-nav a { opacity: 0.66; transition: opacity 0.2s ease, color 0.2s ease; }
+.bartec-nav a:hover { opacity: 1; color: var(--bartec-accent); }
+.bartec-header-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+@media (max-width: 880px) {
+  .bartec-nav { display: none; }
+}
+
+.bartec-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 18px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  border: 1px solid transparent;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.bartec-btn:hover { transform: translateY(-2px); }
+.bartec-btn-primary { background: var(--bartec-accent); color: #0a0a0a; }
+.bartec-btn-ghost { border-color: var(--bartec-line); color: var(--bartec-ink); }
+.bartec-btn-ghost:hover { border-color: var(--bartec-accent); }
+
+/* Ticker */
+.bartec-ticker {
+  border-bottom: 1px solid var(--bartec-line);
+  overflow: hidden;
+  background: #0a0a0a;
+}
+.bartec-ticker-track {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  padding: 10px 0;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--bartec-muted);
+  animation: bartec-ticker-scroll 32s linear infinite;
+}
+.bartec-ticker-track span { padding-right: 56px; }
+.bartec-ticker-track span::after { content: "•"; margin-left: 56px; color: var(--bartec-accent); }
+@keyframes bartec-ticker-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Hero */
+.bartec-hero {
+  position: relative;
+  min-height: 92svh;
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(40px, 8vw, 96px) clamp(20px, 6vw, 96px);
+  overflow: hidden;
+}
+.bartec-hero-media { position: absolute; inset: 0; z-index: 0; }
+.bartec-hero-media img { object-fit: cover; object-position: center 30%; opacity: 0.55; transform: translateY(var(--py, 0)) scale(1.08); }
+.bartec-hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6, 7, 7, 0.35) 0%, rgba(6, 7, 7, 0.55) 45%, rgba(6, 7, 7, 0.96) 100%);
+}
+.bartec-hero-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.06) 1px, transparent 0);
+  background-size: 3px 3px;
+  opacity: 0.4;
+}
+.bartec-hero-copy { position: relative; z-index: 2; max-width: 880px; }
+.bartec-eyebrow {
+  margin: 0 0 18px;
+  color: var(--bartec-accent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+.bartec-hero h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(54px, 10vw, 138px);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+.bartec-hero-desc {
+  max-width: 560px;
+  margin: 28px 0 0;
+  color: var(--bartec-muted);
+  font-size: clamp(15px, 1.4vw, 18px);
+  line-height: 1.7;
+}
+.bartec-hero-actions { margin-top: 34px; display: flex; gap: 12px; flex-wrap: wrap; }
+.bartec-scroll-cue {
+  margin-top: 48px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.56;
+  animation: bartec-bounce 2.2s ease-in-out infinite;
+}
+@keyframes bartec-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+.bartec-source-tag {
+  position: absolute;
+  right: clamp(16px, 4vw, 40px);
+  bottom: 14px;
+  z-index: 2;
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(244, 244, 242, 0.42);
+}
+.bartec-source-tag:hover { color: var(--bartec-accent); }
+
+/* Shared section scaffolding */
+.bartec-section-head { max-width: 640px; margin-bottom: clamp(36px, 5vw, 64px); }
+.bartec-section-head h2 {
+  margin: 8px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4.2vw, 52px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.bartec-industries,
+.bartec-products,
+.bartec-stories,
+.bartec-academy {
+  padding: clamp(64px, 9vw, 120px) clamp(20px, 6vw, 96px);
+  border-top: 1px solid var(--bartec-line);
+}
+
+/* Industries grid */
+.bartec-industry-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--bartec-line); }
+.bartec-industry-card {
+  position: relative;
+  padding: 30px 26px 34px;
+  background: var(--bartec-bg);
+  transition: background 0.25s ease;
+}
+.bartec-industry-card:hover { background: #0d0d0d; }
+.bartec-card-number {
+  display: block;
+  margin-bottom: 22px;
+  font-size: 11px;
+  color: var(--bartec-muted);
+  letter-spacing: 0.1em;
+}
+.bartec-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 18px;
+  border-radius: 50%;
+  border: 1px solid var(--bartec-line);
+  color: var(--bartec-accent);
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+.bartec-industry-card:hover .bartec-card-icon { border-color: var(--bartec-accent); transform: scale(1.08); }
+.bartec-industry-card h3 { margin: 0 0 10px; font-size: 19px; font-weight: 650; letter-spacing: -0.01em; }
+.bartec-industry-card p { margin: 0; color: var(--bartec-muted); font-size: 13.5px; line-height: 1.65; }
+
+@media (max-width: 980px) {
+  .bartec-industry-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 620px) {
+  .bartec-industry-grid { grid-template-columns: 1fr; }
+}
+
+/* Products rail */
+.bartec-product-track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 8px;
+  margin: 0 clamp(-20px, -6vw, -96px);
+  padding-inline: clamp(20px, 6vw, 96px);
+  scrollbar-width: none;
+}
+.bartec-product-track::-webkit-scrollbar { display: none; }
+.bartec-product-card {
+  flex: 0 0 clamp(240px, 28vw, 320px);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+}
+.bartec-product-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #111;
+  border: 1px solid var(--bartec-line);
+  margin-bottom: 18px;
+}
+.bartec-product-media img { object-fit: contain; padding: 18px; background: #0c0c0c; }
+.bartec-product-fallback { display: flex; align-items: center; justify-content: center; height: 100%; color: var(--bartec-muted); }
+.bartec-product-card h3 { margin: 0 0 8px; font-size: 16px; font-weight: 650; line-height: 1.3; }
+.bartec-product-card p { margin: 0; color: var(--bartec-muted); font-size: 13px; line-height: 1.6; }
+
+/* Stories grid */
+.bartec-story-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+.bartec-story-card { display: flex; flex-direction: column; }
+.bartec-story-media { position: relative; aspect-ratio: 16 / 10; border-radius: 10px; overflow: hidden; margin-bottom: 16px; background: #111; }
+.bartec-story-media img { object-fit: cover; transition: transform 0.5s ease; }
+.bartec-story-card:hover .bartec-story-media img { transform: scale(1.05); }
+.bartec-story-card.is-text-only { padding: 22px 0; border-top: 1px solid var(--bartec-line); }
+.bartec-story-meta { margin: 0 0 8px; font-size: 11.5px; color: var(--bartec-muted); letter-spacing: 0.04em; }
+.bartec-story-card h3 { margin: 0; font-size: 16.5px; font-weight: 620; line-height: 1.35; }
+.bartec-story-card .bartec-source-tag { position: static; display: block; margin-top: 10px; }
+
+@media (max-width: 980px) {
+  .bartec-story-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 620px) {
+  .bartec-story-grid { grid-template-columns: 1fr; }
+}
+
+/* Academy */
+.bartec-academy { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 0.85fr); gap: 6vw; align-items: center; }
+.bartec-academy-copy h2 { margin: 8px 0 18px; font-family: var(--font-display); font-size: clamp(28px, 3.8vw, 46px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.08; }
+.bartec-academy-copy p { margin: 0 0 14px; color: var(--bartec-muted); font-size: 15px; line-height: 1.75; max-width: 480px; }
+.bartec-academy-sub { display: flex; align-items: center; gap: 9px; color: var(--bartec-ink) !important; font-size: 13px; }
+.bartec-academy-media { position: relative; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; }
+.bartec-academy-media img { object-fit: cover; transform: translateY(var(--py, 0)); }
+
+@media (max-width: 860px) {
+  .bartec-academy { grid-template-columns: 1fr; }
+}
+
+/* Contact */
+.bartec-contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 6vw;
+  padding: clamp(64px, 9vw, 120px) clamp(20px, 6vw, 96px);
+  border-top: 1px solid var(--bartec-line);
+  background: #0a0a0a;
+}
+.bartec-contact-copy h2 { margin: 8px 0 14px; font-family: var(--font-display); font-size: clamp(34px, 5vw, 64px); font-weight: 700; letter-spacing: -0.02em; }
+.bartec-contact-copy p { margin: 0 0 6px; color: var(--bartec-muted); font-size: 14.5px; max-width: 440px; }
+.bartec-contact-address { color: var(--bartec-ink) !important; }
+.bartec-contact-actions { display: flex; flex-direction: column; gap: 14px; }
+.bartec-contact-actions a { display: flex; align-items: center; gap: 12px; font-size: 14px; }
+.bartec-contact-actions small { display: block; color: var(--bartec-muted); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px; }
+.bartec-contact-actions svg { color: var(--bartec-accent); flex-shrink: 0; }
+
+@media (max-width: 760px) {
+  .bartec-contact { grid-template-columns: 1fr; align-items: start; }
+}
+
+/* Footer */
+.bartec-footer { padding: clamp(48px, 6vw, 80px) clamp(20px, 6vw, 96px) 36px; border-top: 1px solid var(--bartec-line); background: #050505; }
+.bartec-footer-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 48px; }
+.bartec-back-to-top { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--bartec-muted); }
+.bartec-back-to-top:hover { color: var(--bartec-accent); }
+.bartec-footer-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; padding-bottom: 40px; border-bottom: 1px solid var(--bartec-line); }
+.bartec-footer-grid h4 { margin: 0 0 14px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bartec-muted); }
+.bartec-footer-grid ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; }
+.bartec-footer-bottom { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; padding-top: 24px; font-size: 11.5px; color: var(--bartec-muted); }
+
+@media (max-width: 760px) {
+  .bartec-footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

@@ -174,6 +174,7 @@ function CorporateTemplate({ lead }: { lead: LeadProfile }) {
       <MediaRail lead={lead} />
       <KineticBand lead={lead} />
       <ConceptPillars lead={lead} />
+      <CertificationsSection lead={lead} />
       <ReviewsSection lead={lead} />
       <ContactSection lead={lead} />
       <SiteFooter lead={lead} />

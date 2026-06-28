@@ -8,5 +8,19 @@
   { "slug": "rechtsanwalt-glaeser-c7p2h5", "page": "https://www.glaeser-rechtsanwalt.de/", "label": "Rechtsanwalt Gläser" },
   { "slug": "schreinerei-heck-m3w8k1", "page": "https://www.schreiner-heck.de/", "label": "Schreinerei Heck" },
   { "slug": "grabmale-maurer-t9g4d2", "page": "https://www.maurer-grabmale.de/kontakt/bad-mergentheim/", "label": "Grabmale Maurer" },
-  { "slug": "bartec-gmbh-e5x8p3", "page": "https://bartec.com/de/", "label": "BARTEC GmbH" }
+  { "slug": "bartec-gmbh-e5x8p3", "page": "https://bartec.com/de/", "label": "BARTEC GmbH" },
+  {
+    "slug": "kablitz-gmbh-r4t9k2",
+    "page": "https://www.kablitz.de/",
+    "label": "Richard Kablitz GmbH",
+    "extraPages": [
+      "https://www.kablitz.de/feuerungen/",
+      "https://www.kablitz.de/energiezentralen/",
+      "https://www.kablitz.de/waermetauscher/",
+      "https://www.kablitz.de/wer-wir-sind/",
+      "https://www.kablitz.de/geschichte/",
+      "https://www.kablitz.de/wir-giessen-selbst/",
+      "https://www.kablitz.de/medien/"
+    ]
+  }
 ]
