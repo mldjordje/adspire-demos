@@ -18,7 +18,8 @@ import Link from "next/link";
 import type { LeadProfile, MediaAsset } from "@/lib/lead-schema";
 import { telephoneHref } from "@/lib/lead-schema";
 import { MotionLayer } from "@/components/motion-layer";
-import { KablitzVideoStory } from "./kablitz-video-story";
+import { KablitzProcessStory } from "./kablitz-video-story";
+import { KablitzEmberCanvas } from "./kablitz-ember-canvas";
 import "./kablitz-page.css";
 
 function reveal(index = 0): { "data-reveal": ""; style: CSSProperties } {
@@ -56,7 +57,7 @@ export function KablitzPage({ lead }: { lead: LeadProfile }) {
 
       <Services />
 
-      <KablitzVideoStory />
+      <KablitzProcessStory />
 
       <Gallery assets={ordered.slice(1, 6)} />
 
@@ -102,6 +103,7 @@ function Hero({ lead, heroImage, phoneHref }: { lead: LeadProfile; heroImage?: M
       {heroImage && (
         <div className="kablitz-hero-media" data-parallax="0.06">
           <Image src={heroImage.src} alt={heroImage.alt} fill sizes="100vw" unoptimized priority />
+          <KablitzEmberCanvas />
           <div className="kablitz-hero-scrim" />
         </div>
       )}

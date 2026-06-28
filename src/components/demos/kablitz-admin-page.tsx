@@ -1,6 +1,7 @@
 import { AlertTriangle, ArrowLeft, CheckCircle2, Clock, ClipboardCheck, PackageSearch, Sparkles, Star, Truck } from "lucide-react";
 import Link from "next/link";
 import type { LeadProfile } from "@/lib/lead-schema";
+import { KablitzAdminMonitor } from "./kablitz-admin-monitor";
 import "./kablitz-admin-page.css";
 
 type StockItem = { article: string; onHand: number; min: number; unit: string; reorderQty?: number };
@@ -79,6 +80,8 @@ export function KablitzAdminPage({ lead }: { lead: LeadProfile }) {
           )}
         </section>
       )}
+
+      <KablitzAdminMonitor />
 
       <section className="kablitz-admin-section">
         <h2><PackageSearch size={18} /> Lagerbestand</h2>
