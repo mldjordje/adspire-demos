@@ -20,6 +20,8 @@ import { telephoneHref } from "@/lib/lead-schema";
 import { MotionLayer } from "@/components/motion-layer";
 import { KablitzProcessStory } from "./kablitz-video-story";
 import { KablitzEmberCanvas } from "./kablitz-ember-canvas";
+import { KablitzStats } from "./kablitz-stats";
+import { KablitzVideoBand } from "./kablitz-video-band";
 import "./kablitz-page.css";
 
 function reveal(index = 0): { "data-reveal": ""; style: CSSProperties } {
@@ -53,15 +55,17 @@ export function KablitzPage({ lead }: { lead: LeadProfile }) {
 
       <Hero lead={lead} heroImage={heroImage} phoneHref={phoneHref} />
 
-      <Ticker />
+      <KablitzStats />
 
       <Services />
 
       <KablitzProcessStory />
 
+      <KablitzVideoBand />
+
       <Gallery assets={ordered.slice(1, 6)} />
 
-      <Company lead={lead} />
+      <Company />
 
       <Certifications lead={lead} />
 
@@ -108,11 +112,17 @@ function Hero({ lead, heroImage, phoneHref }: { lead: LeadProfile; heroImage?: M
         </div>
       )}
       <div className="kablitz-hero-copy">
-        <p className="kablitz-eyebrow" {...reveal(0)}>Biomass &amp; Waste to Energy seit 1901</p>
-        <h1 {...reveal(1)}>
-          Energie aus<br />Biomasse.<br />Made in<br />Lauda-Königshofen.
+        <p className="kablitz-eyebrow" {...reveal(0)}>Seit 1901 · Lauda-Königshofen</p>
+        <h1 className="kablitz-hero-title">
+          {["Aus", "Biomasse", "wird", "Energie."].map((word, i) => (
+            <span className="kablitz-hero-word" style={{ "--w": i } as CSSProperties} key={word + i}>
+              {word}
+            </span>
+          ))}
         </h1>
-        <p className="kablitz-hero-desc" {...reveal(2)}>{lead.shortDescription}</p>
+        <p className="kablitz-hero-desc" {...reveal(2)}>
+          Komplette Heizkraftwerke, Kessel und Feuerungen — aus eigener Fertigung.
+        </p>
         <div className="kablitz-hero-actions" {...reveal(3)}>
           {phoneHref && (
             <a className="kablitz-btn kablitz-btn-primary" href={phoneHref}>
@@ -138,24 +148,6 @@ function Hero({ lead, heroImage, phoneHref }: { lead: LeadProfile; heroImage?: M
   );
 }
 
-function Ticker() {
-  const items = [
-    "Über 120 Jahre Firmengeschichte",
-    "Eigene Gießerei & Stahlfertigung",
-    "ISO 9001:2015 zertifiziert",
-    "Kunden auf 5 Kontinenten",
-  ];
-  return (
-    <div className="kablitz-ticker" aria-hidden="true">
-      <div className="kablitz-ticker-track">
-        {[...items, ...items].map((item, index) => (
-          <span key={index}>{item}</span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 function Services() {
   const services = [
     { title: "Feuerungen", description: "Wasser- und luftgekühlte Roste zur Verbrennung von Biomasse und Abfällen." },
@@ -168,8 +160,8 @@ function Services() {
   return (
     <section className="kablitz-services" id="leistungen">
       <div className="kablitz-section-head" {...reveal(0)}>
-        <p className="kablitz-eyebrow">Unsere Leistungen</p>
-        <h2>Vom Rost bis zum Kraftwerk</h2>
+        <p className="kablitz-eyebrow">Leistungen</p>
+        <h2>Was wir bauen</h2>
       </div>
       <div className="kablitz-service-grid">
         {services.map((service, index) => (
@@ -199,13 +191,16 @@ function Gallery({ assets }: { assets: MediaAsset[] }) {
   );
 }
 
-function Company({ lead }: { lead: LeadProfile }) {
+function Company() {
   return (
     <section className="kablitz-company" id="unternehmen">
       <div className="kablitz-company-copy" {...reveal(0)}>
-        <p className="kablitz-eyebrow">Wer wir sind</p>
-        <h2>Familiengeführt seit 1901</h2>
-        <p>{lead.notes}</p>
+        <p className="kablitz-eyebrow">Über uns</p>
+        <h2>Seit 1901 in Familienhand.</h2>
+        <p>
+          Gegründet 1901 in Riga, seit den 1950ern in Lauda-Königshofen. Eigene Gießerei, eigene
+          Stahlfertigung, über 70 Mitarbeiter — Anlagen auf fünf Kontinenten.
+        </p>
       </div>
     </section>
   );
@@ -216,8 +211,8 @@ function Certifications({ lead }: { lead: LeadProfile }) {
   return (
     <section className="kablitz-certifications" id="zertifikate">
       <div className="kablitz-section-head" {...reveal(0)}>
-        <p className="kablitz-eyebrow">Vertrauen &amp; Qualität</p>
-        <h2>Zertifiziert &amp; bewährt</h2>
+        <p className="kablitz-eyebrow">Qualität</p>
+        <h2>Worauf Sie sich verlassen können</h2>
       </div>
       <div className="kablitz-cert-grid">
         {lead.certifications.map((cert, index) => (
@@ -236,12 +231,12 @@ function AdminCta({ lead }: { lead: LeadProfile }) {
   return (
     <section className="kablitz-admin-cta" {...reveal(0)}>
       <div className="kablitz-admin-cta-copy">
-        <p className="kablitz-eyebrow">Konzept-Vorschau</p>
-        <h2>So könnte Ihre Beschaffung &amp; Lagerverwaltung aussehen</h2>
-        <p>Mindestbestände, Lieferantenstatus und verspätete Lieferungen auf einen Blick — eine unverbindliche Demo-Ansicht.</p>
+        <p className="kablitz-eyebrow">Software-Konzept</p>
+        <h2>Nie wieder leeres Lager oder vergessene Lieferung.</h2>
+        <p>Ein Blick in das geplante Beschaffungs- und Lagersystem.</p>
       </div>
       <Link className="kablitz-btn kablitz-btn-primary kablitz-admin-btn" href={`/demo/${lead.slug}/admin`}>
-        <LayoutDashboard size={16} /> Admin-Vorschau öffnen <ArrowUpRight size={16} />
+        <LayoutDashboard size={16} /> Control-Panel ansehen <ArrowUpRight size={16} />
       </Link>
     </section>
   );

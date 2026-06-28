@@ -1,10 +1,8 @@
 "use client";
 
-import { PlayCircle, X } from "lucide-react";
+import { PlayCircle } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-
-const VIDEO_ID = "EnQW7RSpgVQ";
-const VIDEO_START_SECONDS = 10;
+import { KablitzVideoLightbox } from "./kablitz-video-lightbox";
 
 const STAGES = [
   { title: "Biomasse", description: "Holzreste und Festbrennstoffe gelangen auf den Kablitz-Rost." },
@@ -193,21 +191,6 @@ export function KablitzProcessStory() {
     };
   }, []);
 
-  // Lightbox: lock scroll + Escape to close.
-  useEffect(() => {
-    if (!lightbox) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setLightbox(false);
-    };
-    document.addEventListener("keydown", onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prev;
-    };
-  }, [lightbox]);
-
   return (
     <section className="kablitz-process" id="anlage" ref={sectionRef}>
       <div className="kablitz-process-sticky">
@@ -235,21 +218,7 @@ export function KablitzProcessStory() {
         </div>
       </div>
 
-      {lightbox && (
-        <div className="kablitz-lightbox" role="dialog" aria-modal="true" aria-label="Anlagen-Video" onClick={() => setLightbox(false)}>
-          <button type="button" className="kablitz-lightbox-close" aria-label="Schließen" onClick={() => setLightbox(false)}>
-            <X size={22} />
-          </button>
-          <div className="kablitz-lightbox-frame" onClick={(e) => e.stopPropagation()}>
-            <iframe
-              src={`https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&start=${VIDEO_START_SECONDS}&rel=0&modestbranding=1`}
-              title="Kablitz Dampfkessel mit Rauchgasreinigung"
-              allow="autoplay; encrypted-media; fullscreen"
-              allowFullScreen
-            />
-          </div>
-        </div>
-      )}
+      {lightbox && <KablitzVideoLightbox onClose={() => setLightbox(false)} />}
     </section>
   );
 }
