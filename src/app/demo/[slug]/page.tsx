@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { DemoPage } from "@/components/demo-page";
 import { BartecPage } from "@/components/demos/bartec-page";
+import { BelschnerPage } from "@/components/demos/belschner-page";
 import { KablitzPage } from "@/components/demos/kablitz-page";
 import { getLeadBySlug, leads } from "@/data/leads";
 import { buildDemoMetadata } from "@/lib/metadata";
@@ -24,5 +25,6 @@ export default async function DemoRoute({ params }: DemoRouteProps) {
   if (!lead) notFound();
   if (slug === "bartec-gmbh-e5x8p3") return <BartecPage lead={lead} />;
   if (slug === "kablitz-gmbh-r4t9k2") return <KablitzPage lead={lead} />;
+  if (slug === "belschner-elektrotechnik-w7k4n2") return <BelschnerPage lead={lead} />;
   return <DemoPage lead={lead} />;
 }

@@ -383,6 +383,59 @@ const rawLeads: LeadProfile[] = [
     notes:
       "Gegründet 1901 in Riga (Lettland) durch Richard Kablitz, Umzug der Familie und des Unternehmens nach Deutschland Anfang der 1950er. Inhabergeführtes Traditionsunternehmen, über 120 Jahre Firmengeschichte, eigene Gießerei und Stahlfertigung am Standort. Über 70 Mitarbeiter weltweit, Kunden vor allem aus Holzwerkstoff- und Sägeindustrie, daneben Energieversorger, Contractingunternehmen und Kommunen. ISO 9001:2015 zertifiziert (Erstzertifizierung 1996).",
   },
+  {
+    slug: "belschner-elektrotechnik-w7k4n2",
+    family: "corporate",
+    status: "research",
+    businessName: "Belschner Elektrotechnik",
+    businessType: "Elektro-Fachbetrieb",
+    city: "Weikersheim",
+    tagline: "Strom, der mitdenkt — vom Anschluss bis zum Smart Home.",
+    shortDescription:
+      "Dieser unverbindliche Entwurf zeigt Belschner Elektrotechnik — Elektro-Fachbetrieb und e-masters-Partner aus Weikersheim für Elektroinstallation, Service, Smart Home und intelligente Modernisierung in Haus und Wohnung.",
+    primaryCta: "call",
+    highlights: [
+      "e-masters Partner",
+      "Smart Home & Gebäudeautomation",
+      "24/7 Notdienst",
+      "Intelligente Modernisierung",
+      "Service & Wartung",
+      "Regionaler Fachbetrieb",
+    ],
+    services: [
+      { title: "Elektroinstallation", description: "Fachgerechte Installation für Neubau, Sanierung und Erweiterung." },
+      { title: "Intelligent modernisieren", description: "Bestehende Elektrik sicher und effizient auf den neuesten Stand bringen." },
+      { title: "Smart Home", description: "Licht, Heizung, Beschattung und Sicherheit zentral und intelligent gesteuert." },
+      { title: "Service & Wartung", description: "Prüfung, Instandhaltung und schneller Notdienst für Ihre Anlage." },
+      { title: "Telefonanlagen", description: "Kommunikationstechnik für Wohnung, Haus und Büro." },
+      { title: "Satellitentechnik", description: "Empfangs- und Verteiltechnik, sauber installiert." },
+    ],
+    process: [
+      { title: "Anschluss", description: "Sichere Anbindung ans Netz — Zählerplatz und Hausanschluss nach Norm." },
+      { title: "Installation", description: "Saubere Verkabelung und fachgerechte Elektroinstallation." },
+      { title: "Smart Home", description: "Vernetzte Steuerung von Licht, Wärme und Sicherheit." },
+      { title: "Effizienz", description: "PV, Lastmanagement und Modernisierung senken den Verbrauch." },
+    ],
+    certifications: [
+      { title: "e-masters Partner", description: "Mitglied der europäischen Gemeinschaft selbstständiger Elektro-Fachbetriebe." },
+      { title: "Smart-Home-Fachbetrieb", description: "Planung und Installation vernetzter, intelligenter Gebäudetechnik." },
+      { title: "Regional verwurzelt", description: "Fachbetrieb aus Weikersheim — kurze Wege, persönlicher Service." },
+    ],
+    contact: {
+      phone: "+49 7934 9953363",
+      email: "info@elektro-belschner.de",
+      address: "Dürrbachweg 2, 97990 Weikersheim",
+      mapsUrl: "https://maps.app.goo.gl/J7vSpMKXtJgbrVpS8",
+      website: "https://www.elektro-belschner.de/",
+    },
+    media: mediaFor("belschner-elektrotechnik-w7k4n2"),
+    sources: [
+      "https://www.elektro-belschner.de/",
+      "https://maps.app.goo.gl/J7vSpMKXtJgbrVpS8",
+    ],
+    notes:
+      "Elektro-Fachbetrieb in Weikersheim (Dürrbachweg 2, 97990). Mitglied der e-masters-Gemeinschaft. Leistungen: Elektroinstallation, intelligente Modernisierung, Smart Home / Intelligentes Wohnen, Service & Wartung, Telefonanlagen, Satellitentechnik. Werte: Qualität, Sicherheit und Energie. Mo–Fr 08:00–17:00. Keine Gründungsjahr- oder Mitarbeiterzahl auf der Website angegeben — bewusst allgemein gehalten.",
+  },
 ];
 
 export const leads = rawLeads.map((lead) => leadProfileSchema.parse(lead));

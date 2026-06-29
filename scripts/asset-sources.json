@@ -22,5 +22,15 @@
       "https://www.kablitz.de/wir-giessen-selbst/",
       "https://www.kablitz.de/medien/"
     ]
+  },
+  {
+    "slug": "belschner-elektrotechnik-w7k4n2",
+    "page": "https://www.elektro-belschner.de/",
+    "label": "Belschner Elektrotechnik",
+    "extraPages": [
+      "https://www.elektro-belschner.de/wir-ueber-uns.html",
+      "https://www.elektro-belschner.de/unsere-leistungen.html",
+      "https://www.elektro-belschner.de/referenzprojekte.html"
+    ]
   }
 ]
