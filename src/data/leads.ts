@@ -436,6 +436,94 @@ const rawLeads: LeadProfile[] = [
     notes:
       "Elektro-Fachbetrieb in Weikersheim (Dürrbachweg 2, 97990). Mitglied der e-masters-Gemeinschaft. Leistungen: Elektroinstallation, intelligente Modernisierung, Smart Home / Intelligentes Wohnen, Service & Wartung, Telefonanlagen, Satellitentechnik. Werte: Qualität, Sicherheit und Energie. Mo–Fr 08:00–17:00. Keine Gründungsjahr- oder Mitarbeiterzahl auf der Website angegeben — bewusst allgemein gehalten.",
   },
+  {
+    slug: "huthmann-tuning-automobile-s9k3m6",
+    family: "corporate",
+    status: "research",
+    businessName: "Huthmann Tuning & Automobile",
+    businessType: "Kfz-Fachbetrieb",
+    city: "Bad Mergentheim",
+    tagline: "Kfz-Service, Tuning und Oldtimer aus Bad Mergentheim.",
+    shortDescription:
+      "Dieser unverbindliche Entwurf zeigt Huthmann Tuning & Automobile als modernen Kfz-Fachbetrieb fuer Diagnostik, Inspektion, Reparatur, Tuning, Unfallinstandsetzung und Oldtimer-Restauration.",
+    primaryCta: "call",
+    highlights: [
+      "Diagnostik und Reparatur der Fahrzeug- und Motorelektronik",
+      "Inspektionen, TUEV und AU Service",
+      "Fahrzeugtuning nach Wunsch",
+      "Oldtimer-Restauration und Karosserie-Instandsetzung",
+      "Unfallinstandsetzung mit Gutachter- und Versicherungsabwicklung",
+      "Faire Preise und persoenliche Abstimmung vor Arbeitsbeginn",
+    ],
+    services: [
+      {
+        title: "Diagnose & Inspektion",
+        description:
+          "Fahrzeug- und Motorelektronik, Inspektionen aller Art, TUEV/AU Service und transparente Abstimmung vor der Reparatur.",
+      },
+      {
+        title: "Reparatur & Service",
+        description:
+          "Motoren, Bremsen, Fahrwerk, Auspuff, Getriebespuelung, Autoglas, Klimatechnik sowie Rad- und Reifenservice.",
+      },
+      {
+        title: "Tuning",
+        description:
+          "Bodykits, Edelstahl-Auspuffanlagen, Karosserieverbreiterungen, Felgen, Fahrwerke, Interieur und Leistungssteigerung inklusive TUEV Vollabnahme.",
+      },
+      {
+        title: "Oldtimer & Karosserie",
+        description:
+          "Teil- und Komplettrestaurationen, Sand- oder Sodastrahlung, Zinnarbeiten, Achs- und Lenkungsinstandsetzung sowie Innenausstattung nach Wunsch.",
+      },
+      {
+        title: "Unfallinstandsetzung",
+        description:
+          "Reparatur, Instandsetzung und Formalitaeten bei Unfall-, Hagel- oder Kratzerschaeden in Zusammenarbeit mit einem unabhaengigen Sachverstaendigen.",
+      },
+      {
+        title: "Sonderloesungen",
+        description:
+          "Metrische und zoellische Sonderschrauben nach Bedarf sowie Beschaffung umgebauter Fahrzeuge nach Kundenwunsch.",
+      },
+    ],
+    process: [
+      { title: "Fehlerbild", description: "Diagnose und persoenliche Besprechung der notwendigen Arbeiten." },
+      { title: "Freigabe", description: "Klare Abstimmung zu Umfang, Teilen und naechsten Schritten." },
+      { title: "Werkstatt", description: "Fachgerechte Reparatur, Tuning oder Restauration am Fahrzeug." },
+      { title: "Abnahme", description: "Probefahrt, TUEV/AU oder Vollabnahme je nach Leistungsumfang." },
+    ],
+    certifications: [
+      { title: "Kfz-Fachbetrieb", description: "Werkstattservice fuer alle Fahrzeugmarken." },
+      { title: "Oldtimer-Schwerpunkt", description: "Restauration und Karosserie-Instandsetzung mit BMW E21 Referenz." },
+      { title: "Unfallservice", description: "Unterstuetzung bei Gutachter, Versicherung und Reparaturabwicklung." },
+    ],
+    openingHours: [
+      "Mo-Do 08:00-12:00 und 13:00-17:00",
+      "Fr 08:00-13:00",
+      "Sa nur nach Vereinbarung",
+      "So geschlossen",
+    ],
+    contact: {
+      phone: "+49 7931 991970",
+      email: "info@huthmann-tuning.de",
+      address: "Wilhelm-Frank-Str. 28, 97980 Bad Mergentheim",
+      mapsUrl: maps("Huthmann Tuning Automobile Wilhelm-Frank-Str. 28 Bad Mergentheim"),
+      website: "https://huthmann-tuning.de/",
+    },
+    media: mediaFor("huthmann-tuning-automobile-s9k3m6", 11),
+    sources: [
+      "https://huthmann-tuning.de/",
+      "https://huthmann-tuning.de/unsere-leistungen",
+      "https://huthmann-tuning.de/unsere-leistungen/tuning",
+      "https://huthmann-tuning.de/unsere-leistungen/unfallinstandsetzung",
+      "https://huthmann-tuning.de/unsere-leistungen/oldtimer",
+      "https://huthmann-tuning.de/referenzen/fotostrecke",
+      "https://huthmann-tuning.de/kontakt",
+    ],
+    notes:
+      "Website copy lists Kfz-Werkstatt, Fahrzeug- und Motorelektronik, Inspektionen, Motor/Bremsen/Fahrwerk/Auspuff, Getriebespuelungen, Autoglas, Klimatechnik, Reifenservice, TUEV/AU, Unfallinstandsetzung, Fahrzeugtuning, Oldtimer-Restauration, Karosserie-Instandsetzung and custom metric/imperial screws. Contact: Roland Huthmann, Wilhelm-Frank-Str. 28, 97980 Bad Mergentheim, Telefon 07931 991970.",
+  },
 ];
 
 export const leads = rawLeads.map((lead) => leadProfileSchema.parse(lead));

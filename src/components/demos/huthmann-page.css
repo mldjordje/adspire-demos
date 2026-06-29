@@ -1,0 +1,543 @@
+/* Bespoke Huthmann automotive concept - diagnostic tuning bay. */
+
+.huth-page {
+  --huth-bg: #050606;
+  --huth-panel: #0d1010;
+  --huth-ink: #f4f7f2;
+  --huth-muted: rgba(244, 247, 242, 0.62);
+  --huth-line: rgba(244, 247, 242, 0.14);
+  --huth-blue: #04658f;
+  --huth-blue-bright: #00a2e7;
+  --huth-blue-deep: #005492;
+  --huth-lime: var(--huth-blue-bright);
+  --huth-amber: #d8a85b;
+  --huth-metal: #aab2aa;
+  --accent: var(--huth-lime);
+  min-height: 100vh;
+  overflow-x: clip;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.026) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    var(--huth-bg);
+  background-size: 74px 74px;
+  color: var(--huth-ink);
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+}
+
+.huth-page * { box-sizing: border-box; }
+.huth-page a { color: inherit; text-decoration: none; }
+
+.huth-disclaimer {
+  margin: 0;
+  padding: 7px clamp(18px, 4vw, 64px);
+  background: #020303;
+  color: rgba(244, 247, 242, 0.58);
+  border-bottom: 1px solid var(--huth-line);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.huth-header {
+  height: 76px;
+  padding: 0 clamp(18px, 5vw, 68px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: rgba(5, 6, 6, 0.72);
+  border-bottom: 1px solid var(--huth-line);
+  backdrop-filter: blur(18px);
+}
+
+.huth-header.is-scrolled { height: 60px; background: rgba(5, 6, 6, 0.94); }
+.huth-wordmark { display: inline-flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 800; letter-spacing: 0.03em; text-transform: lowercase; }
+.huth-mark { width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--huth-line); color: var(--huth-lime); background: #0a0c0c; }
+.huth-nav { display: flex; gap: clamp(16px, 3vw, 34px); font-size: 11px; font-weight: 760; letter-spacing: 0.16em; text-transform: uppercase; }
+.huth-nav a { color: var(--huth-muted); transition: color 0.2s ease; }
+.huth-nav a:hover { color: var(--huth-lime); }
+.huth-header-actions { display: flex; gap: 10px; align-items: center; flex-shrink: 0; }
+
+.huth-btn {
+  min-height: 43px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 0 17px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 780;
+  white-space: nowrap;
+  transition: transform 0.22s cubic-bezier(.22,1,.36,1), background 0.22s ease, border-color 0.22s ease, color 0.22s ease;
+}
+
+.huth-btn:hover { transform: translateY(-2px); }
+.huth-btn-primary {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--huth-blue-bright), var(--huth-blue-deep));
+  color: #f7fbff;
+  box-shadow: 0 18px 34px -24px rgba(0, 162, 231, 0.8);
+}
+.huth-btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.48) 50%, transparent 70%);
+  transform: translateX(-130%);
+  transition: transform 0.55s ease;
+}
+.huth-btn-primary:hover::after { transform: translateX(130%); }
+.huth-btn-ghost { border-color: var(--huth-line); color: var(--huth-ink); background: rgba(255, 255, 255, 0.035); }
+.huth-btn-ghost:hover { border-color: var(--huth-lime); color: var(--huth-lime); }
+
+.huth-eyebrow {
+  margin: 0 0 18px;
+  color: var(--huth-lime);
+  font-size: 11px;
+  font-weight: 820;
+  letter-spacing: 0.23em;
+  text-transform: uppercase;
+}
+
+.huth-hero {
+  min-height: calc(100svh - 112px);
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.62fr) minmax(560px, 1.38fr);
+  align-items: center;
+  gap: 1.5vw;
+  padding: clamp(38px, 6vw, 86px) clamp(18px, 5vw, 74px);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 76% 34%, rgba(0, 162, 231, 0.2), transparent 36%),
+    linear-gradient(115deg, rgba(0, 84, 146, 0.18), transparent 45%),
+    #050606;
+}
+
+.huth-hero-bg { position: absolute; inset: 0; opacity: 0.18; filter: grayscale(1) contrast(1.08); }
+.huth-hero-bg img { object-fit: cover; animation: huth-kenburns 20s ease-in-out infinite alternate; }
+.huth-hero-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent 0 49%, rgba(0, 162, 231, 0.08) 50%, transparent 51%),
+    repeating-linear-gradient(0deg, transparent 0 22px, rgba(255, 255, 255, 0.03) 23px);
+  opacity: 0.16;
+  transform: perspective(700px) rotateX(62deg) translateY(28%);
+  transform-origin: bottom;
+  animation: huth-grid-drive 3.2s linear infinite;
+}
+.huth-lightbar {
+  position: absolute;
+  top: 18%;
+  left: -10%;
+  width: 120%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 162, 231, 0.58), transparent);
+  filter: drop-shadow(0 0 12px rgba(0, 162, 231, 0.48));
+  animation: huth-lightbar 3.8s ease-in-out infinite;
+}
+
+.huth-hero-copy { position: relative; z-index: 4; max-width: 640px; }
+.huth-hero h1 {
+  margin: 0;
+  font-size: clamp(54px, 7.1vw, 106px);
+  font-weight: 860;
+  line-height: 0.88;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+.huth-hero-text { max-width: 560px; margin: 28px 0 0; color: var(--huth-muted); font-size: clamp(15px, 1.3vw, 19px); line-height: 1.7; }
+.huth-hero-actions { margin-top: 32px; display: flex; gap: 12px; flex-wrap: wrap; }
+.huth-scroll { margin-top: 42px; display: inline-flex; align-items: center; gap: 9px; color: var(--huth-muted); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; animation: huth-bounce 2s ease-in-out infinite; }
+
+.huth-car-stage {
+  min-height: min(760px, 76svh);
+  position: relative;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  transform: translateX(2.5vw);
+}
+
+.huth-hero-car {
+  position: relative;
+  width: min(112%, 1120px);
+  aspect-ratio: 16 / 8.8;
+  margin: 0;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  box-shadow: 0 44px 100px -78px rgba(0, 162, 231, 0.84);
+  transform: translateY(var(--py, 0));
+}
+.huth-hero-car img { object-fit: cover; filter: saturate(0.94) contrast(1.05); }
+.huth-model-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  cursor: grab;
+  touch-action: none;
+}
+.huth-model-canvas.is-dragging { cursor: grabbing; }
+.huth-model-canvas canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+.huth-model-frame.has-model {
+  background:
+    radial-gradient(circle at 50% 62%, rgba(0, 162, 231, 0.18), transparent 44%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(5, 6, 6, 0));
+}
+.huth-model-frame.has-fallback .huth-model-canvas { display: none; }
+.huth-model-credit { max-width: calc(100% - 24px); }
+.huth-model-loader {
+  position: absolute;
+  inset: auto 18px 18px 18px;
+  z-index: 8;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px 16px;
+  padding: 13px 14px;
+  border: 1px solid rgba(0, 162, 231, 0.28);
+  background: rgba(5, 7, 7, 0.84);
+  color: var(--huth-ink);
+  backdrop-filter: blur(14px);
+}
+.huth-model-loader span {
+  color: var(--huth-muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.huth-model-loader strong { color: var(--huth-lime); font-size: 20px; line-height: 1; }
+.huth-model-loader i {
+  grid-column: 1 / -1;
+  display: block;
+  height: 4px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.1);
+}
+.huth-model-loader b {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--huth-blue-deep), #fff, var(--huth-blue-bright));
+  box-shadow: 0 0 14px rgba(0, 162, 231, 0.6);
+}
+.huth-hero-car::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, transparent, rgba(5, 6, 6, 0.2));
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+.huth-hero-car::after { content: none; }
+.huth-source {
+  position: absolute;
+  z-index: 4;
+  left: 12px;
+  bottom: 12px;
+  padding: 7px 9px;
+  background: rgba(0, 0, 0, 0.72);
+  color: rgba(255, 255, 255, 0.74);
+  backdrop-filter: blur(8px);
+  font-size: 9.5px;
+  letter-spacing: 0.02em;
+}
+
+.huth-ticker { overflow: hidden; border-block: 1px solid var(--huth-line); background: #080a0a; }
+.huth-ticker-track { display: flex; width: max-content; animation: huth-marquee 24s linear infinite; }
+.huth-ticker-track span {
+  display: inline-flex;
+  align-items: center;
+  gap: 26px;
+  padding: 15px 30px 15px 0;
+  color: var(--huth-muted);
+  font-size: 12px;
+  font-weight: 780;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+.huth-ticker-track span::after { content: ""; width: 8px; height: 8px; background: var(--huth-lime); border-radius: 50%; box-shadow: 0 0 12px var(--huth-lime); }
+
+.huth-modules, .huth-services, .huth-gallery {
+  padding: clamp(66px, 9vw, 122px) clamp(18px, 5vw, 74px);
+}
+.huth-modules, .huth-services, .huth-restore, .huth-gallery, .huth-contact {
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
+}
+.huth-section-head { max-width: 900px; margin-bottom: clamp(38px, 5vw, 68px); }
+.huth-section-head h2, .huth-restore h2, .huth-gallery h2, .huth-contact h2 {
+  margin: 0;
+  font-size: clamp(34px, 5.4vw, 78px);
+  line-height: 0.98;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.huth-module-shell {
+  position: relative;
+  min-height: 680px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-block: 1px solid var(--huth-line);
+}
+.huth-module-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(0, 162, 231, 0.1), transparent 58%);
+  animation: huth-pulse 3.2s ease-in-out infinite;
+}
+.huth-topview { position: absolute; inset: 0; display: grid; place-items: center; }
+.huth-topview-car {
+  position: relative;
+  width: min(42vw, 440px);
+  min-width: 240px;
+  height: min(68vw, 620px);
+  border: 2px solid rgba(0, 162, 231, 0.42);
+  border-radius: 48% 48% 36% 36%;
+  background: linear-gradient(180deg, rgba(0, 162, 231, 0.1), rgba(255, 255, 255, 0.02));
+  box-shadow: 0 0 80px rgba(0, 162, 231, 0.14), inset 0 0 48px rgba(0, 162, 231, 0.1);
+}
+.huth-topview-cabin { position: absolute; inset: 20% 18% 36%; border: 1px solid rgba(0, 162, 231, 0.34); border-radius: 42% 42% 28% 28%; }
+.huth-topview-wheel { position: absolute; width: 26px; height: 86px; border-radius: 999px; background: #101515; border: 1px solid var(--huth-lime); animation: huth-wheel-glow 1.4s ease-in-out infinite; }
+.w1 { left: -20px; top: 18%; }
+.w2 { right: -20px; top: 18%; }
+.w3 { left: -20px; bottom: 18%; }
+.w4 { right: -20px; bottom: 18%; }
+.huth-module-grid {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 1120px);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+.huth-module {
+  min-height: 168px;
+  display: grid;
+  align-content: end;
+  gap: 9px;
+  padding: 22px;
+  border: 1px solid var(--huth-line);
+  background: rgba(8, 11, 11, 0.7);
+  backdrop-filter: blur(12px);
+  transition: transform 0.32s cubic-bezier(.22,1,.36,1), border-color 0.32s ease, background 0.32s ease;
+}
+.huth-module:hover { transform: translateY(-7px); border-color: var(--huth-lime); background: rgba(20, 26, 18, 0.86); }
+.huth-module span { color: var(--huth-lime); }
+.huth-module small { color: var(--huth-muted); letter-spacing: 0.14em; text-transform: uppercase; }
+.huth-module strong { font-size: clamp(28px, 4vw, 56px); line-height: 0.95; text-transform: uppercase; }
+
+.huth-story { height: 420vh; position: relative; background: #030404; }
+.huth-story-sticky { position: sticky; top: 0; min-height: 100svh; overflow: hidden; display: grid; align-content: end; padding: clamp(36px, 5vw, 70px) clamp(18px, 5vw, 74px); }
+.huth-story-track { position: absolute; inset: 0; overflow: hidden; }
+.huth-road {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: 16%;
+  height: 34%;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 80px, rgba(0, 162, 231, 0.16) 82px 86px),
+    linear-gradient(180deg, transparent, rgba(0, 162, 231, 0.1));
+  transform: perspective(640px) rotateX(64deg);
+  transform-origin: bottom;
+  animation: huth-road 1s linear infinite;
+}
+.huth-story-model {
+  position: absolute;
+  inset: 5% 5% 22%;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+  pointer-events: auto;
+}
+.huth-story-model .huth-hero-car {
+  width: min(108vw, 1280px);
+  aspect-ratio: 16 / 7.4;
+}
+.huth-dyno { position: absolute; right: 8%; top: 14%; width: min(34vw, 420px); height: 190px; border: 1px solid var(--huth-line); background: rgba(255,255,255,0.025); }
+.huth-dyno span {
+  position: absolute;
+  inset: 20px;
+  background:
+    linear-gradient(120deg, transparent 0 18%, var(--huth-lime) 19% 21%, transparent 22% 38%, var(--huth-amber) 39% 41%, transparent 42%),
+    repeating-linear-gradient(0deg, transparent 0 28px, rgba(255,255,255,0.08) 29px),
+    repeating-linear-gradient(90deg, transparent 0 42px, rgba(255,255,255,0.08) 43px);
+  clip-path: polygon(0 84%, 16% 70%, 28% 74%, 42% 44%, 56% 50%, 72% 28%, 100% 12%, 100% 100%, 0 100%);
+  animation: huth-graph 2.2s ease-in-out infinite alternate;
+}
+.huth-stage-rail { position: absolute; right: clamp(18px, 5vw, 74px); top: 50%; z-index: 3; display: grid; gap: 16px; margin: 0; padding: 0; list-style: none; transform: translateY(-50%); }
+.huth-stage-rail li { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid var(--huth-line); color: var(--huth-muted); font-size: 11px; }
+.huth-stage-grid { position: relative; z-index: 3; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.huth-stage { min-height: 310px; padding: 24px; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid var(--huth-line); background: rgba(8, 11, 11, 0.74); backdrop-filter: blur(12px); }
+.huth-stage span { color: var(--huth-lime); font-size: 12px; letter-spacing: 0.14em; }
+.huth-stage small { margin-top: auto; color: var(--huth-muted); letter-spacing: 0.12em; text-transform: uppercase; }
+.huth-stage h3 { margin: 12px 0 9px; font-size: clamp(28px, 4vw, 58px); line-height: 0.9; text-transform: uppercase; }
+.huth-stage p { margin: 0; color: var(--huth-muted); font-size: 13.5px; line-height: 1.55; }
+
+.huth-service-layout { display: grid; grid-template-columns: minmax(0, 0.96fr) minmax(360px, 0.9fr); gap: 4vw; align-items: start; }
+.huth-service-stack { display: grid; border-top: 1px solid var(--huth-line); }
+.huth-service {
+  min-height: 148px;
+  display: grid;
+  grid-template-columns: auto 58px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--huth-line);
+}
+.huth-service-icon { width: 48px; height: 48px; display: grid; place-items: center; color: var(--huth-lime); border: 1px solid var(--huth-line); }
+.huth-service-icon svg { width: 19px; height: 19px; }
+.huth-service-number { color: var(--huth-muted); font-size: 11px; letter-spacing: 0.14em; }
+.huth-service h3 { margin: 0; font-size: clamp(21px, 2.6vw, 34px); text-transform: uppercase; }
+.huth-service p { grid-column: 3; margin: -10px 0 0; color: var(--huth-muted); line-height: 1.6; }
+.huth-service-media { position: sticky; top: 92px; display: grid; gap: 16px; }
+.huth-service-media figure { position: relative; margin: 0; overflow: hidden; border: 1px solid var(--huth-line); background: #111; }
+.huth-service-media figure:first-child { aspect-ratio: 4 / 3; }
+.huth-service-media figure:last-child { width: 68%; aspect-ratio: 4 / 3; justify-self: end; margin-top: -18%; }
+.huth-service-media img { object-fit: cover; transition: transform 0.7s cubic-bezier(.22,1,.36,1), filter 0.7s ease; filter: saturate(0.88); }
+.huth-service-media figure:hover img { transform: scale(1.06); filter: saturate(1.08); }
+
+.huth-restore {
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(420px, 1fr);
+  gap: 5vw;
+  align-items: center;
+  padding: clamp(66px, 9vw, 122px) clamp(18px, 5vw, 74px);
+  background:
+    radial-gradient(circle at 90% 20%, rgba(0, 162, 231, 0.12), transparent 38%),
+    #080a0a;
+}
+.huth-restore-copy p:last-child { max-width: 520px; color: var(--huth-muted); line-height: 1.75; }
+.huth-before-after { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border: 1px solid var(--huth-line); background: #111; }
+.huth-before-after figure { position: absolute; inset: 0; margin: 0; }
+.huth-before img, .huth-after img { object-fit: cover; }
+.huth-after { clip-path: polygon(47% 0, 100% 0, 100% 100%, 47% 100%); animation: huth-compare 4.2s ease-in-out infinite alternate; }
+.huth-slider-line { position: absolute; top: 0; bottom: 0; left: 47%; width: 2px; background: var(--huth-lime); box-shadow: 0 0 24px var(--huth-lime); animation: huth-line-slide 4.2s ease-in-out infinite alternate; }
+.huth-slider-line span { position: absolute; top: 50%; left: 50%; width: 52px; height: 52px; display: block; border-radius: 50%; border: 1px solid var(--huth-lime); background: rgba(5, 6, 6, 0.74); transform: translate(-50%, -50%); }
+
+.huth-gallery { overflow: hidden; background: #030404; }
+.huth-gallery-head { max-width: 850px; margin-bottom: 36px; }
+.huth-gallery-track { display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 18px; scrollbar-width: thin; }
+.huth-shot {
+  position: relative;
+  flex: 0 0 clamp(260px, 30vw, 420px);
+  aspect-ratio: 4 / 3;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--huth-line);
+  scroll-snap-align: start;
+  background: #111;
+}
+.huth-shot img { object-fit: cover; transition: transform 0.7s cubic-bezier(.22,1,.36,1), filter 0.7s ease; }
+.huth-shot:hover img { transform: scale(1.07); filter: saturate(1.1); }
+.huth-shot figcaption { position: absolute; top: 14px; left: 14px; z-index: 2; color: #fff; font-size: 28px; font-weight: 850; mix-blend-mode: difference; }
+
+.huth-contact {
+  display: grid;
+  grid-template-columns: minmax(0, 0.76fr) minmax(360px, 1fr);
+  gap: 6vw;
+  align-items: end;
+  padding: clamp(66px, 9vw, 122px) clamp(18px, 5vw, 74px);
+  border-top: 1px solid var(--huth-line);
+  background: #0b0d0d;
+}
+.huth-contact-copy p:last-child { color: var(--huth-muted); }
+.huth-terminal { border-top: 1px solid var(--huth-line); }
+.huth-terminal a, .huth-terminal div { min-height: 74px; display: flex; align-items: center; gap: 17px; border-bottom: 1px solid var(--huth-line); color: var(--huth-ink); }
+.huth-terminal svg { color: var(--huth-lime); flex: 0 0 auto; }
+.huth-terminal span { display: grid; gap: 5px; font-weight: 760; }
+.huth-terminal small { color: var(--huth-muted); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; }
+
+@keyframes huth-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes huth-kenburns { from { transform: scale(1); } to { transform: scale(1.1) translate(-1.5%, -1%); } }
+@keyframes huth-grid-drive { from { background-position: 0 0; } to { background-position: 0 74px; } }
+@keyframes huth-lightbar { 0%, 100% { transform: translateY(0); opacity: 0.12; } 45%, 55% { transform: translateY(46vh); opacity: 0.9; } }
+@keyframes huth-scan { from { transform: translateX(-70%); } to { transform: translateX(70%); } }
+@keyframes huth-stage-scan { 0%, 100% { left: 8%; opacity: 0.1; } 50% { left: 88%; opacity: 1; } }
+@keyframes huth-spin { to { transform: rotate(360deg); } }
+@keyframes huth-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes huth-needle { 0%, 100% { transform: rotate(200deg); } 48% { transform: rotate(324deg); } }
+@keyframes huth-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+@keyframes huth-pulse { 0%, 100% { opacity: 0.45; transform: scale(1); } 50% { opacity: 1; transform: scale(1.08); } }
+@keyframes huth-wheel-glow { 0%, 100% { box-shadow: 0 0 0 rgba(0, 162, 231, 0); } 50% { box-shadow: 0 0 22px rgba(0, 162, 231, 0.45); } }
+@keyframes huth-road { to { background-position: 90px 0; } }
+@keyframes huth-car-breathe { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-8px); } }
+@keyframes huth-graph { from { clip-path: polygon(0 86%, 20% 80%, 34% 78%, 48% 58%, 62% 60%, 78% 38%, 100% 22%, 100% 100%, 0 100%); } to { clip-path: polygon(0 80%, 16% 68%, 30% 72%, 42% 36%, 55% 46%, 74% 24%, 100% 9%, 100% 100%, 0 100%); } }
+@keyframes huth-compare { from { clip-path: polygon(36% 0, 100% 0, 100% 100%, 36% 100%); } to { clip-path: polygon(64% 0, 100% 0, 100% 100%, 64% 100%); } }
+@keyframes huth-line-slide { from { left: 36%; } to { left: 64%; } }
+
+@media (max-width: 980px) {
+  .huth-nav { display: none; }
+  .huth-hero, .huth-service-layout, .huth-restore, .huth-contact { grid-template-columns: 1fr; }
+  .huth-hero { min-height: auto; padding-top: 54px; gap: 22px; }
+  .huth-car-stage { min-height: 56svh; transform: none; }
+  .huth-hero-car { width: min(106vw, 920px); aspect-ratio: 16 / 9; }
+  .huth-module-shell { min-height: 620px; }
+  .huth-module-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .huth-story { height: auto; }
+  .huth-story-sticky { position: relative; min-height: auto; padding-top: 80px; }
+  .huth-story-track { top: 0; bottom: auto; height: 420px; opacity: 1; }
+  .huth-story-model { inset: 8px -6% 64px; }
+  .huth-story-model .huth-hero-car { width: min(116vw, 980px); aspect-ratio: 16 / 8.4; }
+  .huth-dyno { display: none; }
+  .huth-stage-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 340px; }
+  .huth-stage-rail { display: none; }
+  .huth-service-media { position: relative; top: auto; }
+}
+
+@media (max-width: 640px) {
+  .huth-header-actions .huth-btn-ghost { display: none; }
+  .huth-header-actions .huth-admin-link { display: inline-flex; }
+  .huth-btn { min-height: 42px; padding: 0 14px; }
+  .huth-hero h1 {
+    font-size: clamp(36px, 11vw, 44px);
+    line-height: 0.94;
+  }
+  .huth-hero-text { margin-top: 20px; line-height: 1.58; }
+  .huth-hero-actions { margin-top: 24px; }
+  .huth-scroll { margin-top: 28px; }
+  .huth-car-stage { min-height: 44svh; }
+  .huth-hero-car { width: 118vw; clip-path: none; }
+  .huth-source { max-width: calc(100% - 18px); left: 9px; bottom: 9px; font-size: 8.5px; }
+  .huth-module-grid, .huth-stage-grid { grid-template-columns: 1fr; }
+  .huth-module-shell { min-height: 760px; }
+  .huth-topview-car { opacity: 0.56; }
+  .huth-story-track { height: 330px; }
+  .huth-story-model { inset: 0 -18% 52px; }
+  .huth-stage-grid { margin-top: 270px; }
+  .huth-service { grid-template-columns: auto minmax(0, 1fr); }
+  .huth-service-number { display: none; }
+  .huth-service p { grid-column: 2; }
+  .huth-service-media figure:last-child { width: 82%; }
+  .huth-contact { align-items: start; }
+  .huth-terminal a, .huth-terminal div { align-items: flex-start; padding: 18px 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .huth-page *, .huth-page *::before, .huth-page *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
