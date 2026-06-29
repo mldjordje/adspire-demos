@@ -88,6 +88,7 @@
 
 /* Dashboard tiles */
 .kablitz-panel-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.kablitz-panel-tiles-6 { grid-template-columns: repeat(3, 1fr); }
 .kablitz-panel-tile {
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.08);
@@ -97,7 +98,12 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  font: inherit;
 }
+.kablitz-panel-tile:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); }
 .kablitz-panel-tile strong { font-size: 30px; font-weight: 760; letter-spacing: -0.02em; line-height: 1; }
 .kablitz-panel-tile span { font-size: 12.5px; color: #777; }
 .kablitz-panel-tile.tone-warn { border-top-color: #e6a700; }
@@ -149,7 +155,8 @@
   .kablitz-panel-navitem { white-space: nowrap; }
   .kablitz-panel-navitem span { flex: none; }
   .kablitz-panel-back { display: none; }
-  .kablitz-panel-tiles { grid-template-columns: repeat(2, 1fr); }
+  .kablitz-panel-tiles,
+  .kablitz-panel-tiles-6 { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* ===== Shared module blocks ===== */
@@ -266,3 +273,71 @@
 .kablitz-admin-receiving-card p { margin: 0; font-size: 12.5px; color: #777; }
 .kablitz-admin-receiving-card .kablitz-admin-status { color: #1c7a3c; }
 .kablitz-admin-receiving-card.is-mismatch .kablitz-admin-status { color: #99131f; }
+
+/* ===== Block head + Excel tools ===== */
+.kablitz-block-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.kablitz-block-head h2 { margin: 0; }
+.kablitz-excel-tools { display: flex; gap: 8px; flex-shrink: 0; }
+.kablitz-excel-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  background: #fff;
+  color: #444;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+.kablitz-excel-btn:hover { border-color: #1c7a3c; color: #1c7a3c; }
+.kablitz-excel-btn.is-import { background: #1c7a3c; border-color: #1c7a3c; color: #fff; }
+.kablitz-excel-btn.is-import:hover { background: #176331; color: #fff; }
+.kablitz-excel-btn svg { flex-shrink: 0; }
+
+/* ===== Projects ===== */
+.kablitz-proj-table .kablitz-admin-row { grid-template-columns: 1.7fr 1.3fr 1.4fr 1fr 1.4fr; align-items: center; }
+.kablitz-proj-name { display: block; font-size: 13.5px; font-weight: 650; }
+.kablitz-proj-loc { display: block; font-size: 11.5px; color: #999; font-style: normal; }
+.kablitz-phase { display: inline-flex; flex-direction: column; gap: 5px; font-size: 12px; font-weight: 600; color: #444; }
+.kablitz-phase-track { display: flex; gap: 3px; }
+.kablitz-phase-track i { width: 14px; height: 4px; border-radius: 2px; background: #e2e2e2; }
+.kablitz-phase-track i.is-on { background: var(--kablitz-red); }
+.kablitz-proj-budget { display: flex; flex-direction: column; gap: 4px; }
+.kablitz-proj-bar { height: 6px; border-radius: 999px; background: #eee; overflow: hidden; }
+.kablitz-proj-bar i { display: block; height: 100%; background: #1c7a3c; border-radius: 999px; }
+.kablitz-proj-bar i.is-over { background: var(--kablitz-red); }
+.kablitz-proj-budget small { font-size: 11px; color: #888; }
+
+/* ===== Installed base ===== */
+.kablitz-inst-table .kablitz-admin-row { grid-template-columns: 1.6fr 1.5fr 1fr 0.8fr 1.5fr; align-items: center; }
+
+/* ===== Foundry ===== */
+.kablitz-foundry-cap { background: #fff; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 10px; padding: 16px 18px; margin-bottom: 14px; }
+.kablitz-foundry-cap-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 8px; }
+.kablitz-foundry-cap-head span { font-size: 12.5px; color: #777; }
+.kablitz-foundry-cap-head strong { font-size: 22px; font-weight: 760; }
+.kablitz-foundry-cap-bar { height: 8px; border-radius: 999px; background: #eee; overflow: hidden; }
+.kablitz-foundry-cap-bar i { display: block; height: 100%; background: linear-gradient(90deg, #1c7a3c, #e6a700); border-radius: 999px; }
+.kablitz-foundry-table .kablitz-admin-row { grid-template-columns: 1.4fr 1.6fr 0.8fr 1fr 1.2fr; align-items: center; }
+.kablitz-cast-status { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 650; }
+.kablitz-cast-status.tone-plan { background: #eee; color: #666; }
+.kablitz-cast-status.tone-active { background: #fff3cd; color: #7a5400; }
+.kablitz-cast-status.tone-check { background: #e7f0fb; color: #1c5aa8; }
+.kablitz-cast-status.tone-ok { background: #e3f3e8; color: #1c7a3c; }
+
+@media (max-width: 700px) {
+  .kablitz-proj-table .kablitz-admin-row,
+  .kablitz-inst-table .kablitz-admin-row,
+  .kablitz-foundry-table .kablitz-admin-row { grid-template-columns: 1fr; }
+  .kablitz-block-head { align-items: flex-start; }
+}

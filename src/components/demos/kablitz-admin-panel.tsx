@@ -7,6 +7,11 @@ import {
   CheckCircle2,
   ClipboardCheck,
   Clock,
+  Download,
+  Factory,
+  FileSpreadsheet,
+  FolderKanban,
+  Globe,
   History,
   LayoutDashboard,
   PackageSearch,
@@ -15,6 +20,7 @@ import {
   Sparkles,
   Star,
   Truck,
+  Upload,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -60,13 +66,51 @@ const RECEIVING_CHECKS: ReceivingCheck[] = [
   { supplier: "Gießerei-Zulieferer Nord", article: "Rohgussteile R-415", orderedQty: "60 Stk.", deliveredQty: "54 Stk.", ok: false },
 ];
 
+type Phase = "Angebot" | "Auftrag" | "Fertigung" | "Montage" | "Inbetriebnahme" | "Service";
+type Project = { name: string; customer: string; location: string; phase: Phase; deadline: string; budget: number; spent: number };
+type Plant = { name: string; country: string; city: string; commissioned: number; capacity: string; nextService: string; overdue?: boolean };
+type Cast = { part: string; project: string; qty: number; pour: string; status: "geplant" | "in Fertigung" | "gegossen" | "Qualitätsprüfung" };
+
+const PHASES: Phase[] = ["Angebot", "Auftrag", "Fertigung", "Montage", "Inbetriebnahme", "Service"];
+
+const PROJECTS: Project[] = [
+  { name: "Biomasse-HKW Ansbach", customer: "Stadtwerke Ansbach", location: "Ansbach (DE)", phase: "Fertigung", deadline: "2026-09-15", budget: 1850000, spent: 690000 },
+  { name: "Dampfkessel Plzeň", customer: "Plzeňská Teplárna", location: "Plzeň (CZ)", phase: "Montage", deadline: "2026-07-28", budget: 1240000, spent: 1120000 },
+  { name: "Rostfeuerung Sägewerk Süd", customer: "Holzwerk Müller", location: "Kempten (DE)", phase: "Auftrag", deadline: "2026-11-30", budget: 760000, spent: 95000 },
+  { name: "Wärmerückgewinnung Linz", customer: "Energie AG", location: "Linz (AT)", phase: "Angebot", deadline: "2027-02-10", budget: 540000, spent: 0 },
+  { name: "Service-Retrofit Riga", customer: "Rīgas Siltums", location: "Riga (LV)", phase: "Inbetriebnahme", deadline: "2026-07-05", budget: 410000, spent: 388000 },
+];
+
+const PLANTS: Plant[] = [
+  { name: "HKW Tauberfranken", country: "Deutschland", city: "Bad Mergentheim", commissioned: 2019, capacity: "12 MW", nextService: "2026-07-12", overdue: false },
+  { name: "Biomasse-Kessel Uppsala", country: "Schweden", city: "Uppsala", commissioned: 2017, capacity: "8 MW", nextService: "2026-06-20", overdue: true },
+  { name: "Rostfeuerung Busan", country: "Südkorea", city: "Busan", commissioned: 2021, capacity: "15 MW", nextService: "2026-09-01", overdue: false },
+  { name: "Heißgaserzeuger Graz", country: "Österreich", city: "Graz", commissioned: 2015, capacity: "6 MW", nextService: "2026-06-10", overdue: true },
+  { name: "Dampfanlage Lyon", country: "Frankreich", city: "Lyon", commissioned: 2020, capacity: "10 MW", nextService: "2026-10-15", overdue: false },
+];
+
+const CASTS: Cast[] = [
+  { part: "Gussrost R-415", project: "Biomasse-HKW Ansbach", qty: 48, pour: "2026-07-02", status: "in Fertigung" },
+  { part: "Rippenplatte RP-12", project: "Dampfkessel Plzeň", qty: 120, pour: "2026-06-28", status: "Qualitätsprüfung" },
+  { part: "Roststab RS-90", project: "Service-Retrofit Riga", qty: 200, pour: "2026-07-08", status: "geplant" },
+  { part: "Gussrost R-415", project: "Rostfeuerung Sägewerk Süd", qty: 36, pour: "2026-07-15", status: "geplant" },
+  { part: "Lamellenplatte LP-7", project: "Ersatzteillager", qty: 80, pour: "2026-06-25", status: "gegossen" },
+];
+
+const FOUNDRY_CAPACITY = 82; // % Auslastung diese Woche
+
 const isBelowMin = (item: StockItem) => item.onHand < item.min;
 const lowStock = STOCK.filter(isBelowMin);
 const lateOrders = ORDERS.filter((o) => o.status === "verspätet");
 const avgOnTime = Math.round(SUPPLIER_SCORES.reduce((s, x) => s + x.onTimeRate, 0) / SUPPLIER_SCORES.length);
+const overdueServices = PLANTS.filter((p) => p.overdue);
+const eur = (n: number) => n.toLocaleString("de-DE");
 
 type ViewKey =
   | "dashboard"
+  | "projects"
+  | "installed"
+  | "foundry"
   | "stock"
   | "orders"
   | "receiving"
@@ -80,6 +124,9 @@ type NavItem = { key: ViewKey; label: string; icon: ReactNode; done: boolean };
 
 const NAV: NavItem[] = [
   { key: "dashboard", label: "Übersicht", icon: <LayoutDashboard size={17} />, done: true },
+  { key: "projects", label: "Projekte", icon: <FolderKanban size={17} />, done: true },
+  { key: "installed", label: "Anlagen-Bestand", icon: <Globe size={17} />, done: true },
+  { key: "foundry", label: "Gießerei", icon: <Factory size={17} />, done: true },
   { key: "stock", label: "Lagerbestand", icon: <PackageSearch size={17} />, done: true },
   { key: "orders", label: "Bestellungen", icon: <Truck size={17} />, done: true },
   { key: "receiving", label: "Wareneingang", icon: <ClipboardCheck size={17} />, done: true },
@@ -106,7 +153,7 @@ export function KablitzAdminPanel({ lead }: { lead: LeadProfile }) {
       <aside className="kablitz-panel-sidebar">
         <div className="kablitz-panel-brand">
           <Image src="/leads/kablitz-gmbh-r4t9k2/logo-kablitz.png" alt="Kablitz" width={120} height={17} unoptimized />
-          <span>Beschaffung &amp; Lager</span>
+          <span>Betriebsplattform</span>
         </div>
         <nav className="kablitz-panel-nav">
           {NAV.map((item) => (
@@ -137,7 +184,10 @@ export function KablitzAdminPanel({ lead }: { lead: LeadProfile }) {
         </header>
 
         <div className="kablitz-panel-content">
-          {view === "dashboard" && <DashboardView />}
+          {view === "dashboard" && <DashboardView onJump={setView} />}
+          {view === "projects" && <ProjectsView />}
+          {view === "installed" && <InstalledView />}
+          {view === "foundry" && <FoundryView />}
           {view === "stock" && <StockView />}
           {view === "orders" && <OrdersView />}
           {view === "receiving" && <ReceivingView />}
@@ -145,6 +195,29 @@ export function KablitzAdminPanel({ lead }: { lead: LeadProfile }) {
           {!active.done && <RedPlaceholder title={active.label} copy={PLACEHOLDER_COPY[active.key]} />}
         </div>
       </main>
+    </div>
+  );
+}
+
+/** Excel migration affordance — signals "we move your spreadsheets into the app". Demo only. */
+function ExcelTools() {
+  return (
+    <div className="kablitz-excel-tools">
+      <button type="button" className="kablitz-excel-btn is-import">
+        <Upload size={14} /> Aus Excel importieren
+      </button>
+      <button type="button" className="kablitz-excel-btn">
+        <Download size={14} /> Export
+      </button>
+    </div>
+  );
+}
+
+function BlockHead({ icon, title }: { icon: ReactNode; title: string }) {
+  return (
+    <div className="kablitz-block-head">
+      <h2>{icon} {title}</h2>
+      <ExcelTools />
     </div>
   );
 }
@@ -160,48 +233,162 @@ function RedPlaceholder({ title, copy }: { title: string; copy: string }) {
   );
 }
 
-function DashboardView() {
-  const tiles = [
-    { label: "Unter Mindestbestand", value: lowStock.length, tone: "warn" },
-    { label: "Überfällige Lieferungen", value: lateOrders.length, tone: "danger" },
-    { label: "Offene Bestellungen", value: ORDERS.filter((o) => o.status !== "erhalten").length, tone: "neutral" },
-    { label: "Ø Liefertreue", value: `${avgOnTime}%`, tone: "ok" },
+function DashboardView({ onJump }: { onJump: (v: ViewKey) => void }) {
+  const tiles: { label: string; value: string | number; tone: string; to: ViewKey }[] = [
+    { label: "Laufende Projekte", value: PROJECTS.filter((p) => p.phase !== "Service").length, tone: "neutral", to: "projects" },
+    { label: "Anlagen weltweit", value: PLANTS.length, tone: "ok", to: "installed" },
+    { label: "Service überfällig", value: overdueServices.length, tone: "danger", to: "installed" },
+    { label: "Gießerei-Auslastung", value: `${FOUNDRY_CAPACITY}%`, tone: "warn", to: "foundry" },
+    { label: "Unter Mindestbestand", value: lowStock.length, tone: "warn", to: "stock" },
+    { label: "Lieferungen verspätet", value: lateOrders.length, tone: "danger", to: "orders" },
   ];
   return (
     <>
-      {(lowStock.length > 0 || lateOrders.length > 0) && (
-        <div className="kablitz-admin-alerts">
-          {lowStock.length > 0 && (
-            <article className="kablitz-admin-alert is-warning">
-              <AlertTriangle size={18} />
-              <span>{lowStock.length} Artikel unter Mindestbestand — Nachbestellung erforderlich.</span>
-            </article>
-          )}
-          {lateOrders.length > 0 && (
-            <article className="kablitz-admin-alert is-danger">
-              <Clock size={18} />
-              <span>{lateOrders.length} Bestellung(en) überfällig — Lieferant kontaktieren.</span>
-            </article>
-          )}
-        </div>
-      )}
-      <div className="kablitz-panel-tiles">
+      <div className="kablitz-admin-alerts">
+        {overdueServices.length > 0 && (
+          <article className="kablitz-admin-alert is-danger">
+            <AlertTriangle size={18} />
+            <span>{overdueServices.length} Anlagen mit überfälligem Service — Wartung einplanen.</span>
+          </article>
+        )}
+        {lateOrders.length > 0 && (
+          <article className="kablitz-admin-alert is-warning">
+            <Clock size={18} />
+            <span>{lateOrders.length} Bestellung(en) überfällig — Lieferant kontaktieren.</span>
+          </article>
+        )}
+        {lowStock.length > 0 && (
+          <article className="kablitz-admin-alert is-warning">
+            <PackageSearch size={18} />
+            <span>{lowStock.length} Artikel unter Mindestbestand — Nachbestellung erforderlich.</span>
+          </article>
+        )}
+      </div>
+      <div className="kablitz-panel-tiles kablitz-panel-tiles-6">
         {tiles.map((t) => (
-          <article key={t.label} className={`kablitz-panel-tile tone-${t.tone}`}>
+          <button key={t.label} type="button" className={`kablitz-panel-tile tone-${t.tone}`} onClick={() => onJump(t.to)}>
             <strong>{t.value}</strong>
             <span>{t.label}</span>
-          </article>
+          </button>
         ))}
       </div>
     </>
   );
 }
 
+function ProjectsView() {
+  return (
+    <section className="kablitz-admin-block">
+      <BlockHead icon={<FolderKanban size={18} />} title="Projekt-Pipeline" />
+      <div className="kablitz-admin-table kablitz-proj-table">
+        <div className="kablitz-admin-row kablitz-admin-row-head">
+          <span>Projekt</span><span>Kunde</span><span>Phase</span><span>Termin</span><span>Budget</span>
+        </div>
+        {PROJECTS.map((p) => {
+          const ratio = p.budget ? p.spent / p.budget : 0;
+          const over = ratio > 1;
+          return (
+            <div className="kablitz-admin-row" key={p.name}>
+              <span>
+                <strong className="kablitz-proj-name">{p.name}</strong>
+                <em className="kablitz-proj-loc">{p.location}</em>
+              </span>
+              <span>{p.customer}</span>
+              <span><PhaseBadge phase={p.phase} /></span>
+              <span>{p.deadline}</span>
+              <span className="kablitz-proj-budget">
+                <span className="kablitz-proj-bar"><i className={over ? "is-over" : ""} style={{ width: `${Math.min(100, ratio * 100)}%` }} /></span>
+                <small>{eur(p.spent)} / {eur(p.budget)} €</small>
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function PhaseBadge({ phase }: { phase: Phase }) {
+  const idx = PHASES.indexOf(phase);
+  return (
+    <span className="kablitz-phase" title={`Phase ${idx + 1}/${PHASES.length}`}>
+      <span className="kablitz-phase-track">
+        {PHASES.map((_, i) => (
+          <i key={i} className={i <= idx ? "is-on" : ""} />
+        ))}
+      </span>
+      {phase}
+    </span>
+  );
+}
+
+function InstalledView() {
+  const countries = new Set(PLANTS.map((p) => p.country)).size;
+  return (
+    <section className="kablitz-admin-block">
+      <BlockHead icon={<Globe size={18} />} title={`Anlagen-Bestand — ${PLANTS.length} Anlagen in ${countries} Ländern`} />
+      <div className="kablitz-admin-table kablitz-inst-table">
+        <div className="kablitz-admin-row kablitz-admin-row-head">
+          <span>Anlage</span><span>Standort</span><span>Inbetriebnahme</span><span>Leistung</span><span>Nächster Service</span>
+        </div>
+        {PLANTS.map((p) => (
+          <div className={`kablitz-admin-row ${p.overdue ? "is-late" : ""}`} key={p.name}>
+            <span><strong className="kablitz-proj-name">{p.name}</strong></span>
+            <span>{p.city}, {p.country}</span>
+            <span>{p.commissioned}</span>
+            <span>{p.capacity}</span>
+            <span className="kablitz-admin-status">
+              {p.overdue ? <><AlertTriangle size={14} /> {p.nextService} · überfällig</> : <><CheckCircle2 size={14} /> {p.nextService}</>}
+            </span>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function FoundryView() {
+  return (
+    <>
+      <section className="kablitz-admin-block">
+        <BlockHead icon={<Factory size={18} />} title="Gießerei — Fertigungsplanung" />
+        <div className="kablitz-foundry-cap">
+          <div className="kablitz-foundry-cap-head">
+            <span>Auslastung diese Woche</span>
+            <strong>{FOUNDRY_CAPACITY}%</strong>
+          </div>
+          <div className="kablitz-foundry-cap-bar"><i style={{ width: `${FOUNDRY_CAPACITY}%` }} /></div>
+        </div>
+        <div className="kablitz-admin-table kablitz-foundry-table">
+          <div className="kablitz-admin-row kablitz-admin-row-head">
+            <span>Gussteil</span><span>Projekt</span><span>Menge</span><span>Abguss</span><span>Status</span>
+          </div>
+          {CASTS.map((c) => (
+            <div className="kablitz-admin-row" key={c.part + c.project}>
+              <span><strong className="kablitz-proj-name">{c.part}</strong></span>
+              <span className="kablitz-admin-project">{c.project}</span>
+              <span>{c.qty} Stk.</span>
+              <span>{c.pour}</span>
+              <span><CastStatus status={c.status} /></span>
+            </div>
+          ))}
+        </div>
+      </section>
+    </>
+  );
+}
+
+function CastStatus({ status }: { status: Cast["status"] }) {
+  const tone =
+    status === "gegossen" ? "ok" : status === "Qualitätsprüfung" ? "check" : status === "in Fertigung" ? "active" : "plan";
+  return <span className={`kablitz-cast-status tone-${tone}`}>{status}</span>;
+}
+
 function StockView() {
   return (
     <>
       <section className="kablitz-admin-block">
-        <h2><PackageSearch size={18} /> Lagerbestand &amp; Mindestbestand</h2>
+        <BlockHead icon={<PackageSearch size={18} />} title="Lagerbestand & Mindestbestand" />
         <div className="kablitz-admin-table">
           <div className="kablitz-admin-row kablitz-admin-row-head">
             <span>Artikel</span><span>Bestand</span><span>Mindestbestand</span><span>Status</span>
@@ -245,7 +432,7 @@ function StockView() {
 function OrdersView() {
   return (
     <section className="kablitz-admin-block">
-      <h2><Truck size={18} /> Bestellungen bei Lieferanten</h2>
+      <BlockHead icon={<Truck size={18} />} title="Bestellungen bei Lieferanten" />
       <div className="kablitz-admin-table kablitz-admin-orders-5col">
         <div className="kablitz-admin-row kablitz-admin-row-head">
           <span>Lieferant</span><span>Projekt / Anlage</span><span>Bestellt am</span><span>Erwartet am</span><span>Status</span>
@@ -292,7 +479,7 @@ function ReceivingView() {
 function SuppliersView() {
   return (
     <section className="kablitz-admin-block">
-      <h2><Star size={18} /> Lieferantenbewertung</h2>
+      <BlockHead icon={<Star size={18} />} title="Lieferantenbewertung" />
       <div className="kablitz-admin-scores">
         {SUPPLIER_SCORES.map((score) => (
           <article className="kablitz-admin-score-card" key={score.supplier}>
