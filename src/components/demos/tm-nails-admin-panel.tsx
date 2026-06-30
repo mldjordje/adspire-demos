@@ -208,6 +208,7 @@ function Calendar() {
           <span key={s} className="tm-admin-legend-item"><i className={`tm-admin-legend-dot staff-${i}`} />{s}</span>
         ))}
       </div>
+      {/* Desktop: per-staff day grid */}
       <div className="tm-admin-cal-scroll">
         <div className="tm-admin-cal">
           <div className="tm-admin-cal-col tm-admin-cal-hours">
@@ -234,6 +235,21 @@ function Calendar() {
           ))}
         </div>
       </div>
+
+      {/* Mobile: chronological agenda — readable without horizontal scroll */}
+      <ol className="tm-admin-agenda">
+        {[...TODAY].sort((a, b) => toMin(a.time) - toMin(b.time)).map((a) => (
+          <li className={`tm-admin-agenda-item staff-${STAFF.indexOf(a.staff)}${a.status === "offen" ? " is-tentative" : ""}`} key={a.time + a.client}>
+            <span className="tm-admin-agenda-time">{a.time}<small>{a.end}</small></span>
+            <span className="tm-admin-agenda-body">
+              <strong>{a.client}</strong>
+              <small>{a.service}</small>
+              <span className="tm-admin-agenda-staff"><UserRound size={11} /> {a.staff}</span>
+            </span>
+            <StatusBadge status={a.status} />
+          </li>
+        ))}
+      </ol>
     </section>
   );
 }
