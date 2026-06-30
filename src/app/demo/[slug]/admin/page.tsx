@@ -3,12 +3,14 @@ import { getLeadBySlug } from "@/data/leads";
 import { KablitzAdminPage } from "@/components/demos/kablitz-admin-page";
 import { BelschnerAdminPage } from "@/components/demos/belschner-admin-page";
 import { HuthmannAdminPage } from "@/components/demos/huthmann-admin-page";
+import { OlaBeautyAdminPage } from "@/components/demos/ola-beauty-admin-page";
 import { buildDemoMetadata } from "@/lib/metadata";
 
 const ADMIN_PREVIEW_SLUGS = new Set([
   "kablitz-gmbh-r4t9k2",
   "belschner-elektrotechnik-w7k4n2",
   "huthmann-tuning-automobile-s9k3m6",
+  "ola-beauty-bad-mergentheim-n8k4w2",
 ]);
 
 type AdminRouteProps = { params: Promise<{ slug: string }> };
@@ -29,5 +31,6 @@ export default async function AdminRoute({ params }: AdminRouteProps) {
   if (!lead || !ADMIN_PREVIEW_SLUGS.has(slug)) notFound();
   if (slug === "belschner-elektrotechnik-w7k4n2") return <BelschnerAdminPage lead={lead} />;
   if (slug === "huthmann-tuning-automobile-s9k3m6") return <HuthmannAdminPage lead={lead} />;
+  if (slug === "ola-beauty-bad-mergentheim-n8k4w2") return <OlaBeautyAdminPage lead={lead} />;
   return <KablitzAdminPage lead={lead} />;
 }

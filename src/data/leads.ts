@@ -33,6 +33,32 @@ const rawLeads: LeadProfile[] = [
     sources: ["https://www.openstreetmap.org/node/7728684485"],
   },
   {
+    slug: "ola-beauty-bad-mergentheim-n8k4w2",
+    family: "beauty",
+    status: "research",
+    businessName: "Ola Beauty",
+    businessType: "Nagelstudio & Beauty",
+    city: "Bad Mergentheim",
+    tagline: "Nageldesign & Beauty in Bad Mergentheim.",
+    shortDescription:
+      "Unverbindlicher Entwurf für ein Nagelstudio: klare Mobil-Optik, Online-Terminbuchung und eine Admin-Vorschau für die Salonverwaltung.",
+    primaryCta: "booking-demo",
+    services: [
+      { title: "Maniküre & Naturnagel", description: "Pflege, Form und glänzendes Finish — gepflegte Hände in unter einer Stunde.", meta: "ab 28 €" },
+      { title: "Gel-Nägel & Modellage", description: "Stabile Verstärkung in Wunschform und -länge, langlebig und natürlich.", meta: "ab 49 €" },
+      { title: "French & Babyboomer", description: "Der zeitlose Klassiker — sanfter Verlauf, perfekt für jeden Anlass.", meta: "ab 55 €" },
+      { title: "Nail Art & Design", description: "Individuelle Motive, Schwünge, Blüten oder Steinchen nach deiner Idee.", meta: "ab 8 €/Nagel" },
+      { title: "Maniküre + Shellac", description: "Wochenlanger Glanz ohne Absplittern — ideal für den Alltag.", meta: "ab 38 €" },
+      { title: "Auffüllen & Refill", description: "Bestehende Modellage frisch aufgefüllt und nachmodelliert.", meta: "ab 39 €" },
+    ],
+    contact: {
+      mapsUrl: "https://www.google.com/maps/place/OLA+BEAUTY/@49.49274,9.7712851,732m/data=!3m1!1e3!4m6!3m5!1s0x4798710f9c9d6019:0xcd6a35e6d0259f17!8m2!3d49.49274!4d9.77386!16s%2Fg%2F11d_tqv0kl",
+      instagramUrl: "https://www.instagram.com/",
+    },
+    sources: ["https://www.google.com/maps/place/OLA+BEAUTY/@49.49274,9.77386,17z"],
+    notes: "Demo-Konzept Nagelstudio. Bilder als stilisierte SVG-Illustrationen, da keine freigegebenen Fotos vorliegen.",
+  },
+  {
     slug: "haargenau-bei-magda-p7r2v9",
     family: "beauty",
     status: "research",

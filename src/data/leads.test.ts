@@ -2,9 +2,9 @@ import { describe, expect, it } from "vitest";
 import { getLeadBySlug, leads } from "@/data/leads";
 
 describe("lead registry", () => {
-  it("contains between 10 and 16 unique demo routes", () => {
+  it("contains between 10 and 18 unique demo routes", () => {
     expect(leads.length).toBeGreaterThanOrEqual(10);
-    expect(leads.length).toBeLessThanOrEqual(16);
+    expect(leads.length).toBeLessThanOrEqual(18);
     expect(new Set(leads.map((lead) => lead.slug)).size).toBe(leads.length);
   });
 

@@ -4,6 +4,7 @@ import { BartecPage } from "@/components/demos/bartec-page";
 import { BelschnerPage } from "@/components/demos/belschner-page";
 import { HuthmannPage } from "@/components/demos/huthmann-page";
 import { KablitzPage } from "@/components/demos/kablitz-page";
+import { OlaBeautyPage } from "@/components/demos/ola-beauty-page";
 import { getLeadBySlug, leads } from "@/data/leads";
 import { buildDemoMetadata } from "@/lib/metadata";
 
@@ -28,5 +29,6 @@ export default async function DemoRoute({ params }: DemoRouteProps) {
   if (slug === "kablitz-gmbh-r4t9k2") return <KablitzPage lead={lead} />;
   if (slug === "belschner-elektrotechnik-w7k4n2") return <BelschnerPage lead={lead} />;
   if (slug === "huthmann-tuning-automobile-s9k3m6") return <HuthmannPage lead={lead} />;
+  if (slug === "ola-beauty-bad-mergentheim-n8k4w2") return <OlaBeautyPage lead={lead} />;
   return <DemoPage lead={lead} />;
 }

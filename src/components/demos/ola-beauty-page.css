@@ -1,0 +1,320 @@
+/* Bespoke Ola Beauty nail-studio demo — standalone, not part of the shared theme system. */
+
+.ola-page {
+  --ivory: #faf8f5;
+  --ivory2: #f3ede6;
+  --blush: #ede3dc;
+  --gold: #c4a26a;
+  --gold-lt: #d9be93;
+  --dark: #1c1a17;
+  --mid: #6b6460;
+  --serif: "Cormorant Garamond", Georgia, serif;
+  position: relative;
+  min-height: 100vh;
+  overflow-x: clip;
+  background: var(--ivory);
+  color: var(--dark);
+  font-family: var(--font-geist-sans), -apple-system, sans-serif;
+  font-weight: 300;
+}
+.ola-page * { box-sizing: border-box; }
+.ola-page a { color: inherit; text-decoration: none; }
+
+.ola-disclaimer {
+  margin: 0;
+  padding: 7px clamp(18px, 4vw, 64px);
+  background: var(--dark);
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* reveal */
+.ola-page [data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--i, 0) * 0.08s);
+}
+.ola-page [data-reveal].is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .ola-page [data-reveal] { opacity: 1 !important; transform: none !important; }
+}
+
+/* ── HEADER ── */
+.ola-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px clamp(20px, 5vw, 60px);
+  transition: background 0.4s ease, padding 0.3s ease, box-shadow 0.3s ease;
+}
+.ola-header.is-scrolled {
+  background: rgba(250, 248, 245, 0.93);
+  backdrop-filter: blur(16px);
+  padding: 12px clamp(20px, 5vw, 60px);
+  box-shadow: 0 1px 0 rgba(196, 162, 106, 0.14);
+}
+.ola-wordmark { font-family: var(--serif); font-size: 18px; letter-spacing: 7px; color: var(--dark); }
+.ola-wordmark span { color: var(--gold); }
+.ola-nav { display: flex; gap: 30px; }
+.ola-nav a {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--mid);
+  transition: color 0.2s ease;
+}
+.ola-nav a:hover { color: var(--dark); }
+.ola-header-cta {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--dark);
+  border: 1px solid rgba(196, 162, 106, 0.45); padding: 10px 20px;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+.ola-header-cta:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
+
+/* ── BUTTONS ── */
+.ola-btn-primary {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: #fff; background: var(--dark); border: none; padding: 16px 30px;
+  cursor: pointer; position: relative; overflow: hidden; font-family: inherit;
+}
+.ola-btn-primary::after {
+  content: ""; position: absolute; inset: 0; background: var(--gold);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ola-btn-primary:hover::after { transform: scaleX(1); }
+.ola-btn-primary > * { position: relative; z-index: 1; }
+.ola-btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--mid); background: none; border: none; padding: 16px 0;
+  cursor: pointer; transition: color 0.2s ease; font-family: inherit;
+}
+.ola-btn-ghost:hover { color: var(--dark); }
+
+/* ── HERO ── */
+.ola-hero {
+  min-height: calc(100vh - 64px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+.ola-hero-line {
+  position: absolute; left: 58px; top: 12vh; bottom: 12vh; width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--gold-lt), transparent);
+}
+.ola-hero-left {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 60px clamp(28px, 5vw, 60px) 60px clamp(40px, 8vw, 110px);
+  position: relative; z-index: 2;
+}
+.ola-eyebrow {
+  font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold);
+  margin: 0 0 26px;
+}
+.ola-hero-title {
+  font-family: var(--serif); font-size: clamp(46px, 6vw, 84px); font-weight: 300;
+  line-height: 1.05; letter-spacing: -1px; margin: 0 0 26px;
+}
+.ola-hero-title em { font-style: italic; color: var(--gold); }
+.ola-hero-sub {
+  font-size: 15px; line-height: 1.8; color: var(--mid); max-width: 380px; margin: 0 0 42px;
+}
+.ola-hero-actions { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.ola-scroll-hint {
+  display: flex; align-items: center; gap: 12px; margin-top: 50px;
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--mid);
+}
+.ola-scroll-hint span.line { width: 32px; height: 1px; background: var(--gold-lt); }
+.ola-hero-right { position: relative; overflow: hidden; }
+.ola-hero-right img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ola-hero-scrim {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, var(--ivory) 0%, transparent 36%),
+              linear-gradient(to bottom, transparent 58%, var(--ivory) 100%);
+}
+
+/* ── SECTIONS ── */
+.ola-section { padding: clamp(72px, 10vw, 110px) clamp(24px, 7vw, 100px); max-width: 1400px; margin: 0 auto; }
+.ola-section-label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin: 0 0 16px; }
+.ola-section-heading {
+  font-family: var(--serif); font-size: clamp(34px, 4vw, 56px); font-weight: 300;
+  line-height: 1.1; margin: 0 0 56px;
+}
+.ola-section-heading em { font-style: italic; color: var(--gold); }
+
+/* ── SERVICES ── */
+.ola-services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.ola-service-card {
+  padding: 38px 32px; background: var(--ivory2); position: relative; overflow: hidden;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.ola-service-card:hover { box-shadow: 0 20px 60px rgba(196, 162, 106, 0.16); transform: translateY(-3px); }
+.ola-service-icon { display: block; color: var(--gold-lt); margin-bottom: 16px; }
+.ola-service-name { font-family: var(--serif); font-size: 22px; font-weight: 400; margin: 0 0 10px; }
+.ola-service-desc { font-size: 13px; line-height: 1.75; color: var(--mid); margin: 0 0 18px; }
+.ola-service-price { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+
+/* ── PORTFOLIO ── */
+.ola-portfolio { padding: clamp(72px, 10vw, 110px) 0 80px; }
+.ola-portfolio-intro { padding: 0 clamp(24px, 7vw, 100px); margin-bottom: 48px; }
+.ola-portfolio-track {
+  display: flex; gap: 20px; padding: 0 clamp(24px, 7vw, 100px); overflow-x: auto;
+  scroll-snap-type: x mandatory; scrollbar-width: none;
+}
+.ola-portfolio-track::-webkit-scrollbar { display: none; }
+.ola-portfolio-item {
+  flex-shrink: 0; width: min(440px, 82vw); height: 540px; position: relative;
+  overflow: hidden; scroll-snap-align: start;
+}
+.ola-portfolio-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+.ola-portfolio-item:hover img { transform: scale(1.05); }
+.ola-portfolio-overlay {
+  position: absolute; inset: auto 0 0 0; padding: 40px 26px 26px;
+  background: linear-gradient(to top, rgba(28, 26, 23, 0.72), transparent);
+  opacity: 0; transition: opacity 0.3s ease;
+}
+.ola-portfolio-item:hover .ola-portfolio-overlay { opacity: 1; }
+.ola-portfolio-tag { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-lt); }
+.ola-portfolio-cta {
+  flex-shrink: 0; width: min(360px, 82vw); height: 540px; background: var(--blush);
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+  padding: 50px 40px; scroll-snap-align: start;
+}
+.ola-portfolio-cta p { font-family: var(--serif); font-size: 30px; font-weight: 300; line-height: 1.2; margin: 0 0 26px; }
+
+/* ── ABOUT ── */
+.ola-about-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(40px, 6vw, 80px); align-items: center; }
+.ola-about-photo-wrap { position: relative; }
+.ola-about-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
+.ola-about-badge { position: absolute; bottom: -18px; right: -18px; background: var(--dark); padding: 22px 26px; text-align: center; }
+.ola-badge-num { font-family: var(--serif); font-size: 44px; font-weight: 300; color: var(--gold); line-height: 1; }
+.ola-badge-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255, 255, 255, 0.45); margin-top: 6px; }
+.ola-about-divider { width: 40px; height: 1px; background: var(--gold); margin: 22px 0; }
+.ola-about-body { font-size: 15px; line-height: 1.85; color: var(--mid); margin: 0 0 14px; }
+.ola-about-sig { font-family: var(--serif); font-size: 20px; font-style: italic; color: var(--gold); margin-top: 26px; }
+
+/* ── BOOKING ── */
+.ola-booking { position: relative; background: var(--dark); padding: clamp(80px, 10vw, 110px) 0; color: #fff; overflow: hidden; }
+.ola-booking-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.ola-orb { position: absolute; border-radius: 50%; filter: blur(40px); opacity: 0.4; animation: olaFloat 14s ease-in-out infinite; }
+.ola-orb.o1 { width: 320px; height: 320px; left: -60px; top: 10%; background: radial-gradient(circle, rgba(217, 190, 147, 0.7), transparent 70%); }
+.ola-orb.o2 { width: 260px; height: 260px; right: 4%; top: 30%; background: radial-gradient(circle, rgba(255, 190, 180, 0.5), transparent 70%); animation-delay: -4s; }
+.ola-orb.o3 { width: 220px; height: 220px; left: 40%; bottom: 0; background: radial-gradient(circle, rgba(255, 248, 230, 0.4), transparent 70%); animation-delay: -8s; }
+@keyframes olaFloat { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(24px, -30px) scale(1.12); } }
+@media (prefers-reduced-motion: reduce) { .ola-orb { animation: none; } }
+.ola-booking-inner { position: relative; z-index: 2; max-width: 680px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 40px); }
+.ola-booking-label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin: 0 0 14px; }
+.ola-booking-heading { font-family: var(--serif); font-size: clamp(30px, 4vw, 50px); font-weight: 300; margin: 0 0 10px; }
+.ola-booking-heading em { font-style: italic; color: var(--gold); }
+.ola-booking-sub { font-size: 14px; color: rgba(255, 255, 255, 0.42); margin: 0 0 40px; line-height: 1.7; }
+
+.ola-steps { display: flex; flex-direction: column; gap: 2px; margin-bottom: 26px; }
+.ola-step-row {
+  display: flex; align-items: center; gap: 20px; padding: 16px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.07); cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease; text-align: left; background: none; font-family: inherit; color: inherit; width: 100%;
+}
+.ola-step-row.active { border-color: rgba(196, 162, 106, 0.35); background: rgba(196, 162, 106, 0.05); }
+.ola-step-row.done .ola-step-num { background: var(--gold); border-color: var(--gold); color: #fff; }
+.ola-step-row:disabled { cursor: not-allowed; opacity: 0.55; }
+.ola-step-num {
+  width: 30px; height: 30px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.22);
+  display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+.ola-step-content { flex: 1; }
+.ola-step-title { font-size: 13px; font-weight: 400; letter-spacing: 0.5px; }
+.ola-step-desc { font-size: 12px; color: rgba(255, 255, 255, 0.4); margin-top: 2px; }
+.ola-step-arrow { font-size: 16px; color: rgba(255, 255, 255, 0.25); }
+
+.ola-panel { margin-bottom: 20px; }
+.ola-chip-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.ola-chip {
+  font-size: 12px; letter-spacing: 0.5px; color: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.13); background: none; padding: 11px 20px;
+  cursor: pointer; transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease; font-family: inherit;
+}
+.ola-chip:hover, .ola-chip.chosen { border-color: var(--gold); color: var(--gold); background: rgba(196, 162, 106, 0.07); }
+.ola-chip small { display: block; font-size: 10px; letter-spacing: 1px; opacity: 0.6; margin-top: 3px; }
+.ola-date-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; }
+.ola-date-btn {
+  background: none; border: 1px solid rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.62);
+  padding: 12px 8px; font-size: 12px; cursor: pointer; display: flex; flex-direction: column;
+  align-items: center; gap: 4px; transition: all 0.2s ease; font-family: inherit;
+}
+.ola-date-btn .dname { font-size: 10px; color: rgba(255, 255, 255, 0.32); letter-spacing: 1px; }
+.ola-date-btn:hover, .ola-date-btn.picked { border-color: var(--gold); color: var(--gold-lt); }
+.ola-time-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.ola-time-btn {
+  background: none; border: 1px solid rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.62);
+  padding: 12px; font-size: 12px; cursor: pointer; transition: all 0.2s ease; font-family: inherit;
+}
+.ola-time-btn:hover, .ola-time-btn.picked { border-color: var(--gold); color: var(--gold-lt); }
+.ola-confirm { display: flex; flex-direction: column; gap: 12px; }
+.ola-input {
+  background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff;
+  padding: 14px 18px; font-size: 13px; font-family: inherit; outline: none; transition: border-color 0.2s ease;
+}
+.ola-input::placeholder { color: rgba(255, 255, 255, 0.26); }
+.ola-input:focus { border-color: var(--gold); }
+.ola-btn-book {
+  font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--dark);
+  background: var(--gold); border: none; padding: 17px 32px; cursor: pointer;
+  transition: background 0.25s ease, opacity 0.25s ease; font-family: inherit; align-self: flex-start;
+}
+.ola-btn-book:hover { background: var(--gold-lt); }
+.ola-btn-book:disabled { opacity: 0.4; cursor: not-allowed; }
+.ola-booking-note { font-size: 11px; letter-spacing: 1.5px; color: rgba(255, 255, 255, 0.18); margin: 26px 0 0; text-align: center; }
+.ola-success { text-align: center; padding: 50px 0; }
+.ola-success-icon {
+  width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--gold);
+  display: flex; align-items: center; justify-content: center; color: var(--gold); margin: 0 auto 20px;
+}
+.ola-success-title { font-family: var(--serif); font-size: 24px; font-weight: 300; margin: 0 0 10px; }
+.ola-success-desc { font-size: 14px; color: rgba(255, 255, 255, 0.45); line-height: 1.7; margin: 0; }
+
+/* ── ADMIN CTA ── */
+.ola-admin-cta {
+  margin: 0 auto; max-width: 1100px; padding: clamp(40px, 6vw, 64px) clamp(28px, 6vw, 64px);
+  display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap;
+  background: var(--ivory2); border: 1px solid rgba(196, 162, 106, 0.2);
+}
+.ola-admin-cta h2 { font-family: var(--serif); font-size: clamp(24px, 3vw, 34px); font-weight: 300; margin: 8px 0 8px; }
+.ola-admin-cta p { font-size: 14px; color: var(--mid); margin: 0; max-width: 460px; line-height: 1.6; }
+
+/* ── FOOTER ── */
+.ola-footer { background: var(--dark); padding: clamp(56px, 8vw, 80px) clamp(24px, 7vw, 100px); text-align: center; position: relative; overflow: hidden; }
+.ola-footer::before { content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 280px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+.ola-footer-logo { font-family: var(--serif); font-size: 26px; font-weight: 300; letter-spacing: 11px; color: var(--ivory); margin: 0 0 8px; }
+.ola-footer-logo span { color: var(--gold); }
+.ola-footer-tagline { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: rgba(255, 255, 255, 0.26); margin: 0 0 36px; }
+.ola-footer-contact { display: flex; align-items: center; justify-content: center; gap: 24px; margin-bottom: 36px; flex-wrap: wrap; }
+.ola-footer-contact a { font-size: 13px; color: rgba(255, 255, 255, 0.52); transition: color 0.2s ease; }
+.ola-footer-contact a:hover { color: var(--gold); }
+.ola-footer-line { width: 1px; height: 12px; background: rgba(255, 255, 255, 0.14); }
+.ola-footer-copy { font-size: 11px; letter-spacing: 1px; color: rgba(255, 255, 255, 0.16); margin: 0; }
+
+/* ── MOBILE ── */
+@media (max-width: 900px) {
+  .ola-nav { display: none; }
+  .ola-hero { grid-template-columns: 1fr; }
+  .ola-hero-left { padding: 48px 24px 56px; order: 2; }
+  .ola-hero-right { height: 52vh; order: 1; }
+  .ola-hero-line { display: none; }
+  .ola-services-grid { grid-template-columns: 1fr; }
+  .ola-about-grid { grid-template-columns: 1fr; gap: 48px; }
+  .ola-about-badge { right: 0; }
+  .ola-footer-contact { flex-direction: column; gap: 14px; }
+  .ola-footer-line { display: none; }
+}
+@media (max-width: 560px) {
+  .ola-date-grid { grid-template-columns: repeat(2, 1fr); }
+}
