@@ -204,13 +204,23 @@
   .ola-admin-nav { flex-direction: row; flex-wrap: wrap; flex: 1 1 100%; }
   .ola-admin-navitem { width: auto; }
   .ola-admin-back { margin-top: 0; border-top: none; }
+  .ola-admin-topbar { flex-wrap: wrap; }
+  .ola-admin-tag { font-size: 10px; padding: 5px 10px; }
   .ola-admin-tiles { grid-template-columns: repeat(2, 1fr); }
   .ola-admin-services { grid-template-columns: 1fr; }
-  .ola-admin-cal { grid-template-columns: 48px repeat(3, 1fr); font-size: 11px; }
+  /* calendar: scroll horizontally instead of cramming 3 staff columns */
+  .ola-admin-cal-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -4px; padding: 0 4px 6px; }
+  .ola-admin-cal { grid-template-columns: 44px repeat(3, minmax(116px, 1fr)); min-width: 420px; font-size: 11px; }
 }
 @media (max-width: 560px) {
-  .ola-admin-slot { grid-template-columns: 56px 5px 1fr; }
+  .ola-admin-content { padding: 18px 14px; }
+  .ola-admin-tiles { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .ola-admin-tile strong { font-size: 23px; }
+  .ola-admin-slot { grid-template-columns: 52px 5px 1fr; row-gap: 6px; }
   .ola-admin-slot-price, .ola-admin-slot .ola-admin-status { grid-column: 3; justify-self: start; }
-  .ola-admin-table.cols-clients .ola-admin-row { grid-template-columns: 1fr 1fr; }
+  .ola-admin-table.cols-clients .ola-admin-row { grid-template-columns: 1fr auto; }
+  .ola-admin-table.cols-clients .ola-admin-row > span:nth-child(2),
+  .ola-admin-table.cols-clients .ola-admin-row > span:nth-child(3),
+  .ola-admin-table.cols-clients .ola-admin-row > span:nth-child(4) { display: none; }
   .ola-admin-row.head { display: none; }
 }

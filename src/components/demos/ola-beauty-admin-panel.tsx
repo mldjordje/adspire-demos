@@ -208,6 +208,7 @@ function Calendar() {
           <span key={s} className="ola-admin-legend-item"><i className={`ola-admin-legend-dot staff-${i}`} />{s}</span>
         ))}
       </div>
+      <div className="ola-admin-cal-scroll">
       <div className="ola-admin-cal">
         <div className="ola-admin-cal-col ola-admin-cal-hours">
           <span className="ola-admin-cal-head">Zeit</span>
@@ -231,6 +232,7 @@ function Calendar() {
             </div>
           </div>
         ))}
+      </div>
       </div>
     </section>
   );

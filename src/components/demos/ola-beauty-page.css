@@ -19,6 +19,10 @@
 }
 .ola-page * { box-sizing: border-box; }
 .ola-page a { color: inherit; text-decoration: none; }
+/* anchors styled as buttons must keep their own color (beats `.ola-page a` inherit) */
+.ola-page a.ola-btn-primary { color: #fff; }
+.ola-page a.ola-btn-ghost { color: var(--mid); }
+.ola-page a.ola-btn-ghost:hover { color: var(--dark); }
 
 .ola-disclaimer {
   margin: 0;
