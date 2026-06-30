@@ -208,29 +208,31 @@ function Calendar() {
           <span key={s} className="tm-admin-legend-item"><i className={`tm-admin-legend-dot staff-${i}`} />{s}</span>
         ))}
       </div>
-      <div className="tm-admin-cal">
-        <div className="tm-admin-cal-col tm-admin-cal-hours">
-          <span className="tm-admin-cal-head">Zeit</span>
-          {slots.map((s) => <span key={s} className="tm-admin-cal-hour">{s}</span>)}
-        </div>
-        {STAFF.map((staff, si) => (
-          <div className="tm-admin-cal-col" key={staff}>
-            <span className="tm-admin-cal-head"><UserRound size={13} /> {staff}</span>
-            <div className="tm-admin-cal-track">
-              {TODAY.filter((a) => a.staff === staff).map((a) => {
-                const start = toMin(a.time);
-                const top = ((start - 540) / 60) * 56;
-                const height = ((toMin(a.end) - start) / 60) * 56;
-                return (
-                  <div key={a.time} className={`tm-admin-cal-event staff-${si} ${a.status === "offen" ? "is-tentative" : ""}`} style={{ top, height }}>
-                    <strong>{a.time} {a.client}</strong>
-                    <small>{a.service}</small>
-                  </div>
-                );
-              })}
-            </div>
+      <div className="tm-admin-cal-scroll">
+        <div className="tm-admin-cal">
+          <div className="tm-admin-cal-col tm-admin-cal-hours">
+            <span className="tm-admin-cal-head">Zeit</span>
+            {slots.map((s) => <span key={s} className="tm-admin-cal-hour">{s}</span>)}
           </div>
-        ))}
+          {STAFF.map((staff, si) => (
+            <div className="tm-admin-cal-col" key={staff}>
+              <span className="tm-admin-cal-head"><UserRound size={13} /> {staff}</span>
+              <div className="tm-admin-cal-track">
+                {TODAY.filter((a) => a.staff === staff).map((a) => {
+                  const start = toMin(a.time);
+                  const top = ((start - 540) / 60) * 56;
+                  const height = ((toMin(a.end) - start) / 60) * 56;
+                  return (
+                    <div key={a.time} className={`tm-admin-cal-event staff-${si} ${a.status === "offen" ? "is-tentative" : ""}`} style={{ top, height }}>
+                      <strong>{a.time} {a.client}</strong>
+                      <small>{a.service}</small>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -77,7 +77,8 @@
 .tm-header-cta:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
 
 /* ── BUTTONS ── */
-.tm-btn-primary {
+/* .tm-page prefix raises specificity above `.tm-page a { color: inherit }` so the label color sticks. */
+.tm-page .tm-btn-primary {
   display: inline-flex; align-items: center; gap: 9px;
   font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
   color: #fff; background: var(--dark); border: none; padding: 16px 30px;
@@ -90,13 +91,13 @@
 }
 .tm-btn-primary:hover::after { transform: scaleX(1); }
 .tm-btn-primary > * { position: relative; z-index: 1; }
-.tm-btn-ghost {
+.tm-page .tm-btn-ghost {
   display: inline-flex; align-items: center; gap: 8px;
   font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
   color: var(--mid); background: none; border: none; padding: 16px 0;
   cursor: pointer; transition: color 0.2s ease; font-family: inherit;
 }
-.tm-btn-ghost:hover { color: var(--dark); }
+.tm-page .tm-btn-ghost:hover { color: var(--dark); }
 
 /* ── HERO ── */
 .tm-hero {

@@ -143,6 +143,7 @@
 .tm-admin-legend-dot { width: 11px; height: 11px; border-radius: 3px; background: var(--s0); }
 .tm-admin-legend-dot.staff-1 { background: var(--s1); }
 .tm-admin-legend-dot.staff-2 { background: var(--s2); }
+.tm-admin-cal-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .tm-admin-cal { display: grid; grid-template-columns: 64px repeat(3, 1fr); gap: 8px; }
 .tm-admin-cal-head {
   display: flex; align-items: center; gap: 6px; height: 32px; font-size: 12.5px; font-weight: 600;
@@ -206,11 +207,13 @@
   .tm-admin-back { margin-top: 0; border-top: none; }
   .tm-admin-tiles { grid-template-columns: repeat(2, 1fr); }
   .tm-admin-services { grid-template-columns: 1fr; }
-  .tm-admin-cal { grid-template-columns: 48px repeat(3, 1fr); font-size: 11px; }
 }
 @media (max-width: 560px) {
   .tm-admin-slot { grid-template-columns: 56px 5px 1fr; }
   .tm-admin-slot-price, .tm-admin-slot .tm-admin-status { grid-column: 3; justify-self: start; }
   .tm-admin-table.cols-clients .tm-admin-row { grid-template-columns: 1fr 1fr; }
   .tm-admin-row.head { display: none; }
+  /* Keep calendar columns readable; scroll horizontally instead of squashing. */
+  .tm-admin-cal { min-width: 520px; }
+  .tm-admin-content { padding-left: 16px; padding-right: 16px; }
 }
