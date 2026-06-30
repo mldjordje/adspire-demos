@@ -5,6 +5,7 @@ import { BelschnerPage } from "@/components/demos/belschner-page";
 import { HuthmannPage } from "@/components/demos/huthmann-page";
 import { KablitzPage } from "@/components/demos/kablitz-page";
 import { OlaBeautyPage } from "@/components/demos/ola-beauty-page";
+import { TmNailsPage } from "@/components/demos/tm-nails-page";
 import { getLeadBySlug, leads } from "@/data/leads";
 import { buildDemoMetadata } from "@/lib/metadata";
 
@@ -30,5 +31,6 @@ export default async function DemoRoute({ params }: DemoRouteProps) {
   if (slug === "belschner-elektrotechnik-w7k4n2") return <BelschnerPage lead={lead} />;
   if (slug === "huthmann-tuning-automobile-s9k3m6") return <HuthmannPage lead={lead} />;
   if (slug === "ola-beauty-bad-mergentheim-n8k4w2") return <OlaBeautyPage lead={lead} />;
+  if (slug === "tm-nails-beauty-bad-mergentheim-a7p3k9") return <TmNailsPage lead={lead} />;
   return <DemoPage lead={lead} />;
 }
