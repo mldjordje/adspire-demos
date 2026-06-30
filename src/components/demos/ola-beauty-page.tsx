@@ -8,12 +8,13 @@ import { OlaBeautyBooking } from "./ola-beauty-booking";
 import "./ola-beauty-page.css";
 
 const ASSET = "/leads/ola-beauty-bad-mergentheim-n8k4w2";
-const HERO = `${ASSET}/hero.svg`;
+const HERO = `${ASSET}/ola3.jpg`;
+const ABOUT = `${ASSET}/ola1.jpg`;
 
 const PORTFOLIO = [
-  { src: `${ASSET}/work-french-blue.svg`, tag: "French · Babyblau", alt: "Mandelnägel mit hellblauen French-Tips und Schwüngen" },
-  { src: `${ASSET}/work-white-floral.svg`, tag: "Nail Art · Blüten", alt: "Milchig-weiße Nägel mit Blütenmotiv und Silberlinien" },
-  { src: `${ASSET}/work-nude.svg`, tag: "Babyboomer · Nude", alt: "Natürliche Nude-Nägel im Babyboomer-Verlauf" },
+  { src: `${ASSET}/ola3.jpg`, tag: "French · Babyblau", alt: "Mandelnägel mit hellblauen French-Tips und Schwüngen" },
+  { src: `${ASSET}/ola1.jpg`, tag: "Nail Art · Blüten", alt: "Weiße Nägel mit Blütenmotiv und Silberlinien" },
+  { src: `${ASSET}/ola.jpg`, tag: "Nude · Custom Art", alt: "Natürliche Nude-Nägel mit individuellem Motiv" },
 ];
 
 const NAV = [
@@ -107,7 +108,7 @@ export function OlaBeautyPage({ lead }: { lead: LeadProfile }) {
       <section className="ola-section" id="about">
         <div className="ola-about-grid">
           <div className="ola-about-photo-wrap" {...reveal(0)}>
-            <Image src={HERO} alt="Ola Beauty — Nageldesign" className="ola-about-photo" width={600} height={800} unoptimized />
+            <Image src={ABOUT} alt="Ola Beauty — Nageldesign" className="ola-about-photo" width={600} height={800} unoptimized />
             <div className="ola-about-badge">
               <div className="ola-badge-num">7+</div>
               <div className="ola-badge-label">Jahre Erfahrung</div>
@@ -139,7 +140,7 @@ export function OlaBeautyPage({ lead }: { lead: LeadProfile }) {
         </div>
         <div className="ola-booking-inner">
           <p className="ola-booking-label" {...reveal(0)}>Termin buchen</p>
-          <h2 className="ola-booking-heading" {...reveal(1)}>In 3 Schritt<em>en</em> zum Termin</h2>
+          <h2 className="ola-booking-heading" {...reveal(1)}>In 4 Schritt<em>en</em> zum Termin</h2>
           <p className="ola-booking-sub" {...reveal(2)}>Schnell, einfach und direkt — ohne Umwege.</p>
           <OlaBeautyBooking />
         </div>
