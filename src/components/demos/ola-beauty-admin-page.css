@@ -157,6 +157,25 @@
 .ola-admin-cal-event.staff-1 { background: rgba(138, 174, 221, 0.16); border-color: var(--s1); color: #2f5588; }
 .ola-admin-cal-event.staff-2 { background: rgba(201, 138, 176, 0.16); border-color: var(--s2); color: #8a3f6a; }
 .ola-admin-cal-event.is-tentative { border-style: dashed; opacity: 0.85; }
+
+/* agenda (mobile calendar) — hidden on desktop */
+.ola-admin-agenda { display: none; }
+.ola-admin-agenda-item {
+  display: grid; grid-template-columns: 52px 1fr auto; align-items: center; gap: 12px;
+  padding: 12px 12px 12px 14px; border: 1px solid var(--line); border-left: 4px solid var(--s0);
+  border-radius: 12px; background: var(--ivory);
+}
+.ola-admin-agenda-item.staff-1 { border-left-color: var(--s1); }
+.ola-admin-agenda-item.staff-2 { border-left-color: var(--s2); }
+.ola-admin-agenda-item.is-tentative { border-style: dashed; border-left-style: solid; }
+.ola-admin-agenda-time { font-size: 14px; font-weight: 700; display: flex; flex-direction: column; line-height: 1.2; }
+.ola-admin-agenda-time small { font-size: 11px; font-weight: 400; color: var(--mid); }
+.ola-admin-agenda-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.ola-admin-agenda-body strong { font-size: 14px; font-weight: 600; }
+.ola-admin-agenda-body small { font-size: 12.5px; color: var(--mid); }
+.ola-admin-agenda-meta { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; color: var(--gold); margin-top: 2px; }
+.ola-admin-agenda-side { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.ola-admin-agenda-price { font-size: 14px; font-weight: 700; color: var(--gold); }
 .ola-admin-cal-event strong { display: block; font-size: 11.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ola-admin-cal-event small { font-size: 10.5px; opacity: 0.8; }
 
@@ -208,11 +227,17 @@
   .ola-admin-tag { font-size: 10px; padding: 5px 10px; }
   .ola-admin-tiles { grid-template-columns: repeat(2, 1fr); }
   .ola-admin-services { grid-template-columns: 1fr; }
-  /* calendar: scroll horizontally instead of cramming 3 staff columns */
+  /* tablet: scroll the column grid horizontally */
   .ola-admin-cal-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -4px; padding: 0 4px 6px; }
   .ola-admin-cal { grid-template-columns: 44px repeat(3, minmax(116px, 1fr)); min-width: 420px; font-size: 11px; }
 }
+/* phone: replace the time-grid with a chronological agenda */
+@media (max-width: 720px) {
+  .ola-admin-cal-scroll { display: none; }
+  .ola-admin-agenda { display: flex; flex-direction: column; gap: 8px; }
+}
 @media (max-width: 560px) {
+  .ola-admin-agenda-item { grid-template-columns: 48px 1fr auto; gap: 9px; padding-left: 12px; }
   .ola-admin-content { padding: 18px 14px; }
   .ola-admin-tiles { grid-template-columns: 1fr 1fr; gap: 10px; }
   .ola-admin-tile strong { font-size: 23px; }

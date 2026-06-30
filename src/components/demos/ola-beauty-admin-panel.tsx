@@ -201,6 +201,7 @@ function Dashboard({ onJump }: { onJump: (v: ViewKey) => void }) {
 
 function Calendar() {
   const slots = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"];
+  const agenda = [...TODAY].sort((a, b) => toMin(a.time) - toMin(b.time));
   return (
     <section className="ola-admin-block">
       <div className="ola-admin-legend">
@@ -208,6 +209,26 @@ function Calendar() {
           <span key={s} className="ola-admin-legend-item"><i className={`ola-admin-legend-dot staff-${i}`} />{s}</span>
         ))}
       </div>
+
+      {/* Mobile: chronological agenda (the column grid is unusable on a phone) */}
+      <ol className="ola-admin-agenda">
+        {agenda.map((a) => (
+          <li className={`ola-admin-agenda-item staff-${STAFF.indexOf(a.staff)}${a.status === "offen" ? " is-tentative" : ""}`} key={a.time + a.client}>
+            <span className="ola-admin-agenda-time">{a.time}<small>{a.end}</small></span>
+            <span className="ola-admin-agenda-body">
+              <strong>{a.client}</strong>
+              <small>{a.service}</small>
+              <span className="ola-admin-agenda-meta"><UserRound size={11} /> {a.staff}</span>
+            </span>
+            <span className="ola-admin-agenda-side">
+              <span className="ola-admin-agenda-price">{a.price} €</span>
+              <StatusBadge status={a.status} />
+            </span>
+          </li>
+        ))}
+      </ol>
+
+      {/* Desktop: per-staff time-grid */}
       <div className="ola-admin-cal-scroll">
       <div className="ola-admin-cal">
         <div className="ola-admin-cal-col ola-admin-cal-hours">
