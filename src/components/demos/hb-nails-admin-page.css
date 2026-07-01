@@ -1,0 +1,237 @@
+/* H.B Nails admin preview — standalone salon-management theme (crimson accent, onyx sidebar). */
+
+.hb-admin {
+  --paper: #f6f5f4;
+  --paper2: #ecebe9;
+  --crimson: #e11330;
+  --crimson-lt: #ff4c62;
+  --onyx: #16161a;
+  --mid: #6b6570;
+  --line: rgba(22, 22, 26, 0.1);
+  --ok: #5b9d7a;
+  --warn: #c9923f;
+  --danger: #c45b5b;
+  --s0: #e11330;
+  --s1: #6d8ed8;
+  --s2: #b070c0;
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--onyx);
+  font-family: var(--font-geist-sans), -apple-system, sans-serif;
+}
+.hb-admin * { box-sizing: border-box; }
+
+.hb-admin-disclaimer {
+  margin: 0;
+  padding: 7px 24px;
+  background: var(--onyx);
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.hb-admin-panel { display: grid; grid-template-columns: 264px 1fr; min-height: calc(100vh - 28px); }
+
+/* ── SIDEBAR ── */
+.hb-admin-sidebar {
+  background: var(--onyx);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 26px 18px 20px;
+}
+.hb-admin-brand { padding: 0 8px 24px; }
+.hb-admin-logo { font-family: "Playfair Display", Georgia, serif; display: block; font-size: 22px; font-weight: 600; letter-spacing: 4px; }
+.hb-admin-logo i { color: var(--crimson); font-style: normal; }
+.hb-admin-brand-sub { display: block; margin-top: 6px; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255, 255, 255, 0.4); }
+.hb-admin-nav { display: flex; flex-direction: column; gap: 3px; flex: 1; }
+.hb-admin-navitem {
+  display: flex; align-items: center; gap: 12px; width: 100%;
+  padding: 11px 13px; border: none; background: none; color: rgba(255, 255, 255, 0.66);
+  font-size: 13px; font-family: inherit; text-align: left; cursor: pointer; border-radius: 8px;
+  transition: background 0.18s ease, color 0.18s ease; position: relative;
+}
+.hb-admin-navitem:hover { background: rgba(255, 255, 255, 0.05); color: #fff; }
+.hb-admin-navitem.is-active { background: var(--crimson); color: #fff; }
+.hb-admin-navitem.is-wip { color: rgba(255, 255, 255, 0.4); }
+.hb-admin-navitem span { flex: 1; }
+.hb-admin-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--warn); }
+.hb-admin-back {
+  display: flex; align-items: center; gap: 8px; margin-top: 14px; padding: 11px 13px;
+  font-size: 12px; color: rgba(255, 255, 255, 0.55); border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-decoration: none; transition: color 0.18s ease;
+}
+.hb-admin-back:hover { color: var(--crimson-lt); }
+
+/* ── MAIN ── */
+.hb-admin-main { display: flex; flex-direction: column; min-width: 0; }
+.hb-admin-topbar {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 22px clamp(20px, 4vw, 38px); border-bottom: 1px solid var(--line); background: #fff;
+}
+.hb-admin-topbar h1 { margin: 0; font-size: 21px; font-weight: 600; }
+.hb-admin-topbar p { margin: 4px 0 0; font-size: 12.5px; color: var(--mid); }
+.hb-admin-tag {
+  font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mid);
+  background: var(--paper2); border: 1px solid var(--line); padding: 6px 12px; border-radius: 999px; white-space: nowrap;
+}
+.hb-admin-content { padding: clamp(20px, 4vw, 34px); display: flex; flex-direction: column; gap: 26px; }
+
+/* ── ALERT ── */
+.hb-admin-alert {
+  display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+  padding: 14px 18px; border-radius: 12px; border: 1px solid rgba(225, 19, 48, 0.35);
+  background: rgba(225, 19, 48, 0.07); color: #a51124; font-size: 13.5px; cursor: pointer; font-family: inherit;
+}
+.hb-admin-alert:hover { background: rgba(225, 19, 48, 0.13); }
+
+/* ── TILES ── */
+.hb-admin-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.hb-admin-tile {
+  background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px;
+  display: flex; flex-direction: column; gap: 6px; position: relative; overflow: hidden;
+}
+.hb-admin-tile::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--crimson); }
+.hb-admin-tile.tone-ok::before { background: var(--ok); }
+.hb-admin-tile.tone-warn::before { background: var(--warn); }
+.hb-admin-tile.tone-crimson::before { background: var(--crimson); }
+.hb-admin-tile.tone-neutral::before { background: var(--mid); }
+.hb-admin-tile-icon { color: var(--mid); }
+.hb-admin-tile strong { font-size: 27px; font-weight: 600; line-height: 1; }
+.hb-admin-tile-label { font-size: 12px; color: var(--mid); }
+
+/* ── BLOCK ── */
+.hb-admin-block { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: clamp(18px, 3vw, 26px); }
+.hb-admin-block > h2 {
+  display: flex; align-items: center; gap: 9px; margin: 0 0 18px; font-size: 15px; font-weight: 600;
+}
+.hb-admin-block > h2 svg { color: var(--crimson); }
+
+/* ── TIMELINE ── */
+.hb-admin-timeline { display: flex; flex-direction: column; gap: 2px; }
+.hb-admin-slot {
+  display: grid; grid-template-columns: 64px 5px 1fr auto auto; align-items: center; gap: 14px;
+  padding: 11px 6px; border-bottom: 1px solid var(--line);
+}
+.hb-admin-slot:last-child { border-bottom: none; }
+.hb-admin-slot.is-cancelled { opacity: 0.5; text-decoration: line-through; }
+.hb-admin-slot-time { font-size: 13px; font-weight: 600; display: flex; flex-direction: column; }
+.hb-admin-slot-time small { font-size: 10.5px; color: var(--mid); font-weight: 400; }
+.hb-admin-slot-bar { width: 5px; height: 34px; border-radius: 3px; background: var(--s0); }
+.hb-admin-slot-bar.staff-1 { background: var(--s1); }
+.hb-admin-slot-bar.staff-2 { background: var(--s2); }
+.hb-admin-slot-body { display: flex; flex-direction: column; min-width: 0; }
+.hb-admin-slot-body strong { font-size: 13.5px; font-weight: 500; }
+.hb-admin-slot-body small { font-size: 12px; color: var(--mid); }
+.hb-admin-slot-price { font-size: 13px; font-weight: 600; color: var(--crimson); }
+
+/* ── STATUS BADGE ── */
+.hb-admin-status {
+  display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 500;
+  padding: 5px 10px; border-radius: 999px; text-transform: capitalize; white-space: nowrap;
+}
+.hb-admin-status.s-bestätigt { background: rgba(91, 157, 122, 0.14); color: #3f7a59; }
+.hb-admin-status.s-erschienen { background: rgba(225, 19, 48, 0.12); color: #a51124; }
+.hb-admin-status.s-offen { background: rgba(201, 146, 63, 0.14); color: #9a6f24; }
+.hb-admin-status.s-abgesagt { background: rgba(196, 91, 91, 0.14); color: #a14444; }
+
+/* ── CALENDAR ── */
+.hb-admin-legend { display: flex; gap: 18px; margin-bottom: 16px; }
+.hb-admin-legend-item { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--mid); }
+.hb-admin-legend-dot { width: 11px; height: 11px; border-radius: 3px; background: var(--s0); }
+.hb-admin-legend-dot.staff-1 { background: var(--s1); }
+.hb-admin-legend-dot.staff-2 { background: var(--s2); }
+.hb-admin-cal-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.hb-admin-cal { display: grid; grid-template-columns: 64px repeat(3, 1fr); gap: 8px; }
+.hb-admin-cal-head {
+  display: flex; align-items: center; gap: 6px; height: 32px; font-size: 12.5px; font-weight: 600;
+  color: var(--mid); border-bottom: 1px solid var(--line); margin-bottom: 6px;
+}
+.hb-admin-cal-hours .hb-admin-cal-hour { height: 56px; font-size: 11px; color: var(--mid); padding-top: 2px; }
+.hb-admin-cal-track { position: relative; height: 504px; background: linear-gradient(var(--paper2) 1px, transparent 1px); background-size: 100% 56px; border-radius: 8px; }
+.hb-admin-cal-event {
+  position: absolute; left: 3px; right: 3px; border-radius: 8px; padding: 6px 9px; overflow: hidden;
+  background: rgba(225, 19, 48, 0.12); border-left: 3px solid var(--s0); color: #8f1023;
+}
+.hb-admin-cal-event.staff-1 { background: rgba(109, 142, 216, 0.16); border-color: var(--s1); color: #2f5588; }
+.hb-admin-cal-event.staff-2 { background: rgba(176, 112, 192, 0.16); border-color: var(--s2); color: #7a3f8a; }
+.hb-admin-cal-event.is-tentative { border-style: dashed; opacity: 0.85; }
+.hb-admin-cal-event strong { display: block; font-size: 11.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hb-admin-cal-event small { font-size: 10.5px; opacity: 0.8; }
+
+/* ── CALENDAR AGENDA (mobile only) ── */
+.hb-admin-agenda { display: none; list-style: none; margin: 0; padding: 0; flex-direction: column; gap: 8px; }
+.hb-admin-agenda-item {
+  display: grid; grid-template-columns: 52px 1fr auto; align-items: center; gap: 12px;
+  padding: 12px 14px; background: var(--paper); border: 1px solid var(--line);
+  border-left: 4px solid var(--s0); border-radius: 12px;
+}
+.hb-admin-agenda-item.staff-1 { border-left-color: var(--s1); }
+.hb-admin-agenda-item.staff-2 { border-left-color: var(--s2); }
+.hb-admin-agenda-item.is-tentative { border-style: dashed; }
+.hb-admin-agenda-time { display: flex; flex-direction: column; font-size: 13.5px; font-weight: 600; line-height: 1.2; }
+.hb-admin-agenda-time small { font-size: 10.5px; color: var(--mid); font-weight: 400; }
+.hb-admin-agenda-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.hb-admin-agenda-body strong { font-size: 13.5px; font-weight: 600; }
+.hb-admin-agenda-body small { font-size: 12px; color: var(--mid); }
+.hb-admin-agenda-staff { display: inline-flex; align-items: center; gap: 5px; margin-top: 3px; font-size: 11px; color: var(--mid); }
+
+/* ── TABLE ── */
+.hb-admin-table { display: flex; flex-direction: column; }
+.hb-admin-row { display: grid; align-items: center; gap: 14px; padding: 12px 8px; border-bottom: 1px solid var(--line); font-size: 13px; }
+.hb-admin-table.cols-clients .hb-admin-row { grid-template-columns: 1.6fr 0.7fr 1fr 1.4fr 1.2fr; }
+.hb-admin-row.head { font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--mid); font-weight: 600; }
+.hb-admin-row:last-child { border-bottom: none; }
+.hb-admin-name { display: flex; align-items: center; gap: 10px; font-weight: 500; }
+.hb-admin-avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--paper2); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: 12px; font-style: normal; color: var(--crimson); font-weight: 600; }
+.hb-admin-vip { display: inline-flex; align-items: center; gap: 3px; font-style: normal; font-size: 10px; color: #a51124; background: rgba(225, 19, 48, 0.12); padding: 2px 7px; border-radius: 999px; }
+.hb-admin-phone { display: inline-flex; align-items: center; gap: 6px; color: var(--mid); }
+
+/* ── SERVICES ── */
+.hb-admin-services { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.hb-admin-service-card { display: flex; align-items: center; gap: 14px; padding: 16px 18px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; }
+.hb-admin-service-icon { width: 38px; height: 38px; border-radius: 50%; background: #fff; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; color: var(--crimson); flex-shrink: 0; }
+.hb-admin-service-body { flex: 1; }
+.hb-admin-service-body h3 { margin: 0 0 4px; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.hb-admin-popular { font-size: 10px; font-weight: 500; color: #a51124; background: rgba(225, 19, 48, 0.12); padding: 2px 8px; border-radius: 999px; }
+.hb-admin-service-body p { margin: 0; font-size: 12px; color: var(--mid); display: flex; align-items: center; gap: 5px; }
+.hb-admin-service-price { font-size: 15px; font-weight: 600; color: var(--crimson); }
+
+/* ── BARS ── */
+.hb-admin-bars { display: flex; align-items: flex-end; gap: 18px; height: 220px; padding-top: 12px; }
+.hb-admin-bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; }
+.hb-admin-bar-val { font-size: 13px; font-weight: 600; }
+.hb-admin-bar-track { flex: 1; width: 100%; display: flex; align-items: flex-end; }
+.hb-admin-bar-fill { width: 100%; border-radius: 8px 8px 0 0; background: linear-gradient(var(--crimson-lt), var(--crimson)); min-height: 8px; }
+.hb-admin-bar-day { font-size: 12px; color: var(--mid); }
+
+/* ── WIP ── */
+.hb-admin-wip { text-align: center; padding: 40px 20px; border: 1px dashed var(--line); border-radius: 16px; background: var(--paper); }
+.hb-admin-wip-badge { display: inline-block; font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: #9a6f24; background: rgba(201, 146, 63, 0.14); padding: 5px 12px; border-radius: 999px; margin-bottom: 14px; }
+.hb-admin-wip h2 { margin: 0 0 8px; font-size: 19px; }
+.hb-admin-wip p { margin: 0 auto; max-width: 440px; font-size: 13.5px; color: var(--mid); line-height: 1.6; }
+.hb-admin-wip-note { margin-top: 12px !important; font-size: 12px !important; opacity: 0.7; }
+
+/* ── MOBILE ── */
+@media (max-width: 920px) {
+  .hb-admin-panel { grid-template-columns: 1fr; }
+  .hb-admin-sidebar { flex-direction: row; flex-wrap: wrap; align-items: center; padding: 14px 16px; gap: 8px; }
+  .hb-admin-brand { padding: 0; flex: 1; }
+  .hb-admin-nav { flex-direction: row; flex-wrap: wrap; flex: 1 1 100%; }
+  .hb-admin-navitem { width: auto; }
+  .hb-admin-back { margin-top: 0; border-top: none; }
+  .hb-admin-tiles { grid-template-columns: repeat(2, 1fr); }
+  .hb-admin-services { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .hb-admin-slot { grid-template-columns: 56px 5px 1fr; }
+  .hb-admin-slot-price, .hb-admin-slot .hb-admin-status { grid-column: 3; justify-self: start; }
+  .hb-admin-table.cols-clients .hb-admin-row { grid-template-columns: 1fr 1fr; }
+  .hb-admin-row.head { display: none; }
+  /* Swap the cramped day grid for a chronological agenda list. */
+  .hb-admin-cal-scroll { display: none; }
+  .hb-admin-agenda { display: flex; }
+  .hb-admin-content { padding-left: 16px; padding-right: 16px; }
+}

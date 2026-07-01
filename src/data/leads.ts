@@ -86,6 +86,32 @@ const rawLeads: LeadProfile[] = [
     notes: "Demo-Konzept Nagelstudio (gleiche Branche wie Ola Beauty, anderer Salon). Bilder als stilisierte SVG-Illustrationen, da keine freigegebenen Fotos vorliegen.",
   },
   {
+    slug: "hb-nails-bad-mergentheim-z3v6q8",
+    family: "beauty",
+    status: "research",
+    businessName: "H.B Nails",
+    businessType: "Nagelstudio & Beauty",
+    city: "Bad Mergentheim",
+    tagline: "Nageldesign, French & Ombré in Bad Mergentheim.",
+    shortDescription:
+      "Unverbindlicher Entwurf für H.B Nails: dunkle, ausdrucksstarke Mobil-Optik, Online-Terminbuchung und eine Admin-Vorschau für die Salonverwaltung.",
+    primaryCta: "booking-demo",
+    services: [
+      { title: "Maniküre & Naturnagel", description: "Pflege, Form und glänzendes Finish — gepflegte Hände in unter einer Stunde.", meta: "ab 26 €" },
+      { title: "Gel-Modellage XL", description: "Extralange Coffin- und Ballerina-Form, stabil modelliert in deiner Wunschlänge.", meta: "ab 52 €" },
+      { title: "French & Black-Tip", description: "Vom klassischen French bis zum kontrastreichen Schwarz-Weiß-Design.", meta: "ab 55 €" },
+      { title: "Rot & Ombré-Verlauf", description: "Sattes Rot oder weicher Farbverlauf — ausdrucksstark und edel zugleich.", meta: "ab 49 €" },
+      { title: "Nail Art & Kristalle", description: "Individuelle Motive, Chrome, Folien oder funkelnde Steinchen nach deiner Idee.", meta: "ab 9 €/Nagel" },
+      { title: "Auffüllen & Refill", description: "Bestehende Modellage frisch aufgefüllt und nachmodelliert.", meta: "ab 38 €" },
+    ],
+    contact: {
+      mapsUrl: "https://www.google.com/maps/place/H.B+Nails/@49.492612,9.7673129,1465m/data=!3m1!1e3!4m6!3m5!1s0x479871f41a4b24fd:0xf623af73dc31e723!8m2!3d49.492612!4d9.7724626!16s%2Fg%2F11jp2sfs33",
+      instagramUrl: "https://www.instagram.com/",
+    },
+    sources: ["https://www.google.com/maps/place/H.B+Nails/@49.492612,9.7724626,17z"],
+    notes: "Demo-Konzept Nagelstudio (dritter Nagel-Salon nach Ola Beauty und TM Nails). Eigenes dunkles Design-Konzept mit Rot-Akzent zur Abgrenzung. Bilder als stilisierte SVG-Illustrationen, da keine freigegebenen Fotos vorliegen.",
+  },
+  {
     slug: "haargenau-bei-magda-p7r2v9",
     family: "beauty",
     status: "research",

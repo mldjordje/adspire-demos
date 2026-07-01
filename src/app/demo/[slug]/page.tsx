@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { DemoPage } from "@/components/demo-page";
 import { BartecPage } from "@/components/demos/bartec-page";
 import { BelschnerPage } from "@/components/demos/belschner-page";
+import { HbNailsPage } from "@/components/demos/hb-nails-page";
 import { HuthmannPage } from "@/components/demos/huthmann-page";
 import { KablitzPage } from "@/components/demos/kablitz-page";
 import { OlaBeautyPage } from "@/components/demos/ola-beauty-page";
@@ -32,5 +33,6 @@ export default async function DemoRoute({ params }: DemoRouteProps) {
   if (slug === "huthmann-tuning-automobile-s9k3m6") return <HuthmannPage lead={lead} />;
   if (slug === "ola-beauty-bad-mergentheim-n8k4w2") return <OlaBeautyPage lead={lead} />;
   if (slug === "tm-nails-beauty-bad-mergentheim-a7p3k9") return <TmNailsPage lead={lead} />;
+  if (slug === "hb-nails-bad-mergentheim-z3v6q8") return <HbNailsPage lead={lead} />;
   return <DemoPage lead={lead} />;
 }

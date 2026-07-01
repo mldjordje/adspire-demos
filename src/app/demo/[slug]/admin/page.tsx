@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getLeadBySlug } from "@/data/leads";
 import { KablitzAdminPage } from "@/components/demos/kablitz-admin-page";
 import { BelschnerAdminPage } from "@/components/demos/belschner-admin-page";
+import { HbNailsAdminPage } from "@/components/demos/hb-nails-admin-page";
 import { HuthmannAdminPage } from "@/components/demos/huthmann-admin-page";
 import { OlaBeautyAdminPage } from "@/components/demos/ola-beauty-admin-page";
 import { TmNailsAdminPage } from "@/components/demos/tm-nails-admin-page";
@@ -13,6 +14,7 @@ const ADMIN_PREVIEW_SLUGS = new Set([
   "huthmann-tuning-automobile-s9k3m6",
   "ola-beauty-bad-mergentheim-n8k4w2",
   "tm-nails-beauty-bad-mergentheim-a7p3k9",
+  "hb-nails-bad-mergentheim-z3v6q8",
 ]);
 
 type AdminRouteProps = { params: Promise<{ slug: string }> };
@@ -21,7 +23,7 @@ export async function generateMetadata({ params }: AdminRouteProps) {
   const { slug } = await params;
   const lead = getLeadBySlug(slug);
   if (!lead) return buildDemoMetadata("Nicht gefunden", "Dieses Konzept ist nicht verfuegbar.");
-  const isNailStudio = slug === "ola-beauty-bad-mergentheim-n8k4w2" || slug === "tm-nails-beauty-bad-mergentheim-a7p3k9";
+  const isNailStudio = slug === "ola-beauty-bad-mergentheim-n8k4w2" || slug === "tm-nails-beauty-bad-mergentheim-a7p3k9" || slug === "hb-nails-bad-mergentheim-z3v6q8";
   const description = slug === "huthmann-tuning-automobile-s9k3m6"
     ? "Unverbindliche Konzept-Vorschau fuer Werkstatt, Fahrzeuge und Kunden-Follow-up."
     : isNailStudio
@@ -38,5 +40,6 @@ export default async function AdminRoute({ params }: AdminRouteProps) {
   if (slug === "huthmann-tuning-automobile-s9k3m6") return <HuthmannAdminPage lead={lead} />;
   if (slug === "ola-beauty-bad-mergentheim-n8k4w2") return <OlaBeautyAdminPage lead={lead} />;
   if (slug === "tm-nails-beauty-bad-mergentheim-a7p3k9") return <TmNailsAdminPage lead={lead} />;
+  if (slug === "hb-nails-bad-mergentheim-z3v6q8") return <HbNailsAdminPage lead={lead} />;
   return <KablitzAdminPage lead={lead} />;
 }
