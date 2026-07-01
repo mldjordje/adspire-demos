@@ -23,6 +23,10 @@ import type { LeadProfile, MediaAsset } from "@/lib/lead-schema";
 import { telephoneHref } from "@/lib/lead-schema";
 import "./huthmann-page.css";
 
+const ELIS_SLUG = "kfz-werkstatt-elis-bad-mergentheim-q4m7x2";
+
+type AutomotiveVariant = "huthmann" | "elis";
+
 function reveal(index = 0): { "data-reveal": ""; style: CSSProperties } {
   return { "data-reveal": "", style: { "--i": index } as CSSProperties };
 }
@@ -31,12 +35,12 @@ function sourceTag(asset?: MediaAsset) {
   if (!asset) return null;
   return (
     <a className="huth-source" href={asset.sourceUrl} target="_blank" rel="noreferrer">
-      Offizielle Website - Freigabe ausstehend
+      Bildquelle - Freigabe ausstehend
     </a>
   );
 }
 
-const moduleItems = [
+const huthmannModuleItems = [
   { label: "Diagnose", value: "OBD", icon: <ScanLine size={18} /> },
   { label: "Inspektion", value: "TUEV", icon: <CheckCircle2 size={18} /> },
   { label: "Motor", value: "ECU", icon: <Gauge size={18} /> },
@@ -45,7 +49,16 @@ const moduleItems = [
   { label: "Reifen", value: "Grip", icon: <Car size={18} /> },
 ];
 
-const stages = [
+const elisModuleItems = [
+  { label: "Fehlersuche", value: "OBD", icon: <ScanLine size={18} /> },
+  { label: "Oelwechsel", value: "Oil", icon: <CheckCircle2 size={18} /> },
+  { label: "Bremsen", value: "Stop", icon: <ShieldCheck size={18} /> },
+  { label: "Reifen", value: "Grip", icon: <Car size={18} /> },
+  { label: "Motor", value: "Check", icon: <Gauge size={18} /> },
+  { label: "Service", value: "Fast", icon: <Wrench size={18} /> },
+];
+
+const huthmannStages = [
   {
     step: "01",
     title: "Scan",
@@ -72,47 +85,76 @@ const stages = [
   },
 ];
 
+const elisStages = [
+  {
+    step: "01",
+    title: "Annahme",
+    label: "Problem kurz klaeren",
+    text: "Fahrzeug, Fehlerbild und Wunschleistung werden direkt aufgenommen.",
+  },
+  {
+    step: "02",
+    title: "Check",
+    label: "Diagnose und Sichtpruefung",
+    text: "Elektronik, Motorraum, Bremsen, Reifen oder Oelservice werden sauber geprueft.",
+  },
+  {
+    step: "03",
+    title: "Repair",
+    label: "Reparatur freigeben",
+    text: "Die naechsten Schritte werden klar abgestimmt, bevor Teile bestellt oder verbaut werden.",
+  },
+  {
+    step: "04",
+    title: "Pickup",
+    label: "Fahrzeug abholen",
+    text: "Probefahrt, kurzer Abschlusscheck und klare Uebergabe nach der Reparatur.",
+  },
+];
+
 export function HuthmannPage({ lead }: { lead: LeadProfile }) {
+  const variant: AutomotiveVariant = lead.slug === ELIS_SLUG ? "elis" : "huthmann";
   const assets = lead.media?.gallery ? ([lead.media.hero, ...lead.media.gallery].filter(Boolean) as MediaAsset[]) : [];
   const ordered = [...assets].sort((a, b) => a.src.localeCompare(b.src));
   const at = (index: number) => ordered[index];
-  const hero = at(11) ?? lead.media?.hero;
-  const tunnel = at(8);
-  const tuning = at(9);
-  const damage = at(10);
-  const before = at(17);
-  const after = at(11);
+  const hero = variant === "elis" ? lead.media?.hero : at(11) ?? lead.media?.hero;
+  const tunnel = variant === "elis" ? at(0) ?? hero : at(8);
+  const tuning = variant === "elis" ? at(1) ?? hero : at(9);
+  const damage = variant === "elis" ? at(0) ?? hero : at(10);
+  const before = variant === "elis" ? at(0) ?? hero : at(17);
+  const after = variant === "elis" ? at(1) ?? hero : at(11);
   const galleryAssets = ordered.filter((asset) => asset.src !== tunnel?.src).slice(0, 18);
   const phoneHref = telephoneHref(lead.contact.phone);
 
   return (
-    <main className="huth-page" id="top">
+    <main className={`huth-page huth-page-${variant}`} id="top">
       <MotionLayer />
-      <p className="huth-disclaimer">Unverbindliches Designkonzept - nicht die offizielle Website von Huthmann</p>
-      <Header lead={lead} phoneHref={phoneHref} />
-      <Hero lead={lead} hero={hero} tunnel={tunnel} />
-      <Ticker />
-      <DiagnosticModules />
-      <ScrollStory />
-      <Services lead={lead} tuning={tuning} damage={damage} />
-      <RestorationStory before={before} after={after} />
-      <Gallery assets={galleryAssets} />
+      <p className="huth-disclaimer">Unverbindliches Designkonzept - nicht die offizielle Website von {lead.businessName}</p>
+      <Header lead={lead} phoneHref={phoneHref} variant={variant} />
+      <Hero lead={lead} hero={hero} tunnel={tunnel} variant={variant} />
+      <Ticker variant={variant} />
+      <DiagnosticModules variant={variant} />
+      <ScrollStory variant={variant} fallback={tunnel ?? hero} />
+      <Services lead={lead} tuning={tuning} damage={damage} variant={variant} />
+      <RestorationStory before={before} after={after} variant={variant} />
+      <Gallery assets={galleryAssets.length ? galleryAssets : ordered} variant={variant} />
       <Contact lead={lead} phoneHref={phoneHref} />
     </main>
   );
 }
 
-function Header({ lead, phoneHref }: { lead: LeadProfile; phoneHref?: string }) {
+function Header({ lead, phoneHref, variant }: { lead: LeadProfile; phoneHref?: string; variant: AutomotiveVariant }) {
+  const wordmark = variant === "elis" ? "elis" : "huthmann";
   return (
     <header className="site-header huth-header">
       <a className="huth-wordmark" href="#top" aria-label={`${lead.businessName} Startseite`}>
         <span className="huth-mark"><Gauge size={18} /></span>
-        <span>huthmann</span>
+        <span>{wordmark}</span>
       </a>
       <nav className="huth-nav" aria-label="Hauptnavigation">
         <a href="#diagnose">Diagnose</a>
         <a href="#leistungen">Leistungen</a>
-        <a href="#oldtimer">Oldtimer</a>
+        <a href="#oldtimer">{variant === "elis" ? "Ablauf" : "Oldtimer"}</a>
         <a href="#kontakt">Kontakt</a>
       </nav>
       <div className="huth-header-actions">
@@ -121,9 +163,9 @@ function Header({ lead, phoneHref }: { lead: LeadProfile; phoneHref?: string }) 
             <MapPin size={15} /> Route
           </a>
         )}
-        <Link className="huth-btn huth-btn-ghost huth-admin-link" href={`/demo/${lead.slug}/admin`}>
+        {variant === "huthmann" && <Link className="huth-btn huth-btn-ghost huth-admin-link" href={`/demo/${lead.slug}/admin`}>
           <LayoutDashboard size={15} /> Cockpit
-        </Link>
+        </Link>}
         {phoneHref && (
           <a className="huth-btn huth-btn-primary" href={phoneHref}>
             <Phone size={15} /> Anrufen
@@ -134,7 +176,10 @@ function Header({ lead, phoneHref }: { lead: LeadProfile; phoneHref?: string }) 
   );
 }
 
-function Hero({ lead, hero, tunnel }: { lead: LeadProfile; hero?: MediaAsset; tunnel?: MediaAsset }) {
+function Hero({ lead, hero, tunnel, variant }: { lead: LeadProfile; hero?: MediaAsset; tunnel?: MediaAsset; variant: AutomotiveVariant }) {
+  const headline = variant === "elis"
+    ? ["Service.", "Reparatur.", "Reifen."]
+    : ["Diagnose.", "Tuning.", "Restauration."];
   return (
     <section className="huth-hero">
       <div className="huth-hero-bg" aria-hidden="true">
@@ -145,11 +190,9 @@ function Hero({ lead, hero, tunnel }: { lead: LeadProfile; hero?: MediaAsset; tu
       <div className="huth-hero-copy">
         <p className="huth-eyebrow" {...reveal(0)}>Bad Mergentheim / Kfz-Fachbetrieb</p>
         <h1 {...reveal(1)}>
-          Diagnose.
-          <br />
-          Tuning.
-          <br />
-          Restauration.
+          {headline.map((line) => (
+            <span key={line}>{line}<br /></span>
+          ))}
         </h1>
         <p className="huth-hero-text" {...reveal(2)}>{lead.shortDescription}</p>
         <div className="huth-hero-actions" {...reveal(3)}>
@@ -165,14 +208,41 @@ function Hero({ lead, hero, tunnel }: { lead: LeadProfile; hero?: MediaAsset; tu
         </a>
       </div>
       <div className="huth-car-stage" {...reveal(2)}>
-        <HuthmannCarModel modelPath="/models/bmw-m3-e30-martin-trafas-1k.glb" fallback={hero} variant="hero" />
+        {variant === "huthmann" ? (
+          <HuthmannCarModel modelPath="/models/bmw-m3-e30-martin-trafas-1k.glb" fallback={hero} variant="hero" />
+        ) : (
+          <StaticCarFrame asset={hero} eager />
+        )}
       </div>
     </section>
   );
 }
 
-function Ticker() {
-  const phrases = [
+function StaticCarFrame({ asset, eager = false }: { asset?: MediaAsset; eager?: boolean }) {
+  if (!asset) return null;
+  return (
+    <figure className="huth-hero-car huth-model-frame has-fallback" data-parallax="0.05">
+      <Image src={asset.src} alt={asset.alt} fill sizes="(max-width: 900px) 94vw, 58vw" loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} unoptimized />
+      {sourceTag(asset)}
+    </figure>
+  );
+}
+
+function Ticker({ variant }: { variant: AutomotiveVariant }) {
+  const phrases = variant === "elis" ? [
+    "Diagnostik",
+    "Oelwechsel",
+    "Bremsen",
+    "Motor",
+    "Reifenwechsel",
+    "Inspektion",
+    "Fahrwerk",
+    "Klimacheck",
+    "Auspuff",
+    "Fehlersuche",
+    "Express-Service",
+    "Bad Mergentheim",
+  ] : [
     "Diagnostik",
     "Inspektion",
     "Motor",
@@ -197,12 +267,13 @@ function Ticker() {
   );
 }
 
-function DiagnosticModules() {
+function DiagnosticModules({ variant }: { variant: AutomotiveVariant }) {
+  const moduleItems = variant === "elis" ? elisModuleItems : huthmannModuleItems;
   return (
     <section className="huth-modules" id="diagnose">
       <div className="huth-section-head" {...reveal(0)}>
-        <p className="huth-eyebrow">Live diagnostic bay</p>
-        <h2>Aus Werkstattdaten wird ein klarer Fahrplan.</h2>
+        <p className="huth-eyebrow">{variant === "elis" ? "Werkstattdiagnose" : "Live diagnostic bay"}</p>
+        <h2>{variant === "elis" ? "Fehlerbild, Wartung und Termin werden sauber zusammengefuehrt." : "Aus Werkstattdaten wird ein klarer Fahrplan."}</h2>
       </div>
       <div className="huth-module-shell">
         <div className="huth-topview" aria-hidden="true">
@@ -228,14 +299,19 @@ function DiagnosticModules() {
   );
 }
 
-function ScrollStory() {
+function ScrollStory({ variant, fallback }: { variant: AutomotiveVariant; fallback?: MediaAsset }) {
+  const stages = variant === "elis" ? elisStages : huthmannStages;
   return (
     <section className="huth-story" aria-label="Scrollgesteuerte Werkstattsequenz">
       <div className="huth-story-sticky">
         <div className="huth-story-track">
           <div className="huth-road" />
           <div className="huth-story-model">
-            <HuthmannCarModel modelPath="/models/bmw-m3-e30-martin-trafas-1k.glb" variant="showcase" lazy />
+            {variant === "huthmann" ? (
+              <HuthmannCarModel modelPath="/models/bmw-m3-e30-martin-trafas-1k.glb" variant="showcase" lazy />
+            ) : (
+              <StaticCarFrame asset={fallback} />
+            )}
           </div>
           <div className="huth-dyno">
             <span />
@@ -259,13 +335,13 @@ function ScrollStory() {
   );
 }
 
-function Services({ lead, tuning, damage }: { lead: LeadProfile; tuning?: MediaAsset; damage?: MediaAsset }) {
+function Services({ lead, tuning, damage, variant }: { lead: LeadProfile; tuning?: MediaAsset; damage?: MediaAsset; variant: AutomotiveVariant }) {
   const serviceIcons: ReactNode[] = [<ScanLine key="scan" />, <Wrench key="wrench" />, <Gauge key="gauge" />, <Car key="car" />];
   return (
     <section className="huth-services" id="leistungen">
       <div className="huth-section-head" {...reveal(0)}>
-        <p className="huth-eyebrow">Werkstatt / Tuning / Karosserie</p>
-        <h2>Keine austauschbaren Karten. Echte Module fuer echte Fahrzeugprobleme.</h2>
+        <p className="huth-eyebrow">{variant === "elis" ? "Werkstatt / Service / Reifen" : "Werkstatt / Tuning / Karosserie"}</p>
+        <h2>{variant === "elis" ? "Direkte Leistungen fuer schnelle Reparaturen und planbare Wartung." : "Keine austauschbaren Karten. Echte Module fuer echte Fahrzeugprobleme."}</h2>
       </div>
       <div className="huth-service-layout">
         <div className="huth-service-stack">
@@ -297,15 +373,16 @@ function Services({ lead, tuning, damage }: { lead: LeadProfile; tuning?: MediaA
   );
 }
 
-function RestorationStory({ before, after }: { before?: MediaAsset; after?: MediaAsset }) {
+function RestorationStory({ before, after, variant }: { before?: MediaAsset; after?: MediaAsset; variant: AutomotiveVariant }) {
   return (
     <section className="huth-restore" id="oldtimer">
       <div className="huth-restore-copy" {...reveal(0)}>
-        <p className="huth-eyebrow">BMW E21 Referenz</p>
-        <h2>Von Demontage bis Strasse: eine Oldtimer-Restauration als Scroll-Moment.</h2>
+        <p className="huth-eyebrow">{variant === "elis" ? "Serviceablauf" : "BMW E21 Referenz"}</p>
+        <h2>{variant === "elis" ? "Von Annahme bis Abholung: Reparatur mit klarem Ablauf." : "Von Demontage bis Strasse: eine Oldtimer-Restauration als Scroll-Moment."}</h2>
         <p>
-          Die bestehende Website zeigt den Weg von Italien nach Bad Mergentheim: Demontage, Sandstrahlen,
-          Blech, Grundierung, Motorueberholung, Innenraum und finaler Zusammenbau.
+          {variant === "elis"
+            ? "Der Demo-Auftritt positioniert Elis als direkte Kfz-Werkstatt fuer Diagnose, Oelwechsel, Bremsen, Reifen und allgemeine Reparaturen in Bad Mergentheim."
+            : "Die bestehende Website zeigt den Weg von Italien nach Bad Mergentheim: Demontage, Sandstrahlen, Blech, Grundierung, Motorueberholung, Innenraum und finaler Zusammenbau."}
         </p>
       </div>
       <div className="huth-before-after" {...reveal(1)}>
@@ -329,12 +406,12 @@ function RestorationStory({ before, after }: { before?: MediaAsset; after?: Medi
   );
 }
 
-function Gallery({ assets }: { assets: MediaAsset[] }) {
+function Gallery({ assets, variant }: { assets: MediaAsset[]; variant: AutomotiveVariant }) {
   return (
-    <section className="huth-gallery" aria-label="Huthmann Bildmaterial">
+    <section className="huth-gallery" aria-label={`${variant === "elis" ? "Elis" : "Huthmann"} Bildmaterial`}>
       <div className="huth-gallery-head" {...reveal(0)}>
         <p className="huth-eyebrow">Reference motion rail</p>
-        <h2>Originalbilder als schnelle, bewegte Werkstatt-Galerie.</h2>
+        <h2>{variant === "elis" ? "Werkstattfotos als schnelle, bewegte Service-Galerie." : "Originalbilder als schnelle, bewegte Werkstatt-Galerie."}</h2>
       </div>
       <div className="huth-gallery-track">
         {assets.map((asset, index) => (
@@ -350,6 +427,8 @@ function Gallery({ assets }: { assets: MediaAsset[] }) {
 }
 
 function Contact({ lead, phoneHref }: { lead: LeadProfile; phoneHref?: string }) {
+  const openingHours = lead.openingHours?.join(", ") ?? "Termin nach Vereinbarung";
+  const routeLabel = lead.contact.address ?? lead.city;
   return (
     <section className="huth-contact" id="kontakt">
       <div className="huth-contact-copy" {...reveal(0)}>
@@ -358,10 +437,10 @@ function Contact({ lead, phoneHref }: { lead: LeadProfile; phoneHref?: string })
         <p>{lead.contact.address}</p>
       </div>
       <div className="huth-terminal" {...reveal(1)}>
-        <div><CalendarClock /><span><small>Oeffnungszeiten</small>Mo-Do 08:00-12:00 / 13:00-17:00, Fr 08:00-13:00</span></div>
+        <div><CalendarClock /><span><small>Oeffnungszeiten</small>{openingHours}</span></div>
         {phoneHref && <a href={phoneHref}><Phone /><span><small>Telefon</small>{lead.contact.phone}</span></a>}
         {lead.contact.email && <a href={`mailto:${lead.contact.email}`}><Mail /><span><small>E-Mail</small>{lead.contact.email}</span></a>}
-        {lead.contact.mapsUrl && <a href={lead.contact.mapsUrl} target="_blank" rel="noreferrer"><MapPin /><span><small>Route</small>Wilhelm-Frank-Str. 28</span></a>}
+        {lead.contact.mapsUrl && <a href={lead.contact.mapsUrl} target="_blank" rel="noreferrer"><MapPin /><span><small>Route</small>{routeLabel}</span></a>}
       </div>
     </section>
   );

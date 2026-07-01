@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { DemoPage } from "@/components/demo-page";
 import { BartecPage } from "@/components/demos/bartec-page";
 import { BelschnerPage } from "@/components/demos/belschner-page";
+import { EmilStelterPage } from "@/components/demos/emil-stelter-page";
 import { HbNailsPage } from "@/components/demos/hb-nails-page";
 import { HuthmannPage } from "@/components/demos/huthmann-page";
 import { KablitzPage } from "@/components/demos/kablitz-page";
@@ -30,7 +31,9 @@ export default async function DemoRoute({ params }: DemoRouteProps) {
   if (slug === "bartec-gmbh-e5x8p3") return <BartecPage lead={lead} />;
   if (slug === "kablitz-gmbh-r4t9k2") return <KablitzPage lead={lead} />;
   if (slug === "belschner-elektrotechnik-w7k4n2") return <BelschnerPage lead={lead} />;
+  if (slug === "emil-stelter-gmbh-bad-mergentheim-p6d4n8") return <EmilStelterPage lead={lead} />;
   if (slug === "huthmann-tuning-automobile-s9k3m6") return <HuthmannPage lead={lead} />;
+  if (slug === "kfz-werkstatt-elis-bad-mergentheim-q4m7x2") return <HuthmannPage lead={lead} />;
   if (slug === "ola-beauty-bad-mergentheim-n8k4w2") return <OlaBeautyPage lead={lead} />;
   if (slug === "tm-nails-beauty-bad-mergentheim-a7p3k9") return <TmNailsPage lead={lead} />;
   if (slug === "hb-nails-bad-mergentheim-z3v6q8") return <HbNailsPage lead={lead} />;

@@ -463,6 +463,91 @@ const rawLeads: LeadProfile[] = [
       "Gegründet 1901 in Riga (Lettland) durch Richard Kablitz, Umzug der Familie und des Unternehmens nach Deutschland Anfang der 1950er. Inhabergeführtes Traditionsunternehmen, über 120 Jahre Firmengeschichte, eigene Gießerei und Stahlfertigung am Standort. Über 70 Mitarbeiter weltweit, Kunden vor allem aus Holzwerkstoff- und Sägeindustrie, daneben Energieversorger, Contractingunternehmen und Kommunen. ISO 9001:2015 zertifiziert (Erstzertifizierung 1996).",
   },
   {
+    slug: "emil-stelter-gmbh-bad-mergentheim-p6d4n8",
+    family: "corporate",
+    status: "research",
+    businessName: "Emil Stelter GmbH",
+    businessType: "Maler- & Stuckateurbetrieb",
+    city: "Bad Mergentheim",
+    tagline: "Wir kleiden Ihr Gebaeude, Ihre Wohnung oder einfach nur Ihr Zimmer neu ein.",
+    shortDescription:
+      "Dieser unverbindliche Entwurf zeigt Emil Stelter als modernen Meisterbetrieb fuer Malerarbeiten, Stuckateurarbeiten, Geruestbau, kreative Wandgestaltung, Sanierung, Trockenbau, Waermedaemmung und schnelle Hilfe bei Wasserschaden oder Schimmel.",
+    primaryCta: "call",
+    highlights: [
+      "Meisterbetrieb in dritter Generation",
+      "60 Jahre Kompetenz und Erfahrung",
+      "Maler- und Stuckateurarbeiten",
+      "Geruestbau und Sanierung",
+      "Waermedaemmung und Trockenbau",
+      "Standort Bad Mergentheim",
+    ],
+    services: [
+      {
+        title: "Malerarbeiten",
+        description:
+          "Solide Handwerkskunst fuer Raeume, Fassaden und abgestimmte Farbkonzepte von kuehl und sachlich bis warm und gemuetlich.",
+      },
+      {
+        title: "Kreative Wandgestaltung",
+        description:
+          "Individuelle Oberflaechen und Techniken fuer Waende, abgestimmt auf persoenliche Wuensche und Raumwirkung.",
+      },
+      {
+        title: "Geruestbau",
+        description:
+          "Passende Gerueste fuer Arbeiten in der Hoehe, damit Fassade, Sanierung und Renovierung sicher ausgefuehrt werden koennen.",
+      },
+      {
+        title: "Stuckateurarbeiten",
+        description:
+          "Innenputz, Aussenputz und handwerkliche Gestaltung, die Untergrund, Raumklima und Wetterschutz zusammenbringt.",
+      },
+      {
+        title: "Wasserschaden",
+        description:
+          "Schnelle Trocknung, Feuchtemessung und geplante Sanierung, bevor Holzfaeule, Schimmel oder Folgeschaeden entstehen.",
+      },
+      {
+        title: "Sanierung",
+        description:
+          "Altbau-, Wohnhaus- und Industriebausanierung mit Erfahrung, sauberer Ausfuehrung und abgestimmten Materialien.",
+      },
+      { title: "Restaurierung", description: "Restaurierung und Denkmalpflege mit fachkundigem Blick fuer bestehende Substanz." },
+      { title: "Schimmelsanierung", description: "Fachgerechte Schimmelsanierung statt nur oberflaechlicher Entfernung befallener Stellen." },
+      { title: "Tapezierarbeiten", description: "Professionelle Tapezierarbeiten mit sauberem Finish und hochwertiger Ausfuehrung." },
+      { title: "Lackierarbeiten", description: "Neue Oberflaechen fuer Moebel, Tueren, Zaeune, Gelaender und beanspruchte Bauteile." },
+      { title: "Trockenbau", description: "Loesungen fuer Schallschutz, Raumaufteilung, Klimawirksamkeit und flexible Nutzung." },
+      { title: "Waermedaemmung", description: "Energetische Sanierung mit aktuellem Fachwissen zu Anforderungen und Materialien." },
+    ],
+    process: [
+      { title: "Beratung", description: "Wunsch, Untergrund, Nutzung und Gestaltung gemeinsam klaeren." },
+      { title: "Planung", description: "Material, Geruest, Ablauf und Sanierungsschritte passend abstimmen." },
+      { title: "Ausfuehrung", description: "Maler-, Stuckateur- und Sanierungsarbeiten handwerklich sauber umsetzen." },
+      { title: "Uebergabe", description: "Fertigstellung, Kontrolle und Pflegehinweise direkt besprechen." },
+    ],
+    certifications: [
+      { title: "Meisterbetrieb", description: "Das Unternehmen steht zur Tradition des deutschen Handwerks." },
+      { title: "3. Generation", description: "Der Betrieb wird laut Website in der dritten Generation gefuehrt." },
+      { title: "60 Jahre Erfahrung", description: "Die Website nennt 60 Jahre Kompetenz und Erfahrung fuer Kunden." },
+    ],
+    contact: {
+      phone: "+49 7931 97810",
+      email: "info@emil-stelter-gmbh.de",
+      address: "Dainbacher Weg 12, 97980 Bad Mergentheim",
+      mapsUrl: maps("Emil Stelter GmbH Dainbacher Weg 12 Bad Mergentheim"),
+      website: "https://www.emil-stelter-gmbh.de/",
+    },
+    media: mediaFor("emil-stelter-gmbh-bad-mergentheim-p6d4n8"),
+    sources: [
+      "https://www.emil-stelter-gmbh.de/",
+      "https://www.emil-stelter-gmbh.de/pages/impressum.php",
+      "https://www.emil-stelter-gmbh.de/pages/das-sind-wir/firmengeschichte.php",
+      "https://www.emil-stelter-gmbh.de/pages/das-sind-wir.php",
+    ],
+    notes:
+      "Website copy states: 'Wir kleiden Ihr Gebaeude, Ihre Wohnung oder einfach nur Ihr Zimmer neu ein', Meisterbetrieb in der 3. Generation and 60 Jahre Kompetenz und Erfahrung. Contact from Impressum: Emil Stelter GmbH, Dainbacher Weg 12, 97980 Bad Mergentheim, Telefon 07931 97810, info@emil-stelter-gmbh.de, represented by Andre Stelter.",
+  },
+  {
     slug: "belschner-elektrotechnik-w7k4n2",
     family: "corporate",
     status: "research",
@@ -602,6 +687,85 @@ const rawLeads: LeadProfile[] = [
     ],
     notes:
       "Website copy lists Kfz-Werkstatt, Fahrzeug- und Motorelektronik, Inspektionen, Motor/Bremsen/Fahrwerk/Auspuff, Getriebespuelungen, Autoglas, Klimatechnik, Reifenservice, TUEV/AU, Unfallinstandsetzung, Fahrzeugtuning, Oldtimer-Restauration, Karosserie-Instandsetzung and custom metric/imperial screws. Contact: Roland Huthmann, Wilhelm-Frank-Str. 28, 97980 Bad Mergentheim, Telefon 07931 991970.",
+  },
+  {
+    slug: "kfz-werkstatt-elis-bad-mergentheim-q4m7x2",
+    family: "corporate",
+    status: "research",
+    businessName: "Kfz-Werkstatt Elis",
+    businessType: "Kfz-Werkstatt",
+    city: "Bad Mergentheim",
+    tagline: "Autoreparatur, Service und Reifen in Bad Mergentheim.",
+    shortDescription:
+      "Unverbindlicher Demo-Auftritt fuer Kfz-Werkstatt Elis: direkte Kontaktaufnahme, klare Leistungen und echte Werkstattbilder fuer schnelle Reparaturen, Wartung und Reifenservice.",
+    primaryCta: "call",
+    highlights: [
+      "Kfz-Reparaturen fuer gaengige Fahrzeuge",
+      "Fehlersuche und Diagnose",
+      "Oelwechsel und Wartung",
+      "Bremsen, Reifen und Fahrwerk",
+      "Direkte Terminabsprache per Telefon",
+      "Werkstatt in Bad Mergentheim",
+    ],
+    services: [
+      {
+        title: "Diagnose & Fehlersuche",
+        description:
+          "Elektronik, Motorraum und sichtbare Fehler werden geprueft, damit die Reparatur gezielt starten kann.",
+      },
+      {
+        title: "Oelwechsel & Wartung",
+        description:
+          "Regelmaessiger Service mit Oelwechsel, Sichtpruefung und klarer Abstimmung der naechsten Arbeiten.",
+      },
+      {
+        title: "Bremsenservice",
+        description:
+          "Kontrolle und Reparatur von Bremsbelaegen, Scheiben und relevanten Sicherheitskomponenten.",
+      },
+      {
+        title: "Reifenwechsel",
+        description:
+          "Saisonaler Reifenwechsel und kurze Sichtpruefung auf Profil, Zustand und sichere Fahrt.",
+      },
+      {
+        title: "Motor & Fahrwerk",
+        description:
+          "Allgemeine Reparaturen an Motor, Fahrwerk, Auspuff und Verschleissteilen nach Diagnose.",
+      },
+      {
+        title: "Schneller Werkstatttermin",
+        description:
+          "Telefonisch erreichbar fuer Terminabsprache, Rueckfragen und kurzfristige Servicewuensche.",
+      },
+    ],
+    process: [
+      { title: "Annahme", description: "Fahrzeug und Fehlerbild kurz besprechen." },
+      { title: "Diagnose", description: "Sichtpruefung, OBD-Check und Kosteneinschaetzung." },
+      { title: "Reparatur", description: "Freigegebene Arbeiten sauber durchfuehren." },
+      { title: "Abholung", description: "Abschlusscheck und Uebergabe." },
+    ],
+    certifications: [
+      { title: "Freie Kfz-Werkstatt", description: "Service und Reparatur fuer gaengige Fahrzeuge." },
+      { title: "Lokaler Betrieb", description: "Direkt erreichbar in Bad Mergentheim." },
+      { title: "Praxisnaher Service", description: "Klare Abstimmung vor der Reparatur." },
+    ],
+    openingHours: [
+      "Termin nach telefonischer Vereinbarung",
+    ],
+    contact: {
+      phone: "+49 170 3389506",
+      address: "Dainbacher Weg 1, 97980 Bad Mergentheim",
+      mapsUrl: maps("Kfz-Werkstatt Elis Dainbacher Weg 1 Bad Mergentheim"),
+      instagramUrl: "https://www.instagram.com/kfz_werkstatt_elis/",
+    },
+    media: mediaFor("kfz-werkstatt-elis-bad-mergentheim-q4m7x2"),
+    sources: [
+      "https://www.google.com/maps/place/Kfz-Werkstatt+Elis/",
+      "https://www.instagram.com/kfz_werkstatt_elis/",
+    ],
+    notes:
+      "Search result for Instagram lists Adresse: Dainbacher Weg 1, 97980 Bad Mergentheim and phone 01703389506. User supplied the two workshop photos for this demo.",
   },
 ];
 
