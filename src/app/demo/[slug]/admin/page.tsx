@@ -11,6 +11,7 @@ import { buildDemoMetadata } from "@/lib/metadata";
 const ADMIN_PREVIEW_SLUGS = new Set([
   "kablitz-gmbh-r4t9k2",
   "belschner-elektrotechnik-w7k4n2",
+  "emil-stelter-gmbh-bad-mergentheim-p6d4n8",
   "huthmann-tuning-automobile-s9k3m6",
   "ola-beauty-bad-mergentheim-n8k4w2",
   "tm-nails-beauty-bad-mergentheim-a7p3k9",
