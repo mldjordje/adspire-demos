@@ -208,13 +208,21 @@
 .ola-admin-week-dayhead strong { font-size: 17px; font-weight: 700; }
 .ola-admin-week-dayhead span { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); }
 .ola-admin-week-dayhead.is-today { background: rgba(196, 162, 106, 0.12); box-shadow: inset 0 -2px 0 var(--gold); }
-.ola-admin-week-cell { border-bottom: 1px solid rgba(28, 26, 23, 0.05); border-right: 1px solid rgba(28, 26, 23, 0.05); }
+.ola-admin-week-cell {
+  border-bottom: 1px solid rgba(28, 26, 23, 0.05); border-right: 1px solid rgba(28, 26, 23, 0.05);
+  padding: 0; background: none; cursor: pointer; appearance: none; -webkit-appearance: none;
+  transition: background 0.15s ease;
+}
 .ola-admin-week-cell.is-hour { border-bottom-color: rgba(28, 26, 23, 0.12); }
+.ola-admin-week-cell:hover { background: rgba(196, 162, 106, 0.12); box-shadow: inset 0 0 0 1px rgba(196, 162, 106, 0.4); }
 .ola-admin-week-event {
   margin: 1px; border-radius: 7px; padding: 4px 7px; overflow: hidden; z-index: 3; min-height: 0;
   background: rgba(196, 162, 106, 0.18); border-left: 3px solid var(--s0); color: #5a4a2e;
   display: flex; flex-direction: column; gap: 1px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  text-align: left; font: inherit; cursor: pointer; appearance: none; -webkit-appearance: none;
+  border-top: none; border-right: none; border-bottom: none; transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
+.ola-admin-week-event:hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(0, 0, 0, 0.16); }
 .ola-admin-week-event.staff-1 { background: rgba(138, 174, 221, 0.18); border-color: var(--s1); color: #2f5588; }
 .ola-admin-week-event.staff-2 { background: rgba(201, 138, 176, 0.18); border-color: var(--s2); color: #8a3f6a; }
 .ola-admin-week-event.is-tentative { border-left-style: dashed; }
@@ -240,6 +248,47 @@
 .ola-admin-up-body strong { font-size: 14px; font-weight: 600; }
 .ola-admin-up-body small { font-size: 12.5px; color: var(--mid); }
 .ola-admin-up-meta { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; color: var(--gold); margin-top: 2px; }
+
+/* ── CALENDAR MODAL (visual demo — nothing is persisted) ── */
+.ola-cal-modal { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.ola-cal-modal-backdrop { position: absolute; inset: 0; background: rgba(20, 18, 15, 0.55); backdrop-filter: blur(2px); }
+.ola-cal-modal-card {
+  position: relative; z-index: 1; width: min(420px, 100%); background: #fff; border-radius: 16px;
+  border: 1px solid var(--line); box-shadow: 0 30px 70px rgba(0, 0, 0, 0.3); padding: 22px; animation: olaCalPop 0.2s ease;
+}
+@keyframes olaCalPop { from { transform: translateY(8px) scale(0.98); opacity: 0; } to { transform: none; opacity: 1; } }
+.ola-cal-modal-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+.ola-cal-modal-head strong { display: block; font-size: 17px; font-weight: 600; }
+.ola-cal-modal-head span { display: block; margin-top: 3px; font-size: 12.5px; color: var(--mid); }
+.ola-cal-modal-close {
+  border: 1px solid var(--line); background: var(--ivory); width: 30px; height: 30px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--mid); flex-shrink: 0;
+}
+.ola-cal-modal-close:hover { background: var(--ivory2); color: var(--dark); }
+.ola-cal-form { display: flex; flex-direction: column; gap: 12px; }
+.ola-cal-form label { display: flex; flex-direction: column; gap: 5px; font-size: 12px; font-weight: 600; color: var(--mid); }
+.ola-cal-form select, .ola-cal-form input {
+  font: inherit; font-size: 13.5px; font-weight: 400; color: var(--dark); padding: 10px 12px;
+  border: 1px solid var(--line); border-radius: 9px; background: #fff; outline: none;
+}
+.ola-cal-form select:focus, .ola-cal-form input:focus { border-color: var(--gold); }
+.ola-cal-view { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+.ola-cal-view p { display: flex; align-items: center; gap: 9px; margin: 0; font-size: 13.5px; color: var(--dark); }
+.ola-cal-view p svg { color: var(--gold); }
+.ola-cal-view-status { margin-top: 2px; }
+.ola-cal-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.ola-cal-btn {
+  display: inline-flex; align-items: center; gap: 6px; font: inherit; font-size: 12.5px; font-weight: 600;
+  padding: 10px 14px; border-radius: 9px; border: 1px solid var(--line); background: #fff; color: var(--dark);
+  cursor: pointer; transition: background 0.15s ease, border-color 0.15s ease;
+}
+.ola-cal-btn:hover { background: var(--ivory2); }
+.ola-cal-btn.primary { background: var(--gold); border-color: var(--gold); color: #fff; }
+.ola-cal-btn.primary:hover { background: var(--gold-lt); }
+.ola-cal-btn.danger { color: var(--danger); border-color: rgba(196, 91, 91, 0.4); }
+.ola-cal-btn.danger:hover { background: rgba(196, 91, 91, 0.08); }
+.ola-cal-btn.block { width: 100%; justify-content: center; margin-top: 4px; padding: 12px; }
+.ola-cal-modal-note { margin: 16px 0 0; text-align: center; font-size: 11px; color: var(--mid); opacity: 0.8; }
 
 /* ── TABLE ── */
 .ola-admin-table { display: flex; flex-direction: column; }

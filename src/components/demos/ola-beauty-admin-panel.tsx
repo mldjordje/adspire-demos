@@ -87,6 +87,7 @@ const DAY_LABELS = [
 ];
 
 type WeekAppt = { day: number; time: string; end: string; client: string; service: string; staff: string; status: Status };
+type CalSelection = { mode: "new"; day: number; time: string } | { mode: "view"; appt: WeekAppt } | null;
 const WEEK_APPTS: WeekAppt[] = [
   { day: 0, time: "09:00", end: "10:00", client: "Sandra Köhler", service: "Maniküre + Shellac", staff: "Ola", status: "erschienen" },
   { day: 0, time: "09:30", end: "11:00", client: "Jessica Bauer", service: "French & Babyboomer", staff: "Marija", status: "bestätigt" },
@@ -247,18 +248,25 @@ function Dashboard({ onJump }: { onJump: (v: ViewKey) => void }) {
 }
 
 function Calendar() {
+  const [appts, setAppts] = useState<WeekAppt[]>(WEEK_APPTS);
+  const [sel, setSel] = useState<CalSelection>(null);
   const timeStyle = { gridTemplateRows: `var(--wk-head) repeat(${SLOT_COUNT}, var(--wk-slot))` } as CSSProperties;
   const gridStyle = {
     gridTemplateColumns: `repeat(${DAY_LABELS.length}, minmax(116px, 1fr))`,
     gridTemplateRows: `var(--wk-head) repeat(${SLOT_COUNT}, var(--wk-slot))`,
   } as CSSProperties;
+
+  const setStatus = (target: WeekAppt, status: Status) =>
+    setAppts((prev) => prev.map((a) => (a === target ? { ...a, status } : a)));
+  const removeAppt = (target: WeekAppt) => setAppts((prev) => prev.filter((a) => a !== target));
+
   return (
     <section className="ola-admin-block">
       <div className="ola-admin-legend">
         {STAFF.map((s, i) => (
           <span key={s} className="ola-admin-legend-item"><i className={`ola-admin-legend-dot staff-${i}`} />{s}</span>
         ))}
-        <span className="ola-admin-legend-note">Woche 6.–11. Juli · 30-Min-Raster</span>
+        <span className="ola-admin-legend-note">Woche 6.–11. Juli · 30-Min-Raster · Slot antippen zum Buchen</span>
       </div>
 
       <div className="ola-admin-week-scroll">
@@ -276,27 +284,148 @@ function Calendar() {
           ))}
           {TIME_SLOTS.map((t, r) =>
             DAY_LABELS.map((d, c) => (
-              <div key={`${d.label}-${t}`} className={`ola-admin-week-cell${t.endsWith(":00") ? " is-hour" : ""}`} style={{ gridColumn: c + 1, gridRow: r + 2 }} />
+              <button
+                type="button"
+                key={`${d.label}-${t}`}
+                className={`ola-admin-week-cell${t.endsWith(":00") ? " is-hour" : ""}`}
+                style={{ gridColumn: c + 1, gridRow: r + 2 }}
+                onClick={() => setSel({ mode: "new", day: c, time: t })}
+                aria-label={`${d.label} ${t} — Termin buchen`}
+              />
             )),
           )}
-          {WEEK_APPTS.map((a) => {
+          {appts.map((a) => {
             const startRow = 2 + (toMin(a.time) - OPEN_MIN) / SLOT_MIN;
             const span = (toMin(a.end) - toMin(a.time)) / SLOT_MIN;
             return (
-              <div
+              <button
+                type="button"
                 key={`${a.day}-${a.time}-${a.client}`}
                 className={`ola-admin-week-event staff-${STAFF.indexOf(a.staff)}${a.status === "offen" ? " is-tentative" : ""}`}
                 style={{ gridColumn: a.day + 1, gridRow: `${startRow} / span ${span}` }}
                 title={`${a.time}–${a.end} · ${a.client} · ${a.service} · ${a.staff}`}
+                onClick={() => setSel({ mode: "view", appt: a })}
               >
                 <strong>{a.time} {a.client}</strong>
                 <span>{a.service}</span>
-              </div>
+              </button>
             );
           })}
         </div>
       </div>
+
+      {sel && (
+        <CalModal
+          sel={sel}
+          onClose={() => setSel(null)}
+          onCreate={(a) => { setAppts((prev) => [...prev, a]); setSel(null); }}
+          onStatus={(a, s) => { setStatus(a, s); setSel(null); }}
+          onRemove={(a) => { removeAppt(a); setSel(null); }}
+        />
+      )}
     </section>
+  );
+}
+
+const SERVICE_NAMES = SERVICES.map((s) => s.name);
+
+function CalModal({
+  sel, onClose, onCreate, onStatus, onRemove,
+}: {
+  sel: NonNullable<CalSelection>;
+  onClose: () => void;
+  onCreate: (a: WeekAppt) => void;
+  onStatus: (a: WeekAppt, s: Status) => void;
+  onRemove: (a: WeekAppt) => void;
+}) {
+  const [client, setClient] = useState("");
+  const [service, setService] = useState(SERVICE_NAMES[0]);
+  const [staff, setStaff] = useState(STAFF[0]);
+  const [dur, setDur] = useState(60);
+
+  if (sel.mode === "view") {
+    const a = sel.appt;
+    return (
+      <div className="ola-cal-modal" role="dialog" aria-modal="true">
+        <div className="ola-cal-modal-backdrop" onClick={onClose} />
+        <div className="ola-cal-modal-card">
+          <div className="ola-cal-modal-head">
+            <div>
+              <strong>{a.client}</strong>
+              <span>{DAY_LABELS[a.day].label}, {a.day + 6}. Juli · {a.time}–{a.end}</span>
+            </div>
+            <button type="button" className="ola-cal-modal-close" onClick={onClose} aria-label="Schließen"><X size={16} /></button>
+          </div>
+          <div className="ola-cal-view">
+            <p><Scissors size={14} /> {a.service}</p>
+            <p><UserRound size={14} /> {a.staff}</p>
+            <p><Clock size={14} /> {a.time}–{a.end} Uhr</p>
+            <div className="ola-cal-view-status"><StatusBadge status={a.status} /></div>
+          </div>
+          <div className="ola-cal-actions">
+            <button type="button" className="ola-cal-btn primary" onClick={() => onStatus(a, "bestätigt")}><Check size={14} /> Bestätigen</button>
+            <button type="button" className="ola-cal-btn" onClick={() => onStatus(a, "erschienen")}><Star size={14} /> Erschienen</button>
+            <button type="button" className="ola-cal-btn danger" onClick={() => onRemove(a)}><X size={14} /> Absagen</button>
+          </div>
+          <p className="ola-cal-modal-note">Konzept-Vorschau · Änderungen werden nicht gespeichert</p>
+        </div>
+      </div>
+    );
+  }
+
+  const start = toMin(sel.time);
+  return (
+    <div className="ola-cal-modal" role="dialog" aria-modal="true">
+      <div className="ola-cal-modal-backdrop" onClick={onClose} />
+      <div className="ola-cal-modal-card">
+        <div className="ola-cal-modal-head">
+          <div>
+            <strong>Neuer Termin</strong>
+            <span>{DAY_LABELS[sel.day].label}, {sel.day + 6}. Juli · {sel.time} Uhr</span>
+          </div>
+          <button type="button" className="ola-cal-modal-close" onClick={onClose} aria-label="Schließen"><X size={16} /></button>
+        </div>
+        <div className="ola-cal-form">
+          <label>Behandlung
+            <select value={service} onChange={(e) => setService(e.target.value)}>
+              {SERVICE_NAMES.map((s) => <option key={s} value={s}>{s}</option>)}
+            </select>
+          </label>
+          <label>Mitarbeiterin
+            <select value={staff} onChange={(e) => setStaff(e.target.value)}>
+              {STAFF.map((s) => <option key={s} value={s}>{s}</option>)}
+            </select>
+          </label>
+          <label>Dauer
+            <select value={dur} onChange={(e) => setDur(Number(e.target.value))}>
+              <option value={30}>30 Min.</option>
+              <option value={60}>60 Min.</option>
+              <option value={90}>90 Min.</option>
+              <option value={120}>120 Min.</option>
+            </select>
+          </label>
+          <label>Kundin
+            <input value={client} onChange={(e) => setClient(e.target.value)} placeholder="Name der Kundin" />
+          </label>
+          <button
+            type="button"
+            className="ola-cal-btn primary block"
+            onClick={() => onCreate({
+              day: sel.day,
+              time: sel.time,
+              end: minToStr(start + dur),
+              client: client.trim() || "Neue Kundin",
+              service,
+              staff,
+              status: "bestätigt",
+            })}
+          >
+            <Check size={14} /> Termin eintragen
+          </button>
+        </div>
+        <p className="ola-cal-modal-note">Konzept-Vorschau · Änderungen werden nicht gespeichert</p>
+      </div>
+    </div>
   );
 }
 
