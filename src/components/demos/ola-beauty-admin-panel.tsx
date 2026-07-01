@@ -3,6 +3,7 @@
 import {
   ArrowLeft,
   BarChart3,
+  CalendarClock,
   CalendarDays,
   Check,
   Clock,
@@ -20,7 +21,7 @@ import {
   X,
 } from "lucide-react";
 import Link from "next/link";
-import { useState, type ReactNode } from "react";
+import { useState, type CSSProperties, type ReactNode } from "react";
 import type { LeadProfile } from "@/lib/lead-schema";
 
 type Status = "bestätigt" | "offen" | "erschienen" | "abgesagt";
@@ -71,12 +72,57 @@ const WEEK = [
 const revenueToday = TODAY.filter((a) => a.status !== "abgesagt").reduce((s, a) => s + a.price, 0);
 const showRate = Math.round((TODAY.filter((a) => a.status === "bestätigt" || a.status === "erschienen").length / TODAY.length) * 100);
 
-type ViewKey = "dashboard" | "calendar" | "clients" | "services" | "stats" | "messages" | "settings";
+// ── Week calendar (Mo–Sa, 30-min slots) ──
+const OPEN_MIN = 9 * 60; // 09:00
+const SLOT_MIN = 30;
+const SLOT_COUNT = 18; // 09:00 → 18:00
+const TIME_SLOTS = Array.from({ length: SLOT_COUNT }, (_, i) => minToStr(OPEN_MIN + i * SLOT_MIN));
+const DAY_LABELS = [
+  { num: "6", label: "Mo" },
+  { num: "7", label: "Di" },
+  { num: "8", label: "Mi" },
+  { num: "9", label: "Do" },
+  { num: "10", label: "Fr" },
+  { num: "11", label: "Sa" },
+];
+
+type WeekAppt = { day: number; time: string; end: string; client: string; service: string; staff: string; status: Status };
+const WEEK_APPTS: WeekAppt[] = [
+  { day: 0, time: "09:00", end: "10:00", client: "Sandra Köhler", service: "Maniküre + Shellac", staff: "Ola", status: "erschienen" },
+  { day: 0, time: "09:30", end: "11:00", client: "Jessica Bauer", service: "French & Babyboomer", staff: "Marija", status: "bestätigt" },
+  { day: 0, time: "10:00", end: "11:30", client: "Aylin Demir", service: "Gel-Nägel Neu", staff: "Lena", status: "bestätigt" },
+  { day: 0, time: "14:00", end: "14:30", client: "Petra Lang", service: "Maniküre & Naturnagel", staff: "Ola", status: "bestätigt" },
+  { day: 0, time: "15:00", end: "16:00", client: "Nicole Wagner", service: "Auffüllen & Refill", staff: "Lena", status: "offen" },
+  { day: 1, time: "09:30", end: "11:00", client: "Melisa Yıldız", service: "Nail Art Vollset", staff: "Marija", status: "bestätigt" },
+  { day: 1, time: "11:00", end: "12:00", client: "Karin Hofmann", service: "Maniküre + Shellac", staff: "Ola", status: "bestätigt" },
+  { day: 1, time: "13:00", end: "14:30", client: "Tanja Roth", service: "Gel-Nägel Neu", staff: "Lena", status: "bestätigt" },
+  { day: 1, time: "15:00", end: "16:30", client: "Sabine Vogel", service: "French & Babyboomer", staff: "Marija", status: "offen" },
+  { day: 2, time: "09:00", end: "10:00", client: "Laura Simon", service: "Maniküre + Shellac", staff: "Ola", status: "bestätigt" },
+  { day: 2, time: "10:30", end: "12:00", client: "Emma Frank", service: "Gel-Nägel Neu", staff: "Lena", status: "bestätigt" },
+  { day: 2, time: "14:00", end: "15:00", client: "Nina Berg", service: "Auffüllen & Refill", staff: "Marija", status: "bestätigt" },
+  { day: 3, time: "09:00", end: "10:30", client: "Sofia Klein", service: "French & Babyboomer", staff: "Ola", status: "bestätigt" },
+  { day: 3, time: "10:30", end: "11:30", client: "Hannah Groß", service: "Maniküre + Shellac", staff: "Lena", status: "bestätigt" },
+  { day: 3, time: "12:00", end: "13:30", client: "Mia Weber", service: "Nail Art Vollset", staff: "Marija", status: "bestätigt" },
+  { day: 3, time: "14:30", end: "15:30", client: "Lea Arnold", service: "Auffüllen & Refill", staff: "Ola", status: "offen" },
+  { day: 3, time: "16:00", end: "17:30", client: "Emily Busch", service: "Gel-Nägel Neu", staff: "Lena", status: "bestätigt" },
+  { day: 4, time: "09:00", end: "09:30", client: "Clara Reich", service: "Maniküre & Naturnagel", staff: "Marija", status: "bestätigt" },
+  { day: 4, time: "10:00", end: "11:30", client: "Julia Ernst", service: "Gel-Nägel Neu", staff: "Ola", status: "bestätigt" },
+  { day: 4, time: "11:30", end: "13:00", client: "Anna Fuchs", service: "French & Babyboomer", staff: "Lena", status: "bestätigt" },
+  { day: 4, time: "14:00", end: "15:00", client: "Marie Kurz", service: "Maniküre + Shellac", staff: "Marija", status: "bestätigt" },
+  { day: 4, time: "15:30", end: "17:00", client: "Lisa Horn", service: "Nail Art Vollset", staff: "Ola", status: "offen" },
+  { day: 5, time: "09:30", end: "11:00", client: "Paula Sommer", service: "Gel-Nägel Neu", staff: "Lena", status: "bestätigt" },
+  { day: 5, time: "11:00", end: "12:00", client: "Ida Vogt", service: "Auffüllen & Refill", staff: "Marija", status: "bestätigt" },
+  { day: 5, time: "12:30", end: "13:00", client: "Nora Beck", service: "Maniküre & Naturnagel", staff: "Ola", status: "bestätigt" },
+  { day: 5, time: "14:00", end: "15:30", client: "Ella Roth", service: "French & Babyboomer", staff: "Lena", status: "offen" },
+];
+
+type ViewKey = "dashboard" | "calendar" | "upcoming" | "clients" | "services" | "stats" | "messages" | "settings";
 type NavItem = { key: ViewKey; label: string; icon: ReactNode; done: boolean };
 
 const NAV: NavItem[] = [
   { key: "dashboard", label: "Übersicht", icon: <BarChart3 size={17} />, done: true },
   { key: "calendar", label: "Terminkalender", icon: <CalendarDays size={17} />, done: true },
+  { key: "upcoming", label: "Kommende Termine", icon: <CalendarClock size={17} />, done: true },
   { key: "clients", label: "Kundinnen", icon: <Users size={17} />, done: true },
   { key: "services", label: "Leistungen & Preise", icon: <Scissors size={17} />, done: true },
   { key: "stats", label: "Auslastung", icon: <TrendingUp size={17} />, done: true },
@@ -138,6 +184,7 @@ export function OlaBeautyAdminPanel({ lead }: { lead: LeadProfile }) {
         <div className="ola-admin-content">
           {view === "dashboard" && <Dashboard onJump={setView} />}
           {view === "calendar" && <Calendar />}
+          {view === "upcoming" && <Upcoming />}
           {view === "clients" && <Clients />}
           {view === "services" && <Services />}
           {view === "stats" && <Stats />}
@@ -200,61 +247,78 @@ function Dashboard({ onJump }: { onJump: (v: ViewKey) => void }) {
 }
 
 function Calendar() {
-  const slots = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"];
-  const agenda = [...TODAY].sort((a, b) => toMin(a.time) - toMin(b.time));
+  const timeStyle = { gridTemplateRows: `var(--wk-head) repeat(${SLOT_COUNT}, var(--wk-slot))` } as CSSProperties;
+  const gridStyle = {
+    gridTemplateColumns: `repeat(${DAY_LABELS.length}, minmax(116px, 1fr))`,
+    gridTemplateRows: `var(--wk-head) repeat(${SLOT_COUNT}, var(--wk-slot))`,
+  } as CSSProperties;
   return (
     <section className="ola-admin-block">
       <div className="ola-admin-legend">
         {STAFF.map((s, i) => (
           <span key={s} className="ola-admin-legend-item"><i className={`ola-admin-legend-dot staff-${i}`} />{s}</span>
         ))}
+        <span className="ola-admin-legend-note">Woche 6.–11. Juli · 30-Min-Raster</span>
       </div>
 
-      {/* Mobile: chronological agenda (the column grid is unusable on a phone) */}
-      <ol className="ola-admin-agenda">
-        {agenda.map((a) => (
-          <li className={`ola-admin-agenda-item staff-${STAFF.indexOf(a.staff)}${a.status === "offen" ? " is-tentative" : ""}`} key={a.time + a.client}>
-            <span className="ola-admin-agenda-time">{a.time}<small>{a.end}</small></span>
-            <span className="ola-admin-agenda-body">
+      <div className="ola-admin-week-scroll">
+        <div className="ola-admin-week-times" style={timeStyle}>
+          <span className="ola-admin-week-corner">Zeit</span>
+          {TIME_SLOTS.map((t) => (
+            <span key={t} className={`ola-admin-week-time${t.endsWith(":00") ? " is-hour" : ""}`}>{t}</span>
+          ))}
+        </div>
+        <div className="ola-admin-week-grid" style={gridStyle}>
+          {DAY_LABELS.map((d, i) => (
+            <div className={`ola-admin-week-dayhead${i === 0 ? " is-today" : ""}`} key={d.label} style={{ gridColumn: i + 1, gridRow: 1 }}>
+              <strong>{d.num}</strong><span>{d.label}</span>
+            </div>
+          ))}
+          {TIME_SLOTS.map((t, r) =>
+            DAY_LABELS.map((d, c) => (
+              <div key={`${d.label}-${t}`} className={`ola-admin-week-cell${t.endsWith(":00") ? " is-hour" : ""}`} style={{ gridColumn: c + 1, gridRow: r + 2 }} />
+            )),
+          )}
+          {WEEK_APPTS.map((a) => {
+            const startRow = 2 + (toMin(a.time) - OPEN_MIN) / SLOT_MIN;
+            const span = (toMin(a.end) - toMin(a.time)) / SLOT_MIN;
+            return (
+              <div
+                key={`${a.day}-${a.time}-${a.client}`}
+                className={`ola-admin-week-event staff-${STAFF.indexOf(a.staff)}${a.status === "offen" ? " is-tentative" : ""}`}
+                style={{ gridColumn: a.day + 1, gridRow: `${startRow} / span ${span}` }}
+                title={`${a.time}–${a.end} · ${a.client} · ${a.service} · ${a.staff}`}
+              >
+                <strong>{a.time} {a.client}</strong>
+                <span>{a.service}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Upcoming() {
+  const sorted = [...WEEK_APPTS].sort((a, b) => (a.day - b.day) || (toMin(a.time) - toMin(b.time)));
+  return (
+    <section className="ola-admin-block">
+      <h2><CalendarClock size={17} /> Kommende Termine</h2>
+      <ol className="ola-admin-upcoming">
+        {sorted.map((a) => (
+          <li className={`ola-admin-up-item staff-${STAFF.indexOf(a.staff)}${a.status === "offen" ? " is-tentative" : ""}`} key={`${a.day}-${a.time}-${a.client}`}>
+            <span className="ola-admin-up-day"><b>{a.day + 6}.</b><small>{DAY_LABELS[a.day].label}</small></span>
+            <span className="ola-admin-up-time">{a.time}<small>{a.end}</small></span>
+            <span className="ola-admin-up-body">
               <strong>{a.client}</strong>
               <small>{a.service}</small>
-              <span className="ola-admin-agenda-meta"><UserRound size={11} /> {a.staff}</span>
+              <span className="ola-admin-up-meta"><UserRound size={11} /> {a.staff}</span>
             </span>
-            <span className="ola-admin-agenda-side">
-              <span className="ola-admin-agenda-price">{a.price} €</span>
-              <StatusBadge status={a.status} />
-            </span>
+            <StatusBadge status={a.status} />
           </li>
         ))}
       </ol>
-
-      {/* Desktop: per-staff time-grid */}
-      <div className="ola-admin-cal-scroll">
-      <div className="ola-admin-cal">
-        <div className="ola-admin-cal-col ola-admin-cal-hours">
-          <span className="ola-admin-cal-head">Zeit</span>
-          {slots.map((s) => <span key={s} className="ola-admin-cal-hour">{s}</span>)}
-        </div>
-        {STAFF.map((staff, si) => (
-          <div className="ola-admin-cal-col" key={staff}>
-            <span className="ola-admin-cal-head"><UserRound size={13} /> {staff}</span>
-            <div className="ola-admin-cal-track">
-              {TODAY.filter((a) => a.staff === staff).map((a) => {
-                const start = toMin(a.time);
-                const top = ((start - 540) / 60) * 56;
-                const height = ((toMin(a.end) - start) / 60) * 56;
-                return (
-                  <div key={a.time} className={`ola-admin-cal-event staff-${si} ${a.status === "offen" ? "is-tentative" : ""}`} style={{ top, height }}>
-                    <strong>{a.time} {a.client}</strong>
-                    <small>{a.service}</small>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        ))}
-      </div>
-      </div>
     </section>
   );
 }
@@ -346,4 +410,8 @@ function Wip({ title, copy }: { title: string; copy: string }) {
 function toMin(t: string) {
   const [h, m] = t.split(":").map(Number);
   return h * 60 + m;
+}
+
+function minToStr(m: number) {
+  return `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`;
 }
