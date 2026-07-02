@@ -22,9 +22,10 @@ export function HuthmannCarModel({ modelPath, fallback, variant = "hero", lazy =
 
   useEffect(() => {
     if (!lazy || shouldLoad) return;
+    let fallbackTimer = 0;
     if (typeof IntersectionObserver === "undefined") {
-      setShouldLoad(true);
-      return;
+      fallbackTimer = window.setTimeout(() => setShouldLoad(true), 0);
+      return () => window.clearTimeout(fallbackTimer);
     }
     if (!frameRef.current) return;
     const observer = new IntersectionObserver(([entry]) => {
@@ -34,16 +35,19 @@ export function HuthmannCarModel({ modelPath, fallback, variant = "hero", lazy =
     }, { rootMargin: "700px 0px" });
     observer.observe(frameRef.current);
     return () => {
+      window.clearTimeout(fallbackTimer);
       observer.disconnect();
     };
   }, [lazy, shouldLoad]);
 
   useEffect(() => {
-    if (shouldLoad && modelStatus === "checking") setModelStatus("loading");
+    if (!shouldLoad || modelStatus !== "checking") return;
+    const timer = window.setTimeout(() => setModelStatus("loading"), 0);
+    return () => window.clearTimeout(timer);
   }, [modelStatus, shouldLoad]);
 
   useEffect(() => {
-    if (modelStatus !== "loading" || !mountRef.current) return;
+    if (!canRenderModel || !mountRef.current) return;
 
     let frame = 0;
     let disposed = false;

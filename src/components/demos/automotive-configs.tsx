@@ -12,7 +12,8 @@ const carcare: AutoConfig = {
   eyebrow: "Bad Mergentheim / Kfz-Meisterbetrieb",
   headline: ["Service.", "Aufbereitung.", "Vertrauen."],
   navThird: { label: "Aufbereitung", href: "#oldtimer" },
-  heroMode: "graphic",
+  heroMode: "video",
+  videoSrc: "/leads/carcare-mgh-bad-mergentheim-c4r7k9/hero.mp4",
   ticker: [
     "Inspektion", "Wartung", "Oelservice", "Bremsen", "Diagnose", "Autoglas",
     "Reifenservice", "Batterie", "Klimaservice", "Aufbereitung", "Abschleppdienst", "Bad Mergentheim",
@@ -25,7 +26,7 @@ const carcare: AutoConfig = {
     { label: "Klima", value: "Cool", icon: <Snowflake size={18} /> },
     { label: "Aufbereitung", value: "Shine", icon: <Sparkles size={18} /> },
   ],
-  modulesHead: { eyebrow: "Werkstattdiagnose", title: "Vom Fehlerbild zum klaren Fahrplan - Schritt fuer Schritt." },
+  modulesHead: { eyebrow: "Werkstattdiagnose", title: "Vom Fehlerbild zum klaren Fahrplan - mit Meisterbetrieb, fairen Preisen und direktem Service." },
   stages: [
     { step: "01", title: "Annahme", label: "Problem kurz klaeren", text: "Fahrzeug, Fehlerbild und Wunschleistung werden direkt aufgenommen." },
     { step: "02", title: "Check", label: "Diagnose und Sichtpruefung", text: "Elektronik, Bremsen, Reifen, Klima oder Oelservice werden sauber geprueft." },
@@ -33,11 +34,11 @@ const carcare: AutoConfig = {
     { step: "04", title: "Shine", label: "Aufbereitung & Uebergabe", text: "Professionelle Aufbereitung mit Koch-Chemie-Produkten und klare Uebergabe." },
   ],
   storyHead: { eyebrow: "", title: "" },
-  servicesHead: { eyebrow: "Werkstatt / Service / Aufbereitung", title: "Echte Module fuer echte Fahrzeugprobleme." },
+  servicesHead: { eyebrow: "Werkstatt / Service / Aufbereitung", title: "Mechanik, Diagnose, Glas, Klima und Aufbereitung aus einer Hand." },
   storyBlock: {
-    eyebrow: "CarCare seit 2023",
+    eyebrow: "Buchener Strasse 28 / seit 2023",
     title: "Ihr Auto in besten Haenden.",
-    body: "Der Demo-Auftritt positioniert CarCare als Kfz-Meisterbetrieb fuer Inspektion, Wartung, Diagnose, Reifen-, Klima- und Bremsenservice sowie professionelle Fahrzeugaufbereitung in Bad Mergentheim. Wir kriegen das hin.",
+    body: "CarCare verbindet erfahrene Mechaniker, Qualitaetsservice und bezahlbare Preise: Mechanikueberpruefung, Autowartung, Oel- und Bremsencheck, Glasservice, Reifen, Batterie, Diagnose, Klimaservice, Aufbereitung mit Koch-Chemie-Produkten und Abschleppservice. Wir kriegen das hin.",
   },
   galleryHead: { eyebrow: "", title: "" },
   showGallery: false,

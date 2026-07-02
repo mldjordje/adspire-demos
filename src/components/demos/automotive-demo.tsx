@@ -15,6 +15,7 @@ import {
 import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
 import { MotionLayer } from "@/components/motion-layer";
+import { HuthmannCarModel } from "@/components/demos/huthmann-car-model";
 import type { LeadProfile, MediaAsset } from "@/lib/lead-schema";
 import { telephoneHref } from "@/lib/lead-schema";
 import "./huthmann-page.css";
@@ -156,6 +157,8 @@ function Hero({ lead, heroCar, config }: { lead: LeadProfile; heroCar?: MediaAss
       <div className="huth-car-stage" {...reveal(2)}>
         {config.heroMode === "graphic" ? (
           <GraphicHeroCar asset={heroCar} />
+        ) : config.heroMode === "video" && config.videoSrc ? (
+          <VideoHeroFrame videoSrc={config.videoSrc} poster={heroCar} />
         ) : (
           <StaticCarFrame asset={heroCar} eager />
         )}
@@ -173,6 +176,17 @@ function GraphicHeroCar({ asset }: { asset?: MediaAsset }) {
         <span className="auto-badge-glow" aria-hidden="true" />
       )}
       <span className="auto-badge-ring" aria-hidden="true" />
+    </figure>
+  );
+}
+
+function VideoHeroFrame({ videoSrc, poster }: { videoSrc: string; poster?: MediaAsset }) {
+  return (
+    <figure className="huth-hero-car huth-model-frame auto-video-frame" data-parallax="0.05">
+      <video autoPlay muted loop playsInline preload="auto" poster={poster?.src}>
+        <source src={videoSrc} type="video/mp4" />
+      </video>
+      <span className="auto-video-scan" aria-hidden="true" />
     </figure>
   );
 }
@@ -205,14 +219,8 @@ function DiagnosticModules({ config }: { config: AutoConfig }) {
         <h2>{config.modulesHead.title}</h2>
       </div>
       <div className="huth-module-shell">
-        <div className="huth-topview" aria-hidden="true">
-          <div className="huth-topview-car">
-            <span className="huth-topview-cabin" />
-            <span className="huth-topview-wheel w1" />
-            <span className="huth-topview-wheel w2" />
-            <span className="huth-topview-wheel w3" />
-            <span className="huth-topview-wheel w4" />
-          </div>
+        <div className="auto-module-model" aria-label="Rotierbares 3D-Fahrzeugmodell">
+          <HuthmannCarModel modelPath="/models/bmw-m3-e30-martin-trafas-1k.glb" variant="showcase" lazy />
         </div>
         <div className="huth-module-grid">
           {config.modules.map((item, index) => (
