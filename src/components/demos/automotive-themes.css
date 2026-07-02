@@ -1,0 +1,95 @@
+/* Distinct color themes layered over the shared Huthmann automotive layout. */
+
+/* ---- CarCare: teal / graphite (clean detailing) ---- */
+.auto-carcare {
+  --huth-blue: #0b8f88;
+  --huth-blue-bright: #15c9bd;
+  --huth-blue-deep: #0b7a74;
+  --huth-lime: #2fe0d2;
+  --accent: var(--huth-lime);
+}
+.auto-carcare .huth-hero {
+  background:
+    radial-gradient(circle at 74% 34%, rgba(21, 201, 189, 0.22), transparent 38%),
+    linear-gradient(115deg, rgba(11, 122, 116, 0.2), transparent 46%),
+    var(--huth-bg);
+}
+
+/* ---- TCP: performance red ---- */
+.auto-tcp {
+  --huth-blue: #b3130a;
+  --huth-blue-bright: #ff3226;
+  --huth-blue-deep: #9d0f07;
+  --huth-lime: #ff5347;
+  --accent: var(--huth-lime);
+}
+.auto-tcp .huth-hero {
+  background:
+    radial-gradient(circle at 72% 32%, rgba(255, 50, 38, 0.26), transparent 40%),
+    linear-gradient(115deg, rgba(157, 15, 7, 0.24), transparent 48%),
+    var(--huth-bg);
+}
+
+/* ---- Niko Deissler: amber / workshop ---- */
+.auto-niko {
+  --huth-blue: #c07c11;
+  --huth-blue-bright: #f6a723;
+  --huth-blue-deep: #b06d09;
+  --huth-lime: #ffc247;
+  --accent: var(--huth-lime);
+}
+.auto-niko .huth-hero {
+  background:
+    radial-gradient(circle at 74% 34%, rgba(246, 167, 35, 0.22), transparent 38%),
+    linear-gradient(115deg, rgba(176, 109, 9, 0.2), transparent 46%),
+    var(--huth-bg);
+}
+
+/* ---- Hero background video (TCP) ---- */
+.auto-hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.42;
+  filter: saturate(1.05) contrast(1.05);
+}
+
+/* ---- Graphic hero badge (CarCare — logo instead of photo) ---- */
+.auto-badge-frame {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(47, 224, 210, 0.14), transparent 62%),
+    #05100f;
+  border: 1px solid var(--huth-line);
+  overflow: hidden;
+}
+.auto-badge-frame img { padding: clamp(20px, 5vw, 56px); }
+.auto-badge-ring {
+  position: absolute;
+  inset: clamp(14px, 3vw, 34px);
+  border: 1px solid color-mix(in srgb, var(--huth-lime) 40%, transparent);
+  border-radius: 14px;
+  box-shadow: 0 0 60px -20px var(--huth-lime) inset;
+  pointer-events: none;
+  animation: auto-ring-pulse 3.6s ease-in-out infinite;
+}
+@keyframes auto-ring-pulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .auto-badge-ring { animation: none; } }
+.auto-badge-glow {
+  width: 62%;
+  height: 46%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--huth-lime), transparent 70%);
+  opacity: 0.4;
+  filter: blur(12px);
+}
+
+/* ---- Text-only story band (when no before/after photos) ---- */
+.auto-storyband { justify-items: center; text-align: center; }
+.auto-storyband .huth-restore-copy { max-width: 760px; }

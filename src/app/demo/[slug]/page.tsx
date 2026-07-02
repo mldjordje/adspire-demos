@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import { DemoPage } from "@/components/demo-page";
 import { BartecPage } from "@/components/demos/bartec-page";
 import { BelschnerPage } from "@/components/demos/belschner-page";
+import { AutomotiveDemoPage } from "@/components/demos/automotive-demo";
+import { AUTOMOTIVE_CONFIGS } from "@/components/demos/automotive-configs";
 import { BeautyWernerPage } from "@/components/demos/beauty-werner-page";
 import { BrunnerPage } from "@/components/demos/brunner-page";
 import { EdelmannPage } from "@/components/demos/edelmann-page";
@@ -35,6 +37,7 @@ export default async function DemoRoute({ params }: DemoRouteProps) {
   if (slug === "kablitz-gmbh-r4t9k2") return <KablitzPage lead={lead} />;
   if (slug === "edelmann-fachmarkt-bad-mergentheim-h5k9r3") return <EdelmannPage lead={lead} />;
   if (slug === "brunner-baustoffe-bad-mergentheim-b7k4m2") return <BrunnerPage lead={lead} />;
+  if (AUTOMOTIVE_CONFIGS[slug]) return <AutomotiveDemoPage lead={lead} config={AUTOMOTIVE_CONFIGS[slug]} />;
   if (slug === "belschner-elektrotechnik-w7k4n2") return <BelschnerPage lead={lead} />;
   if (slug === "emil-stelter-gmbh-bad-mergentheim-p6d4n8") return <EmilStelterPage lead={lead} />;
   if (slug === "huthmann-tuning-automobile-s9k3m6") return <HuthmannPage lead={lead} />;
