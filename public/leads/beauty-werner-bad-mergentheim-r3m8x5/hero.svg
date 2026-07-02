@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Stilisierte Beauty-Illustration">
+  <defs>
+    <linearGradient id="bwBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f3e2e9"/>
+      <stop offset="0.55" stop-color="#e7cad7"/>
+      <stop offset="1" stop-color="#c98ca9"/>
+    </linearGradient>
+    <radialGradient id="bwGlow" cx="0.5" cy="0.38" r="0.6">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bwArc" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b0698a"/>
+      <stop offset="1" stop-color="#8a4d6b"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bwBg)"/>
+  <rect width="800" height="1000" fill="url(#bwGlow)"/>
+  <g fill="none" stroke="url(#bwArc)" stroke-linecap="round" opacity="0.55">
+    <path d="M120 640 Q400 500 680 640" stroke-width="3"/>
+    <path d="M150 700 Q400 570 650 700" stroke-width="2"/>
+    <path d="M180 760 Q400 640 620 760" stroke-width="1.5"/>
+  </g>
+  <!-- stylised eye with lashes -->
+  <g transform="translate(400 400)">
+    <path d="M-150 0 Q0 -110 150 0 Q0 110 -150 0 Z" fill="#fff" opacity="0.92"/>
+    <circle r="52" fill="#7d4863"/>
+    <circle r="24" fill="#3a2230"/>
+    <circle cx="-16" cy="-16" r="10" fill="#fff" opacity="0.85"/>
+    <g stroke="#5c3450" stroke-width="6" stroke-linecap="round">
+      <path d="M-150 0 Q-170 -34 -196 -52"/>
+      <path d="M-96 -60 Q-104 -96 -120 -122"/>
+      <path d="M-30 -84 Q-32 -122 -40 -150"/>
+      <path d="M40 -84 Q42 -122 52 -150"/>
+      <path d="M104 -58 Q116 -94 134 -118"/>
+      <path d="M150 0 Q172 -32 198 -48"/>
+    </g>
+  </g>
+  <circle cx="640" cy="220" r="60" fill="#fff" opacity="0.35"/>
+  <circle cx="180" cy="880" r="90" fill="#fff" opacity="0.25"/>
+</svg>

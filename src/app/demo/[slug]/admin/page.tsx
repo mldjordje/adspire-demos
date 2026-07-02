@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { getLeadBySlug } from "@/data/leads";
 import { KablitzAdminPage } from "@/components/demos/kablitz-admin-page";
+import { BeautyWernerAdminPage } from "@/components/demos/beauty-werner-admin-page";
 import { BelschnerAdminPage } from "@/components/demos/belschner-admin-page";
 import { HbNailsAdminPage } from "@/components/demos/hb-nails-admin-page";
 import { HuthmannAdminPage } from "@/components/demos/huthmann-admin-page";
@@ -16,6 +17,8 @@ const ADMIN_PREVIEW_SLUGS = new Set([
   "ola-beauty-bad-mergentheim-n8k4w2",
   "tm-nails-beauty-bad-mergentheim-a7p3k9",
   "hb-nails-bad-mergentheim-z3v6q8",
+  "edelmann-fachmarkt-bad-mergentheim-h5k9r3",
+  "beauty-werner-bad-mergentheim-r3m8x5",
 ]);
 
 type AdminRouteProps = { params: Promise<{ slug: string }> };
@@ -24,7 +27,7 @@ export async function generateMetadata({ params }: AdminRouteProps) {
   const { slug } = await params;
   const lead = getLeadBySlug(slug);
   if (!lead) return buildDemoMetadata("Nicht gefunden", "Dieses Konzept ist nicht verfuegbar.");
-  const isNailStudio = slug === "ola-beauty-bad-mergentheim-n8k4w2" || slug === "tm-nails-beauty-bad-mergentheim-a7p3k9" || slug === "hb-nails-bad-mergentheim-z3v6q8";
+  const isNailStudio = slug === "ola-beauty-bad-mergentheim-n8k4w2" || slug === "tm-nails-beauty-bad-mergentheim-a7p3k9" || slug === "hb-nails-bad-mergentheim-z3v6q8" || slug === "beauty-werner-bad-mergentheim-r3m8x5";
   const description = slug === "huthmann-tuning-automobile-s9k3m6"
     ? "Unverbindliche Konzept-Vorschau fuer Werkstatt, Fahrzeuge und Kunden-Follow-up."
     : isNailStudio
@@ -42,5 +45,6 @@ export default async function AdminRoute({ params }: AdminRouteProps) {
   if (slug === "ola-beauty-bad-mergentheim-n8k4w2") return <OlaBeautyAdminPage lead={lead} />;
   if (slug === "tm-nails-beauty-bad-mergentheim-a7p3k9") return <TmNailsAdminPage lead={lead} />;
   if (slug === "hb-nails-bad-mergentheim-z3v6q8") return <HbNailsAdminPage lead={lead} />;
+  if (slug === "beauty-werner-bad-mergentheim-r3m8x5") return <BeautyWernerAdminPage lead={lead} />;
   return <KablitzAdminPage lead={lead} />;
 }

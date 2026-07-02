@@ -1,0 +1,15 @@
+/* Beauty Werner — dusky-rose theme overlay on the shared Ola Beauty layout. */
+
+.ola-page.bw-theme {
+  --ivory: #faf6f7;
+  --ivory2: #f2e9ec;
+  --blush: #efdfe6;
+  --gold: #b06a86;
+  --gold-lt: #cd93a9;
+  --dark: #241a1f;
+  --mid: #6c5c63;
+}
+
+/* Wordmark: tighten letter spacing for the two-word mark */
+.bw-theme .ola-wordmark { letter-spacing: 0.14em; }
+.bw-theme .ola-footer-logo { letter-spacing: 0.14em; }

@@ -767,6 +767,171 @@ const rawLeads: LeadProfile[] = [
     notes:
       "Search result for Instagram lists Adresse: Dainbacher Weg 1, 97980 Bad Mergentheim and phone 01703389506. User supplied the two workshop photos for this demo.",
   },
+  {
+    slug: "edelmann-fachmarkt-bad-mergentheim-h5k9r3",
+    family: "corporate",
+    status: "research",
+    businessName: "Edelmann Fachmarkt",
+    businessType: "Fachmarkt & Stahlhandel",
+    city: "Bad Mergentheim",
+    tagline: "Werkzeug, Stahl und Handwerksbedarf seit 1936.",
+    shortDescription:
+      "Dieser unverbindliche Entwurf zeigt den Edelmann Fachmarkt für das Handwerk — seit 1936 in Bad Mergentheim, über 70.000 Artikel, eigener Stahlhandel mit Zuschnitt und starke Marken für Profi, Handwerk und Industrie.",
+    primaryCta: "call",
+    highlights: [
+      "Fachmarkt für das Handwerk seit 1936",
+      "Über 70.000 Artikel",
+      "Eigener Stahlhandel & Zuschnitt",
+      "Marken wie Bosch, Festool, Metabo, Fein",
+      "Versandkostenfrei ab 150 €",
+      "Mitglied der Nordwest Handel AG",
+    ],
+    services: [
+      {
+        title: "Werkzeuge & Maschinen",
+        description:
+          "Hand- und Elektrowerkzeuge führender Marken wie Bosch, Festool, Metabo und Fein für Profi und Handwerk.",
+      },
+      {
+        title: "Stahl & Metall",
+        description:
+          "Eigener Stahlhandel mit Zuschnitt, Verzinkung und Pulverbeschichtung — Metallmaterial nach Maß.",
+      },
+      {
+        title: "Befestigung & Schließtechnik",
+        description:
+          "Schrauben, Verbindungselemente und individuell geplante Schließanlagen aus einer Hand.",
+      },
+      {
+        title: "Tore & Türen",
+        description:
+          "Garagentore, Eingangs- und Innentüren für Neubau, Sanierung und Modernisierung.",
+      },
+      {
+        title: "Arbeitsschutz & Betriebsbedarf",
+        description:
+          "Schutzausrüstung, Werkstattbedarf und Industrieartikel für einen sicheren Arbeitsalltag.",
+      },
+      {
+        title: "Schweiß- & Drucklufttechnik",
+        description:
+          "Schweißen, Löten und Druckluftwerkzeuge für Werkstatt, Montage und Fertigung.",
+      },
+    ],
+    process: [
+      { title: "Beratung", description: "Persönliche Fachberatung im Markt oder am Telefon." },
+      { title: "Angebot", description: "Passende Artikel, Stahlzuschnitt oder Schließanlage kalkuliert." },
+      { title: "Lieferung", description: "Abholung im Markt oder versandkostenfreier Versand ab 150 €." },
+      { title: "Service", description: "Zuschnitt, Beschichtung und Nachbestellung aus einer Hand." },
+    ],
+    certifications: [
+      { title: "Seit 1936", description: "Traditionsbetrieb für das Handwerk in Bad Mergentheim." },
+      { title: "70.000+ Artikel", description: "Breites Sortiment für Profi, Handwerk und Industrie." },
+      { title: "Nordwest Handel AG", description: "Mitglied im Verbund für starke Marken und Verfügbarkeit." },
+    ],
+    contact: {
+      phone: "+49 7931 97870",
+      email: "info@edelmannfachmarkt.de",
+      address: "Herrenwiesenstraße 19, 97980 Bad Mergentheim",
+      mapsUrl: maps("Edelmann Fachmarkt Herrenwiesenstraße 19 Bad Mergentheim"),
+      website: "https://www.edelmann-shop.de/",
+    },
+    sources: [
+      "https://www.edelmann-shop.de/",
+    ],
+    notes:
+      "Edelmann Fachmarkt für das Handwerk GmbH, Bad Mergentheim, gegründet 1936. Showroom Herrenwiesenstraße 19; Stahlabteilung Wilhelm-Frank-Straße 53. Telefon 07931 9787-0, info@edelmannfachmarkt.de. Über 70.000 Artikel, Stahlbearbeitung (Zuschnitt, Verzinkung, Pulverbeschichtung), Schließanlagen, versandkostenfrei ab 150 €, Mitglied der Nordwest Handel AG. Marken u.a. Bosch, Festool, Metabo, Fein. Keine freigegebenen Fotos — Platzhalter im Entwurf.",
+  },
+  {
+    slug: "hoyer-energie-service-bad-mergentheim-e8h4k2",
+    family: "corporate",
+    status: "research",
+    businessName: "Hoyer Energie-Service",
+    businessType: "Energie-Service & Brennstoffhandel",
+    city: "Bad Mergentheim",
+    tagline: "Wärme, Kraftstoffe und Energie für die Region.",
+    shortDescription:
+      "Dieser unverbindliche Entwurf zeigt den Hoyer Energie-Service in Bad Mergentheim — zuverlässige Versorgung mit Heizöl, Holzpellets, Diesel und Schmierstoffen, dazu moderne Lösungen für PV, Strom und E-Mobilität aus einer Hand.",
+    primaryCta: "directions",
+    highlights: [
+      "Heizöl & Holzpellets für die Region",
+      "Diesel, Flüssiggas & AdBlue®",
+      "ENplus-zertifizierte Pellets",
+      "Schmierstoffe von Hoyer & TEXACO",
+      "PV, Stromspeicher & Ladeinfrastruktur",
+      "Jahresweite, planbare Lieferung",
+    ],
+    services: [
+      { title: "Heizöl", description: "Zuverlässige Wärmeversorgung mit termingerechter Lieferung direkt vor die Tür." },
+      { title: "Holzpellets", description: "ENplus-zertifizierte Holzpellets aus Deutschland und Europa, sauber und regional." },
+      { title: "Diesel & AdBlue®", description: "Kraftstoffe und Betriebsstoffe für Fuhrpark, Landwirtschaft und Baustelle." },
+      { title: "Flüssiggas", description: "Flüssiggas und Gasflaschen für Heizung, Gewerbe und Freizeit." },
+      { title: "Schmierstoffe", description: "Hochwertige Schmierstoffe der Marken Hoyer und TEXACO für jeden Einsatz." },
+      { title: "Energiewende", description: "PV-Anlagen, Stromspeicher, Ladeinfrastruktur und Stromlieferung für die Zukunft." },
+    ],
+    process: [
+      { title: "Anfrage", description: "Bedarf und Liefertermin unverbindlich abstimmen." },
+      { title: "Angebot", description: "Tagesaktueller Preis für Öl, Pellets oder Kraftstoff." },
+      { title: "Lieferung", description: "Pünktliche Anlieferung über eigenen Fuhrpark und regionale Lager." },
+      { title: "Service", description: "Beratung rund um Wärme, Kraftstoffe und Energiewende." },
+    ],
+    certifications: [
+      { title: "ENplus-Pellets", description: "Zertifizierte Holzpellets, geprüft nach DEPI- und TÜV-Standards." },
+      { title: "Regionale Lager", description: "Regionale Standorte und eigener Fuhrpark für planbare Versorgung." },
+      { title: "Energie aus einer Hand", description: "Von klassischen Brennstoffen bis zu PV, Strom und E-Mobilität." },
+    ],
+    contact: {
+      address: "Bad Mergentheim",
+      mapsUrl:
+        "https://www.google.com/maps/place/Hoyer+Energie-Service+Bad+Mergentheim/@49.508419,9.7449768,17z",
+      website: "https://www.hoyer.de/",
+    },
+    media: mediaFor("hoyer-energie-service-bad-mergentheim-e8h4k2", 1),
+    sources: [
+      "https://www.hoyer.de/holzpellets/",
+      "https://www.google.com/maps/place/Hoyer+Energie-Service+Bad+Mergentheim/",
+    ],
+    notes:
+      "Hoyer Energie-Service Bad Mergentheim. Die frühere Domain flambriks.de leitet per 301 auf hoyer.de weiter — Standort gehört zur Hoyer-Gruppe (Visselhövede). Produkte laut hoyer.de: Heizöl, Holzpellets (ENplus, aus DE/EU), Briketts, Diesel, Flüssiggas, Gasflaschen, AdBlue, Schmierstoffe (Hoyer & TEXACO), dazu Elektrifizierung (Ladeinfrastruktur, PV/Speicher, Agri-PV, Stromlieferung). Slogans 'Günstig geht jetzt!' und 'Wir planen für Dich'. Kein freigegebenes lokales Foto oder verifizierte lokale Telefonnummer — Platzhalter im Entwurf, Kontakt über Route/Website.",
+  },
+  {
+    slug: "beauty-werner-bad-mergentheim-r3m8x5",
+    family: "beauty",
+    status: "research",
+    businessName: "Beauty Werner",
+    businessType: "Kosmetik & Beauty",
+    city: "Bad Mergentheim",
+    tagline: "Kosmetik, Permanent Make-up & Haar in Bad Mergentheim.",
+    shortDescription:
+      "Unverbindlicher Entwurf für Beauty Werner: klare Mobil-Optik, Online-Terminanfrage und eine Admin-Vorschau für die Studioverwaltung — von Kosmetik über Permanent Make-up bis Laser-Behandlungen.",
+    primaryCta: "booking-demo",
+    services: [
+      { title: "Kosmetik & Gesichtspflege", description: "Individuelle Pflegebehandlungen für ein frisches, gepflegtes Hautbild." },
+      { title: "Permanent Make-up", description: "Augenbrauen, Lidstrich und Lippen — dezent betont, langanhaltend schön." },
+      { title: "Wimpernverlängerung", description: "Ausdrucksstarker Blick mit sorgfältig angebrachten Wimpern." },
+      { title: "Laser-Haarentfernung", description: "Dauerhafte Haarentfernung, sanft und präzise auf die Haut abgestimmt." },
+      { title: "Carbon-Peeling Laser", description: "Laser-Behandlung für ein feineres, ebenmäßigeres Hautbild." },
+      { title: "Friseur & Styling", description: "Schnitt, Farbe und Pflege von der Meisterfriseurin — ganzheitlich abgestimmt." },
+    ],
+    openingHours: ["Mo–Sa 09:00–18:00", "Termine nur nach Vereinbarung"],
+    contact: {
+      phone: "+49 163 2806663",
+      email: "info@beautys-lounge.de",
+      address: "Josef-Weiß-Straße 11, 97980 Bad Mergentheim",
+      mapsUrl:
+        "https://www.google.com/maps/place/Beauty+Werner/@49.5054719,9.7906204,17z",
+      website: "https://www.beautywerner.de/",
+      instagramUrl: "https://www.instagram.com/beautywerner/",
+    },
+    media: mediaFor("beauty-werner-bad-mergentheim-r3m8x5"),
+    sources: [
+      "https://www.beautywerner.de/",
+      "https://beautys-lounge.de/",
+      "https://www.google.com/maps/place/Beauty+Werner/",
+    ],
+    notes:
+      "Beauty Werner, Inhaberin Olga Werner (Meisterfriseurin seit 2009, Prüfung HWK Würzburg). Adresse laut Website Josef-Weiß-Straße 11, 97980 Bad Mergentheim; Telefon 0163 2806663; info@beautys-lounge.de; Instagram @beautywerner. Mo–Sa 09:00–18:00, Termine nur nach Vereinbarung. Leistungen: Kosmetik, Permanent Make-up, Wimpernverlängerung, Laser-Haarentfernung, Tattoo-Entfernung, Carbon-Peeling Laser, Lift Meso, Nail Art, Friseur. Keine verifizierten Preise vorhanden — keine Preise erfunden. Keine freigegebenen Fotos — stilisierte SVG-Illustrationen im Entwurf.",
+  },
 ];
 
 export const leads = rawLeads.map((lead) => leadProfileSchema.parse(lead));

@@ -152,7 +152,11 @@ export function KablitzAdminPanel({ lead }: { lead: LeadProfile }) {
     <div className="kablitz-panel">
       <aside className="kablitz-panel-sidebar">
         <div className="kablitz-panel-brand">
-          <Image src="/leads/kablitz-gmbh-r4t9k2/logo-kablitz.png" alt="Kablitz" width={120} height={17} unoptimized />
+          {lead.slug === "kablitz-gmbh-r4t9k2" ? (
+            <Image src="/leads/kablitz-gmbh-r4t9k2/logo-kablitz.png" alt="Kablitz" width={120} height={17} unoptimized />
+          ) : (
+            <strong className="kablitz-panel-wordmark">{lead.businessName}</strong>
+          )}
           <span>Betriebsplattform</span>
         </div>
         <nav className="kablitz-panel-nav">
