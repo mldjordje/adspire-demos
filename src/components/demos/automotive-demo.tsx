@@ -23,6 +23,7 @@ import "./automotive-themes.css";
 
 export type AutoModule = { label: string; value: string; icon: ReactNode };
 export type AutoStage = { step: string; title: string; label: string; text: string };
+export type AutoFeature = { eyebrow: string; title: string; text: string; assetIndex?: number };
 
 export type AutoConfig = {
   theme: string; // css class e.g. "auto-tcp"
@@ -41,6 +42,8 @@ export type AutoConfig = {
   servicesHead: { eyebrow: string; title: string };
   storyBlock: { eyebrow: string; title: string; body: string };
   galleryHead: { eyebrow: string; title: string };
+  featureHead: { eyebrow: string; title: string };
+  features: AutoFeature[];
   showGallery: boolean;
   showStoryImages: boolean;
   showServiceMedia: boolean;
@@ -83,6 +86,7 @@ export function AutomotiveDemoPage({ lead, config }: { lead: LeadProfile; config
       <DiagnosticModules config={config} />
       <ScrollStory config={config} fallback={config.heroMode === "graphic" ? undefined : hero} />
       <Services lead={lead} tuning={tuning} damage={damage} config={config} />
+      <FeatureDeck assets={ordered} config={config} />
       {config.showStoryImages && <RestorationStory before={before} after={after} block={config.storyBlock} />}
       {!config.showStoryImages && <StoryBand block={config.storyBlock} />}
       {config.showGallery && galleryAssets.length > 0 && <Gallery assets={galleryAssets} head={config.galleryHead} />}
@@ -302,6 +306,38 @@ function Services({ lead, tuning, damage, config }: { lead: LeadProfile; tuning?
             )}
           </div>
         )}
+      </div>
+    </section>
+  );
+}
+
+function FeatureDeck({ assets, config }: { assets: MediaAsset[]; config: AutoConfig }) {
+  if (!config.features.length) return null;
+  return (
+    <section className="auto-feature-deck" aria-label={config.featureHead.title}>
+      <div className="huth-section-head" {...reveal(0)}>
+        <p className="huth-eyebrow">{config.featureHead.eyebrow}</p>
+        <h2>{config.featureHead.title}</h2>
+      </div>
+      <div className="auto-feature-grid">
+        {config.features.map((feature, index) => {
+          const asset = assets[feature.assetIndex ?? index];
+          return (
+            <article className="auto-feature-card" key={feature.title} {...reveal(index)}>
+              {asset && (
+                <figure className="auto-feature-media">
+                  <Image src={asset.src} alt={asset.alt} fill sizes="(max-width: 760px) 92vw, 31vw" unoptimized />
+                  {sourceTag(asset)}
+                </figure>
+              )}
+              <div>
+                <small>{feature.eyebrow}</small>
+                <h3>{feature.title}</h3>
+                <p>{feature.text}</p>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
   );

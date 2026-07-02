@@ -41,9 +41,30 @@ const carcare: AutoConfig = {
     body: "CarCare verbindet erfahrene Mechaniker, Qualitaetsservice und bezahlbare Preise: Mechanikueberpruefung, Autowartung, Oel- und Bremsencheck, Glasservice, Reifen, Batterie, Diagnose, Klimaservice, Aufbereitung mit Koch-Chemie-Produkten und Abschleppservice. Wir kriegen das hin.",
   },
   galleryHead: { eyebrow: "", title: "" },
-  showGallery: false,
+  featureHead: { eyebrow: "Aus dem bestehenden Auftritt", title: "Mehr als Standard-Werkstatt: Service, Pflege und schnelle Hilfe." },
+  features: [
+    {
+      eyebrow: "Schneller Service",
+      title: "Reparaturen, Reifenservice und Oelservice",
+      text: "CarCare positioniert sich als Kfz-Werkstatt fuer Reparaturen, Reifenservice, Oelservice und Fahrzeugaufbereitung in Bad Mergentheim.",
+      assetIndex: 3,
+    },
+    {
+      eyebrow: "Aufbereitung",
+      title: "Koch-Chemie-Produkte fuer Innen und Aussen",
+      text: "Die bestehende Seite zeigt Koch-Chemie als Partner fuer professionelle Fahrzeugpflege und Aufbereitung.",
+      assetIndex: 2,
+    },
+    {
+      eyebrow: "Komfort",
+      title: "Ambientebeleuchtung und Detailarbeiten",
+      text: "Der oeffentliche Instagram-/Regional-Eintrag nennt neben Werkstattleistungen auch Ambientebeleuchtung und schnelle, professionelle Betreuung.",
+      assetIndex: 1,
+    },
+  ],
+  showGallery: true,
   showStoryImages: false,
-  showServiceMedia: false,
+  showServiceMedia: true,
 } as AutoConfig;
 
 const tcp: AutoConfig = {
@@ -82,6 +103,27 @@ const tcp: AutoConfig = {
     body: "TCP - Top Car Performance ist Kfz-Meisterbetrieb und Tuning-Spezialist in Bad Mergentheim: Chiptuning fuer PKW, LKW, Motorrad und Landmaschinen, Leistungsoptimierung, Eco Tuning und V-Max Aufhebung - gemessen auf dem eigenen Pruefstand. Sie suchen, wir finden.",
   },
   galleryHead: { eyebrow: "Reference motion rail", title: "Pruefstand, Werkstatt und Fahrzeuge als bewegte Galerie." },
+  featureHead: { eyebrow: "Chiptuning / Pruefstand / Handel", title: "TCP zeigt mehr Tiefe: Messung, Kennfeld und Fahrzeugvielfalt." },
+  features: [
+    {
+      eyebrow: "Ablauf",
+      title: "Originalsoftware sichern, optimieren, messen",
+      text: "Die Chiptuning-Seite beschreibt einen klaren Ablauf: Steuergeraet auslesen, Original sichern, Software optimieren und Leistung pruefen.",
+      assetIndex: 8,
+    },
+    {
+      eyebrow: "Allrad-Leistungspruefstand",
+      title: "Eingangs- und Ausgangsmessung statt Bauchgefuehl",
+      text: "TCP kommuniziert den eigenen Leistungspruefstand als Kern des Angebots fuer saubere Vorher-/Nachher-Werte.",
+      assetIndex: 0,
+    },
+    {
+      eyebrow: "Fahrzeugkategorien",
+      title: "PKW, LKW, Motorrad, Boote, Jetski und Traktoren",
+      text: "Neben PKW werden auch LKW, Motorrad, Landmaschinen sowie Boote und Jetski als Zielgruppen fuer Optimierung genannt.",
+      assetIndex: 10,
+    },
+  ],
   showGallery: true,
   showStoryImages: true,
   showServiceMedia: true,
@@ -122,6 +164,27 @@ const niko: AutoConfig = {
     body: "Der KFZ-Meisterbetrieb Niko Deissler in Bad Mergentheim-Wachbach bietet Fahrzeugservice, Motor- und Elektroservice, Klimaservice, Achsvermessung, Reifen, Bremsen, Batterie und Abschlepp- sowie Pannenhilfe - kompetent und zu fairen Preisen.",
   },
   galleryHead: { eyebrow: "Werkstatt & Team", title: "Werkstatt und Team als schnelle, bewegte Galerie." },
+  featureHead: { eyebrow: "Leistungen der Werkstatt", title: "Die Leistungsliste ist breiter: Service, Systeme, Reifen und Pannenhilfe." },
+  features: [
+    {
+      eyebrow: "Fahrzeugservice",
+      title: "Inspektion, Urlaubscheck, Wintercheck und TUEV-Durchsicht",
+      text: "Niko Deissler beschreibt die Werkstatt als freie Kfz-Werkstatt fuer alle Marken mit schnellem, fachmaennischem Service.",
+      assetIndex: 4,
+    },
+    {
+      eyebrow: "Motor / Elektro / Sicherheit",
+      title: "Motordiagnose, Dieselreinigung, Start-Stopp und Sicherheitssysteme",
+      text: "Die Leistungsseite listet Motorservice, Elektronikdiagnose, Elektro- und Hybridservice sowie Wartung moderner Sicherheitssysteme.",
+      assetIndex: 5,
+    },
+    {
+      eyebrow: "Reifen & Mobilitaet",
+      title: "Raederwechsel, RDKS, Einlagerung und Abschlepphilfe",
+      text: "Neben Bremsen, Batterie und Klima werden Raederwechsel, Auswuchten, RDKS-Wartung und Pannenhilfe aufgefuehrt.",
+      assetIndex: 9,
+    },
+  ],
   showGallery: true,
   showStoryImages: false,
   showServiceMedia: true,

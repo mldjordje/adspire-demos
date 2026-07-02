@@ -877,6 +877,24 @@
       "alt": "CarCare Kfz-Meisterbetrieb – Werkstattfoto",
       "sourceUrl": "https://static.wixstatic.com/media/3f2295_7259fe991ec844859335c2d52d710c46~mv2.jpg",
       "rightsStatus": "pending-client-approval"
+    },
+    {
+      "src": "/leads/carcare-mgh-bad-mergentheim-c4r7k9/04-service-page.jpg",
+      "alt": "CarCare Kfz-Meisterbetrieb - Servicebereich",
+      "sourceUrl": "https://static.wixstatic.com/media/3f2295_ad50417dabae429cbde605c8f00c3491~mv2.jpg",
+      "rightsStatus": "pending-client-approval"
+    },
+    {
+      "src": "/leads/carcare-mgh-bad-mergentheim-c4r7k9/05-koch-chemie.png",
+      "alt": "CarCare Kfz-Meisterbetrieb - Koch Chemie Partner",
+      "sourceUrl": "https://static.wixstatic.com/media/3f2295_be6c8b8629724e1084a288be11a73506~mv2.png",
+      "rightsStatus": "pending-client-approval"
+    },
+    {
+      "src": "/leads/carcare-mgh-bad-mergentheim-c4r7k9/06-google-shop.jpg",
+      "alt": "CarCare Kfz-Meisterbetrieb - Google Unternehmensfoto",
+      "sourceUrl": "https://www.google.com/maps/place/Carcare/@49.4934845,9.7576528",
+      "rightsStatus": "pending-client-approval"
     }
   ],
   "tcp-tuning-bad-mergentheim-t8p3v6": [
@@ -927,6 +945,24 @@
       "alt": "TCP Top Car Performance – Werkstattfoto",
       "sourceUrl": "https://www.tcp-tuning.de/wp-content/uploads/2017/02/jet-ski-1446045_6401.jpg",
       "rightsStatus": "pending-client-approval"
+    },
+    {
+      "src": "/leads/tcp-tuning-bad-mergentheim-t8p3v6/15-ablauf-chiptuning.jpg",
+      "alt": "TCP Top Car Performance - Chiptuning Ablauf",
+      "sourceUrl": "https://www.tcp-tuning.de/wp-content/uploads/2015/12/ablauf-chiptuning-optimierung.jpg",
+      "rightsStatus": "pending-client-approval"
+    },
+    {
+      "src": "/leads/tcp-tuning-bad-mergentheim-t8p3v6/17-huracan.jpg",
+      "alt": "TCP Top Car Performance - Lamborghini Referenz",
+      "sourceUrl": "https://www.tcp-tuning.de/wp-content/uploads/2016/02/Lamborghini-Huracan_LP610-4_2015_3c.jpg",
+      "rightsStatus": "pending-client-approval"
+    },
+    {
+      "src": "/leads/tcp-tuning-bad-mergentheim-t8p3v6/18-lamborghini.jpg",
+      "alt": "TCP Top Car Performance - Performance Fahrzeug",
+      "sourceUrl": "https://www.tcp-tuning.de/wp-content/uploads/2016/10/lamborghini-scaled.jpg",
+      "rightsStatus": "pending-client-approval"
     }
   ],
   "kfz-niko-deissler-bad-mergentheim-n5d8k2": [
@@ -952,6 +988,42 @@
       "src": "/leads/kfz-niko-deissler-bad-mergentheim-n5d8k2/04-17b7cd9126b40e1e.webp",
       "alt": "KFZ Niko Deissler – Werkstattfoto",
       "sourceUrl": "https://www.kfznikodeissler.de/wp-content/uploads/2020/10/Gruppenbild-scaled.jpg",
+      "rightsStatus": "pending-client-approval"
+    },
+    {
+      "src": "/leads/kfz-niko-deissler-bad-mergentheim-n5d8k2/05-autoparts1.png",
+      "alt": "KFZ Niko Deissler - Fahrzeugservice Icon",
+      "sourceUrl": "https://www.kfznikodeissler.de/wp-content/uploads/2020/09/AutoParts1.png",
+      "rightsStatus": "pending-client-approval"
+    },
+    {
+      "src": "/leads/kfz-niko-deissler-bad-mergentheim-n5d8k2/06-autoparts2.png",
+      "alt": "KFZ Niko Deissler - Motorservice Icon",
+      "sourceUrl": "https://www.kfznikodeissler.de/wp-content/uploads/2020/09/AutoParts2.png",
+      "rightsStatus": "pending-client-approval"
+    },
+    {
+      "src": "/leads/kfz-niko-deissler-bad-mergentheim-n5d8k2/07-autoparts3.png",
+      "alt": "KFZ Niko Deissler - Elektroservice Icon",
+      "sourceUrl": "https://www.kfznikodeissler.de/wp-content/uploads/2020/09/AutoParts3.png",
+      "rightsStatus": "pending-client-approval"
+    },
+    {
+      "src": "/leads/kfz-niko-deissler-bad-mergentheim-n5d8k2/08-autoparts4.png",
+      "alt": "KFZ Niko Deissler - Klimaservice Icon",
+      "sourceUrl": "https://www.kfznikodeissler.de/wp-content/uploads/2020/09/AutoParts4.png",
+      "rightsStatus": "pending-client-approval"
+    },
+    {
+      "src": "/leads/kfz-niko-deissler-bad-mergentheim-n5d8k2/09-autoparts5.png",
+      "alt": "KFZ Niko Deissler - Abschleppservice Icon",
+      "sourceUrl": "https://www.kfznikodeissler.de/wp-content/uploads/2020/09/AutoParts5.png",
+      "rightsStatus": "pending-client-approval"
+    },
+    {
+      "src": "/leads/kfz-niko-deissler-bad-mergentheim-n5d8k2/10-autoparts6.png",
+      "alt": "KFZ Niko Deissler - Reifenservice Icon",
+      "sourceUrl": "https://www.kfznikodeissler.de/wp-content/uploads/2020/09/AutoParts6.png",
       "rightsStatus": "pending-client-approval"
     }
   ]
