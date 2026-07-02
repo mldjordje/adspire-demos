@@ -1,0 +1,44 @@
+/* Sebastian Brunner Baustoffe — rust/terracotta theme on the shared Kablitz layout. */
+
+.brunner-theme {
+  --kablitz-red: #a8391b;
+  --kablitz-red-dark: #7d2913;
+  --kablitz-ink: #201812;
+}
+
+/* Text wordmark (brand line-logo rebuilt as text) */
+.kablitz-page a.brunner-wordmark,
+.brunner-wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  text-transform: none;
+}
+.brunner-wordmark svg { flex-shrink: 0; }
+.brunner-wordmark-name {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 850;
+  letter-spacing: 0.02em;
+}
+.brunner-wordmark-sub {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.8);
+  border-left: 1px solid rgba(255, 255, 255, 0.35);
+  padding-left: 8px;
+}
+@media (max-width: 620px) { .brunner-wordmark-sub { display: none; } }
+
+.brunner-wordmark-footer { color: var(--kablitz-ink); }
+.brunner-wordmark-footer .brunner-wordmark-name { color: var(--kablitz-ink); }
+
+/* Hero backdrop tint behind the site photo */
+.brunner-hero { background: linear-gradient(160deg, #241a13 0%, #120d09 100%); }
+.brunner-hero .kablitz-hero-scrim {
+  background: linear-gradient(180deg, rgba(18, 13, 9, 0.15) 0%, rgba(18, 13, 9, 0.5) 55%, rgba(18, 13, 9, 0.92) 100%),
+    linear-gradient(100deg, rgba(168, 57, 27, 0.3) 0%, transparent 55%);
+}
+.brunner-theme .kablitz-service-card:hover { background: #fdf5f2; }
